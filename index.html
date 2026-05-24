@@ -29,7 +29,7 @@
 
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
 
-    <!-- SIDEBAR NAVIGATION MENU (আপনার দেওয়া নতুন ৩-মেনু বাটন স্টাইল) -->
+    <!-- SIDEBAR NAVIGATION MENU -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-indigo-900 text-white z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl">
         <div class="p-5 bg-indigo-950 flex justify-between items-center border-b border-indigo-800 shrink-0">
             <h2 class="text-lg font-bold flex items-center gap-2"><i class="fas fa-shield-alt text-yellow-400"></i> Admin Panel</h2>
@@ -88,7 +88,7 @@
         <!-- Dynamic Pages Area -->
         <main class="flex-1 overflow-y-auto p-6 custom-scroll">
             
-            <!-- Login portal (remains centered if logged out) -->
+            <!-- Login portal -->
             <div id="admin-login" class="bg-white p-8 rounded-2xl shadow-xl max-w-sm mx-auto border border-gray-200 mt-10">
                  <div class="text-center mb-6">
                      <div class="inline-block p-4 rounded-full bg-indigo-100 mb-2">
@@ -442,9 +442,9 @@
                 document.getElementById('sign-out-btn').classList.remove('hidden');
                 document.getElementById('admin-language-selector').classList.remove('hidden');
                 
-                // সাইডবার স্বয়ংক্রিয়ভাবে প্রদর্শন
-                document.getElementById('sidebar').classList.add('sidebar-open');
-                document.getElementById('sidebar').classList.remove('sidebar-closed');
+                // সাইডবার স্বয়ংক্রিয়ভাবে প্রদর্শন এবং ডাইনামিক ক্লাস ফিক্স
+                document.getElementById('sidebar').classList.add('translate-x-0');
+                document.getElementById('sidebar').classList.remove('-translate-x-full');
 
                 loadAllData();
             } else {
@@ -453,8 +453,8 @@
                 document.getElementById('admin-content').classList.add('hidden');
                 document.getElementById('sign-out-btn').classList.add('hidden');
                 document.getElementById('admin-language-selector').classList.add('hidden');
-                document.getElementById('sidebar').classList.add('sidebar-closed');
-                document.getElementById('sidebar').classList.remove('sidebar-open');
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar').classList.remove('translate-x-0');
                 if (user) signOut(auth);
             }
         });
@@ -487,8 +487,8 @@
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             if (window.innerWidth < 768) {
-                sidebar.classList.add('sidebar-closed');
-                sidebar.classList.remove('sidebar-open');
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
                 overlay.classList.add('hidden');
             }
         };
@@ -496,65 +496,98 @@
         window.toggleSidebar = () => {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if(sidebar.classList.contains('sidebar-closed')) {
-                sidebar.classList.remove('sidebar-closed');
-                sidebar.classList.add('sidebar-open');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
                 overlay.classList.remove('hidden');
             } else {
-                sidebar.classList.add('sidebar-closed');
-                sidebar.classList.remove('sidebar-open');
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
                 overlay.classList.add('hidden');
             }
         };
 
         async function loadAllData() {
+            // ড্যাশবোর্ড ডাটা লোডিং এরর প্রোটেকশন সিস্টেম (এখানে ডাইনামিক ট্রাই-ক্যাচ ব্লক যোগ হলো)
             const admList = document.getElementById('admin-list-container');
-            const qAdm = await getDocs(collection(db, "admins"));
-            admList.innerHTML = `<div class="p-2 bg-white border rounded font-bold text-blue-600 shadow-sm">${masterAdmin} (Master)</div>`;
-            qAdm.forEach(d => {
-                const canDel = currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 rounded"><i class="fas fa-trash"></i></button>` : '';
-                admList.innerHTML += `<div class="p-2 bg-white border rounded flex justify-between shadow-sm mt-1">
-                    ${d.data().email} ${canDel}
-                </div>`;
-            });
+            let qAdmSize = 1;
+            try {
+                const qAdm = await getDocs(collection(db, "admins"));
+                admList.innerHTML = `<div class="p-2 bg-white border rounded font-bold text-blue-600 shadow-sm">${masterAdmin} (Master)</div>`;
+                qAdm.forEach(d => {
+                    const canDel = currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 rounded"><i class="fas fa-trash"></i></button>` : '';
+                    admList.innerHTML += `<div class="p-2 bg-white border rounded flex justify-between shadow-sm mt-1">
+                        ${d.data().email} ${canDel}
+                    </div>`;
+                });
+                qAdmSize = qAdm.size + 1;
+                document.getElementById('dash-admin-count').innerText = qAdmSize;
+            } catch (e) {
+                console.error("Error loading admins list: ", e);
+                document.getElementById('dash-admin-count').innerText = "1";
+            }
 
-            const gen = await getDoc(doc(db, "settings", "general"));
-            if(gen.exists()) {
-                const genData = gen.data();
-                document.getElementById('timer-setting').value = genData.timerDuration || 10;
-                document.getElementById('announce-setting').value = genData.announcementText || '';
-                document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
-                
-                // চ্যানেল ভেরিফিকেশন ডাটা লোড করা হচ্ছে
-                document.getElementById('bot-token-setting').value = genData.botToken || '';
-                document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
-                document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
-                document.getElementById('ch2-name-setting').value = genData.channel2Name || '';
-                document.getElementById('ch2-url-setting').value = genData.channel2Url || '';
+            try {
+                const gen = await getDoc(doc(db, "settings", "general"));
+                if(gen.exists()) {
+                    const genData = gen.data();
+                    document.getElementById('timer-setting').value = genData.timerDuration || 10;
+                    document.getElementById('announce-setting').value = genData.announcementText || '';
+                    document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
+                    
+                    document.getElementById('bot-token-setting').value = genData.botToken || '';
+                    document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
+                    document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
+                    document.getElementById('ch2-name-setting').value = genData.channel2Name || '';
+                    document.getElementById('ch2-url-setting').value = genData.channel2Url || '';
+                }
+            } catch (e) {
+                console.error("Error loading general config: ", e);
             }
-            const soc = await getDoc(doc(db, "settings", "socials"));
-            if(soc.exists()) {
-                document.getElementById('social-telegram').value = soc.data().telegram || '';
-                document.getElementById('social-youtube').value = soc.data().youtube || '';
-                document.getElementById('social-tiktok').value = soc.data().tiktok || '';
-                document.getElementById('social-facebook').value = soc.data().facebook || '';
-                document.getElementById('social-instagram').value = soc.data().instagram || '';
+
+            try {
+                const soc = await getDoc(doc(db, "settings", "socials"));
+                if(soc.exists()) {
+                    document.getElementById('social-telegram').value = soc.data().telegram || '';
+                    document.getElementById('social-youtube').value = soc.data().youtube || '';
+                    document.getElementById('social-tiktok').value = soc.data().tiktok || '';
+                    document.getElementById('social-facebook').value = soc.data().facebook || '';
+                    document.getElementById('social-instagram').value = soc.data().instagram || '';
+                }
+            } catch (e) {
+                console.error("Error loading socials config: ", e);
             }
-            const ads = await getDoc(doc(db, "settings", "ads"));
-            if(ads.exists()) {
-                document.getElementById('ad-slot-1').value = ads.data().adSlot1 || '';
-                document.getElementById('ad-slot-2').value = ads.data().adSlot2 || '';
-                document.getElementById('ad-slot-3').value = ads.data().adSlot3 || '';
+
+            try {
+                const ads = await getDoc(doc(db, "settings", "ads"));
+                if(ads.exists()) {
+                    document.getElementById('ad-slot-1').value = ads.data().adSlot1 || '';
+                    document.getElementById('ad-slot-2').value = ads.data().adSlot2 || '';
+                    document.getElementById('ad-slot-3').value = ads.data().adSlot3 || '';
+                }
+            } catch (e) {
+                console.error("Error loading ads config: ", e);
             }
             
-            // ড্যাশবোর্ড ওভারভিউ পরিসংখ্যান লোড করা
-            const fSnap = await getDocs(collection(db, "files"));
-            let fileCount = 0; fSnap.forEach(d => { if(!d.data().isDeleted) fileCount++; });
-            document.getElementById('dash-file-count').innerText = fileCount;
+            // ড্যাশবোর্ড পরিসংখ্যান ডাটা লোডিং
+            try {
+                const fSnap = await getDocs(collection(db, "files"));
+                let fileCount = 0; 
+                fSnap.forEach(d => { if(!d.data().isDeleted) fileCount++; });
+                document.getElementById('dash-file-count').innerText = fileCount;
+                document.getElementById('admin-file-count').innerText = fileCount;
+            } catch (e) {
+                console.error("Error counting files: ", e);
+                document.getElementById('dash-file-count').innerText = "0";
+            }
             
-            const sSnap = await getDocs(collection(db, "sliders"));
-            document.getElementById('dash-slider-count').innerText = sSnap.size;
-            document.getElementById('dash-admin-count').innerText = qAdm.size + 1;
+            try {
+                const sSnap = await getDocs(collection(db, "sliders"));
+                document.getElementById('dash-slider-count').innerText = sSnap.size;
+            } catch (e) {
+                console.error("Error counting sliders: ", e);
+                document.getElementById('dash-slider-count').innerText = "0";
+            }
 
             loadSliders(); loadFiles();
         }
@@ -602,14 +635,18 @@
         };
 
         async function loadSliders() {
-            const q = await getDocs(query(collection(db, "sliders"), orderBy("createdAt", "desc")));
-            const div = document.getElementById('slider-list');
-            div.innerHTML = '';
-            q.forEach(d => { 
-                const isOwnerOrMaster = currentAdminEmail === masterAdmin || d.data().uploadedBy === currentAdminEmail;
-                const delBtn = isOwnerOrMaster ? `<button onclick="window.delSlider('${d.id}')" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex justify-center items-center opacity-0 group-hover:opacity-100 transition shadow">&times;</button>` : '';
-                div.innerHTML += `<div class="relative group border rounded overflow-hidden shadow-sm"><img src="${d.data().imageUrl}" class="h-24 w-full object-cover">${delBtn}</div>`; 
-            });
+            try {
+                const q = await getDocs(query(collection(db, "sliders"), orderBy("createdAt", "desc")));
+                const div = document.getElementById('slider-list');
+                div.innerHTML = '';
+                q.forEach(d => { 
+                    const isOwnerOrMaster = currentAdminEmail === masterAdmin || d.data().uploadedBy === currentAdminEmail;
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.delSlider('${d.id}')" class="absolute top-1 right-1 bg-red-600 text-white rounded-full w-6 h-6 flex justify-center items-center opacity-0 group-hover:opacity-100 transition shadow">&times;</button>` : '';
+                    div.innerHTML += `<div class="relative group border rounded overflow-hidden shadow-sm"><img src="${d.data().imageUrl}" class="h-24 w-full object-cover">${delBtn}</div>`; 
+                });
+            } catch (e) {
+                console.error("Error loading sliders list: ", e);
+            }
         }
         window.delSlider = async (id) => { await deleteDoc(doc(db, 'sliders', id)); loadSliders(); };
         
@@ -620,54 +657,58 @@
         };
 
         async function loadFiles() {
-            const q = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
-            const div = document.getElementById('file-list');
-            div.innerHTML = '';
-            let fileCount = 0;
-            
-            q.forEach(d => {
-                const f = d.data();
-                if(f.isDeleted) return; 
+            try {
+                const q = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
+                const div = document.getElementById('file-list');
+                div.innerHTML = '';
+                let fileCount = 0;
                 
-                fileCount++;
+                q.forEach(d => {
+                    const f = d.data();
+                    if(f.isDeleted) return; 
+                    
+                    fileCount++;
 
-                const isMaster = currentAdminEmail === masterAdmin;
-                const isOwner = f.uploadedBy === currentAdminEmail;
-                
-                let btns = '';
-                if(isMaster || isOwner) {
-                    btns += `<button onclick="window.editFile('${d.id}')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition font-medium"><i class="fas fa-edit"></i> Edit</button>`;
-                    btns += `<button onclick="window.softDelFile('${d.id}')" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-medium"><i class="fas fa-trash"></i> Del</button>`;
-                }
-                if(isMaster) {
-                    btns += `<button onclick="window.manageComments('${d.id}')" class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-medium"><i class="fas fa-comments"></i> Cmts</button>`;
-                }
+                    const isMaster = currentAdminEmail === masterAdmin;
+                    const isOwner = f.uploadedBy === currentAdminEmail;
+                    
+                    let btns = '';
+                    if(isMaster || isOwner) {
+                        btns += `<button onclick="window.editFile('${d.id}')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition font-medium"><i class="fas fa-edit"></i> Edit</button>`;
+                        btns += `<button onclick="window.softDelFile('${d.id}')" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-medium"><i class="fas fa-trash"></i> Del</button>`;
+                    }
+                    if(isMaster) {
+                        btns += `<button onclick="window.manageComments('${d.id}')" class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-medium"><i class="fas fa-comments"></i> Cmts</button>`;
+                    }
 
-                div.innerHTML += `
-                    <div class="bg-white p-3 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition flex flex-col gap-3">
-                        <div class="flex gap-3 items-center">
-                            <div class="relative shrink-0">
-                                <img src="${f.thumbnailUrl}" class="w-14 h-14 object-cover rounded-lg border bg-gray-100">
-                                ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="font-bold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
-                                <p class="text-[10px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
-                                <div class="flex gap-3 text-[10px] text-gray-600 mt-1 font-medium bg-gray-50 px-2 py-0.5 rounded inline-block">
-                                    <span title="Views"><i class="fas fa-eye text-blue-400"></i> ${f.views||0}</span>
-                                    <span title="Likes"><i class="fas fa-thumbs-up text-indigo-400"></i> ${f.likeCount||0}</span>
-                                    <span title="Comments"><i class="fas fa-comment text-orange-400"></i> ${f.commentCount||0}</span>
+                    div.innerHTML += `
+                        <div class="bg-white p-3 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition flex flex-col gap-3">
+                            <div class="flex gap-3 items-center">
+                                <div class="relative shrink-0">
+                                    <img src="${f.thumbnailUrl}" class="w-14 h-14 object-cover rounded-lg border bg-gray-100">
+                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="font-bold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
+                                    <p class="text-[10px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    <div class="flex gap-3 text-[10px] text-gray-600 mt-1 font-medium bg-gray-50 px-2 py-0.5 rounded inline-block">
+                                        <span title="Views"><i class="fas fa-eye text-blue-400"></i> ${f.views||0}</span>
+                                        <span title="Likes"><i class="fas fa-thumbs-up text-indigo-400"></i> ${f.likeCount||0}</span>
+                                        <span title="Comments"><i class="fas fa-comment text-orange-400"></i> ${f.commentCount||0}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2 border-t pt-2 justify-end">
-                            ${btns}
-                        </div>
-                    </div>`;
-            });
-            
-            document.getElementById('admin-file-count').innerText = fileCount;
-            document.getElementById('dash-file-count').innerText = fileCount;
+                            <div class="flex flex-wrap gap-2 border-t pt-2 justify-end">
+                                ${btns}
+                            </div>
+                        </div>`;
+                });
+                
+                document.getElementById('admin-file-count').innerText = fileCount;
+                document.getElementById('dash-file-count').innerText = fileCount;
+            } catch (e) {
+                console.error("Error loading files list: ", e);
+            }
         }
 
         window.softDelFile = async (id) => { 
@@ -688,34 +729,39 @@
             const list = document.getElementById('recycle-bin-list');
             list.innerHTML = '<div class="text-center py-10"><i class="fas fa-spinner fa-spin text-3xl text-red-500"></i></div>';
             
-            const q = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
-            list.innerHTML = '';
-            let count = 0;
-            
-            q.forEach(d => {
-                const f = d.data();
-                if(f.isDeleted) {
-                    count++;
-                    list.innerHTML += `
-                        <div class="bg-white p-4 border border-red-100 rounded-xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:shadow-md transition">
-                            <div class="flex items-center gap-4 min-w-0">
-                                <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-lg border flex-shrink-0">
-                                <div class="min-w-0">
-                                    <h4 class="font-bold text-gray-800 truncate">${f.title}</h4>
-                                    <p class="text-xs text-gray-500 mt-0.5 truncate">By: ${f.uploadedBy || 'Unknown'}</p>
+            try {
+                const q = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
+                list.innerHTML = '';
+                let count = 0;
+                
+                q.forEach(d => {
+                    const f = d.data();
+                    if(f.isDeleted) {
+                        count++;
+                        list.innerHTML += `
+                            <div class="bg-white p-4 border border-red-100 rounded-xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:shadow-md transition">
+                                <div class="flex items-center gap-4 min-w-0">
+                                    <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-lg border flex-shrink-0">
+                                    <div class="min-w-0">
+                                        <h4 class="font-bold text-gray-800 truncate">${f.title}</h4>
+                                        <p class="text-xs text-gray-500 mt-0.5 truncate">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 w-full md:w-auto shrink-0">
+                                    <button onclick="window.restoreFile('${d.id}')" class="flex-1 md:flex-none bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-1.5 rounded-lg font-bold text-xs transition shadow-sm"><i class="fas fa-undo"></i> Restore</button>
+                                    <button onclick="window.permanentDelFile('${d.id}')" class="flex-1 md:flex-none bg-red-100 text-red-700 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg font-bold text-xs transition shadow-sm"><i class="fas fa-minus-circle"></i> Delete</button>
                                 </div>
                             </div>
-                            <div class="flex gap-2 w-full md:w-auto shrink-0">
-                                <button onclick="window.restoreFile('${d.id}')" class="flex-1 md:flex-none bg-green-100 text-green-700 hover:bg-green-600 hover:text-white px-3 py-1.5 rounded-lg font-bold text-xs transition shadow-sm"><i class="fas fa-undo"></i> Restore</button>
-                                <button onclick="window.permanentDelFile('${d.id}')" class="flex-1 md:flex-none bg-red-100 text-red-700 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg font-bold text-xs transition shadow-sm"><i class="fas fa-minus-circle"></i> Delete</button>
-                            </div>
-                        </div>
-                    `;
+                        `;
+                    }
+                });
+                
+                if(count === 0) {
+                    list.innerHTML = '<p class="text-center text-gray-500 py-10 font-medium"><i class="fas fa-check-circle text-4xl mb-3 text-green-400 block"></i> Recycle Bin is empty.</p>';
                 }
-            });
-            
-            if(count === 0) {
-                list.innerHTML = '<p class="text-center text-gray-500 py-10 font-medium"><i class="fas fa-check-circle text-4xl mb-3 text-green-400 block"></i> Recycle Bin is empty.</p>';
+            } catch (e) {
+                console.error("Error loading recycle bin: ", e);
+                list.innerHTML = '<p class="text-center text-red-500 py-10 font-medium">Failed to load recycle bin.</p>';
             }
         };
 
@@ -740,23 +786,28 @@
             modal.classList.remove('hidden');
             list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
             
-            const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
-            list.innerHTML = '';
-            if(q.empty) {
-                list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
-            } else {
-                q.forEach(d => {
-                    const c = d.data();
-                    list.innerHTML += `
-                        <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
-                            <div>
-                                <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
-                                <p class="text-sm text-gray-600 mt-1">${c.text}</p>
+            try {
+                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
+                list.innerHTML = '';
+                if(q.empty) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
+                } else {
+                    q.forEach(d => {
+                        const c = d.data();
+                        list.innerHTML += `
+                            <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
+                                    <p class="text-sm text-gray-600 mt-1">${c.text}</p>
+                                </div>
+                                <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
                             </div>
-                            <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading comments: ", e);
+                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
             }
         };
 
@@ -788,7 +839,6 @@
                 document.getElementById('btn-file-icon').innerHTML = '<i class="fas fa-edit"></i>';
                 document.getElementById('btn-file-text').innerText = adminDict[lang]['update_content'];
                 document.getElementById('file-title').focus();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
                 
                 // এডিট করার সময় স্বয়ংক্রিয়ভাবে ফাইল ম্যানেজমেন্ট ট্যাবে নিয়ে যাওয়া হবে
                 window.switchTab('files');
