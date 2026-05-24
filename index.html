@@ -720,17 +720,26 @@
 
         async function loadSliders() {
             try {
-                const q = await getDocs(query(collection(db, "sliders"), orderBy("createdAt", "desc")));
+                // স্লাইডার সর্টিং ক্লায়েন্ট সাইড মেমোরিতে স্থানান্তর করা হলো
+                const qSnap = await getDocs(collection(db, "sliders"));
                 const div = document.getElementById('slider-list');
                 div.innerHTML = '';
                 let sliderCount = 0;
-                q.forEach(d => { 
-                    const data = d.data();
+                
+                const sliders = [];
+                qSnap.forEach(d => sliders.push({ id: d.id, ...d.data() }));
+                sliders.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                sliders.forEach(data => { 
                     if(data.isDeleted) return; 
 
                     sliderCount++;
                     const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
-                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${d.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
                     div.innerHTML += `
                         <div class="relative group border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
                             <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -765,13 +774,21 @@
 
         async function loadFiles() {
             try {
-                const q = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
+                // ফাইল সর্টিং ক্লায়েন্ট সাইড মেমোরিতে স্থানান্তর করা হলো
+                const qSnap = await getDocs(collection(db, "files"));
                 const div = document.getElementById('file-list-grid');
                 div.innerHTML = '';
                 let fileCount = 0;
+
+                const files = [];
+                qSnap.forEach(d => files.push({ id: d.id, ...d.data() }));
+                files.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
                 
-                q.forEach(d => {
-                    const f = d.data();
+                files.forEach(f => {
                     if(f.isDeleted) return; 
                     
                     fileCount++;
@@ -781,11 +798,11 @@
                     
                     let btns = '';
                     if(isMaster || isOwner) {
-                        btns += `<button onclick="window.editFile('${d.id}')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition font-medium"><i class="fas fa-edit"></i> Edit</button>`;
-                        btns += `<button onclick="window.softDelFile('${d.id}')" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-medium"><i class="fas fa-trash"></i> Del</button>`;
+                        btns += `<button onclick="window.editFile('${f.id}')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition font-medium"><i class="fas fa-edit"></i> Edit</button>`;
+                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-medium"><i class="fas fa-trash"></i> Del</button>`;
                     }
                     if(isMaster) {
-                        btns += `<button onclick="window.manageComments('${d.id}')" class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-medium"><i class="fas fa-comments"></i> Cmts</button>`;
+                        btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-medium"><i class="fas fa-comments"></i> Cmts</button>`;
                     }
 
                     div.innerHTML += `
@@ -834,10 +851,17 @@
                 let count = 0;
                 let html = '';
 
-                // ১. ডিলিট হওয়া ফাইল লোড করা হচ্ছে (ভাঙা টেক্সট সমস্যার ১০০% সমাধানকৃত লেআউট)
-                const qFiles = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
-                qFiles.forEach(d => {
-                    const f = d.data();
+                // ১. ডিলিট হওয়া ফাইল লোড করা হচ্ছে (সরাসরি সর্টিং মেমোরিতে)
+                const qFilesSnap = await getDocs(collection(db, "files"));
+                const files = [];
+                qFilesSnap.forEach(doc => files.push({ id: doc.id, ...doc.data() }));
+                files.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                files.forEach(f => {
                     if(f.isDeleted) {
                         count++;
                         html += `
@@ -851,18 +875,25 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
-                                    <button onclick="window.restoreFile('${d.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelFile('${d.id}')" class="bg-red-50 text-red-700 hover:bg-red-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
                     }
                 });
 
-                // ২. ডিলিট হওয়া স্লাইডার ব্যানার লোড করা হচ্ছে (মোবাইল বান্ধব এবং সুন্দর লেআউট)
-                const qSliders = await getDocs(query(collection(db, "sliders"), orderBy("createdAt", "desc")));
-                qSliders.forEach(d => {
-                    const s = d.data();
+                // ২. ডিলিট হওয়া স্লাইডার ব্যানার লোড করা হচ্ছে (সরাসরি সর্টিং মেমোরিতে)
+                const qSlidersSnap = await getDocs(collection(db, "sliders"));
+                const sliders = [];
+                qSlidersSnap.forEach(doc => sliders.push({ id: doc.id, ...doc.data() }));
+                sliders.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                sliders.forEach(s => {
                     if(s.isDeleted) {
                         count++;
                         html += `
@@ -876,8 +907,8 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
-                                    <button onclick="window.restoreSlider('${d.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelSlider('${d.id}')" class="bg-red-50 text-red-700 hover:bg-red-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-700 hover:bg-red-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
