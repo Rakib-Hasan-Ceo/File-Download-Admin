@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Admin Panel - BD Reward</title>
+    <title>Super Admin Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -27,43 +27,52 @@
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 flex h-screen w-screen">
 
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="toggleSidebar()"></div>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="window.toggleSidebar()"></div>
 
-    <!-- SIDEBAR NAVIGATION MENU -->
+    <!-- SIDEBAR NAVIGATION MENU (Language ড্রপডাউনটি এখানে স্থানান্তর করা হলো) -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-indigo-900 text-white z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl">
         <div class="p-5 bg-indigo-950 flex justify-between items-center border-b border-indigo-800 shrink-0">
-            <h2 class="text-lg font-bold flex items-center gap-2"><i class="fas fa-shield-alt text-yellow-400"></i> Admin Panel</h2>
-            <button onclick="toggleSidebar()" class="md:hidden text-white hover:text-gray-300 text-xl"><i class="fas fa-times"></i></button>
+            <h2 class="text-lg font-bold flex items-center gap-2"><i class="fas fa-shield-alt text-yellow-400"></i> <span data-lang="title">Admin Panel</span></h2>
+            <button onclick="window.toggleSidebar()" class="md:hidden text-white hover:text-gray-300 text-xl"><i class="fas fa-times"></i></button>
         </div>
         
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto p-4 space-y-1 custom-scroll">
-            <button onclick="switchTab('dashboard')" class="nav-item bg-indigo-800 text-white w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-tachometer-alt text-teal-400 w-5"></i> <span>Dashboard</span>
+            <button onclick="window.switchTab('dashboard')" class="nav-item bg-indigo-800 text-white w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-tachometer-alt text-teal-400 w-5"></i> <span data-lang="dashboard_menu">Dashboard</span>
             </button>
-            <button onclick="switchTab('admins')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-user-shield text-blue-400 w-5"></i> <span>Manage Admins</span>
+            <button onclick="window.switchTab('admins')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-user-shield text-blue-400 w-5"></i> <span data-lang="manage_admins">Manage Admins</span>
             </button>
-            <button onclick="switchTab('app-config')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-sliders-h text-purple-400 w-5"></i> <span>App Settings</span>
+            <button onclick="window.switchTab('app-config')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-sliders-h text-purple-400 w-5"></i> <span data-lang="app_config_menu">App Settings</span>
             </button>
-            <button onclick="switchTab('sliders')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-images text-pink-400 w-5"></i> <span>Slider Banners</span>
+            <button onclick="window.switchTab('sliders')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-images text-pink-400 w-5"></i> <span data-lang="slider_banners_menu">Slider Banners</span>
             </button>
-            <button onclick="switchTab('ads')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-ad text-orange-400 w-5"></i> <span>Ad Placements</span>
+            <button onclick="window.switchTab('ads')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-ad text-orange-400 w-5"></i> <span data-lang="ad_placements_menu">Ad Placements</span>
             </button>
-            <button onclick="switchTab('files')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-folder-open text-yellow-400 w-5"></i> <span>File Management</span>
+            <button onclick="window.switchTab('files')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-folder-open text-yellow-400 w-5"></i> <span data-lang="file_management_menu">File Management</span>
             </button>
-            <button onclick="switchTab('recycle-bin')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-trash-restore text-red-400 w-5"></i> <span>Recycle Bin</span>
+            <button onclick="window.switchTab('recycle-bin')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
+                <i class="fas fa-trash-restore text-red-400 w-5"></i> <span data-lang="recycle_bin_menu">Recycle Bin</span>
             </button>
         </nav>
         
+        <!-- Language Selector (সাইডবারের ভেতরে যুক্ত করা হলো) -->
+        <div class="px-4 mb-4 shrink-0">
+            <label class="block text-xs font-bold text-indigo-300 uppercase mb-2"><i class="fas fa-language"></i> Language / ভাষা</label>
+            <select id="admin-language-selector" onchange="window.changeAdminLang(this.value)" class="w-full bg-indigo-800 text-white text-sm rounded-xl border border-indigo-700 px-3 py-2.5 focus:outline-none shadow-inner">
+                <option value="en">English</option>
+                <option value="bn">বাংলা</option>
+            </select>
+        </div>
+
         <div class="p-4 bg-indigo-950 border-t border-indigo-800 text-center text-xs text-indigo-300 shrink-0">
-            <button id="sign-out-btn" class="hidden w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl font-bold transition flex items-center justify-center gap-2 mb-2 shadow-md">
-                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+            <button id="sign-out-btn" class="hidden w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2 mb-2 shadow-md">
+                <i class="fas fa-sign-out-alt"></i> <span data-lang="logout">Logout</span>
             </button>
             &copy; 2025 Web Rakib
         </div>
@@ -74,14 +83,8 @@
         <!-- Top Sticky Navbar -->
         <nav class="sticky top-0 z-30 bg-white border-b py-4 px-6 flex justify-between items-center shadow-sm shrink-0">
             <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="md:hidden text-gray-700 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
-                <h1 id="header-title" class="text-xl font-bold text-gray-800">Dashboard Overview</h1>
-            </div>
-            <div class="flex items-center gap-3">
-                <select id="admin-language-selector" onchange="window.changeAdminLang(this.value)" class="bg-gray-100 text-gray-800 text-sm rounded border border-gray-300 px-3 py-2 focus:outline-none shadow-sm hidden">
-                    <option value="en">English</option>
-                    <option value="bn">বাংলা</option>
-                </select>
+                <button onclick="window.toggleSidebar()" class="md:hidden text-gray-700 text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+                <h1 id="header-title" class="text-xl font-bold text-gray-800" data-lang="dashboard_title">Dashboard Overview</h1>
             </div>
         </nav>
 
@@ -121,168 +124,210 @@
                  </div>
             </div>
 
-            <!-- TAB 1: DASHBOARD OVERVIEW -->
-            <div id="page-dashboard" class="admin-page active hidden space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="p-4 bg-blue-100 text-blue-600 rounded-xl text-2xl"><i class="fas fa-folder-open"></i></div>
-                        <div>
-                            <h3 class="text-gray-500 text-sm font-semibold">Total Files</h3>
-                            <h1 id="dash-file-count" class="text-2xl font-bold text-gray-800">0</h1>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="p-4 bg-pink-100 text-pink-600 rounded-xl text-2xl"><i class="fas fa-images"></i></div>
-                        <div>
-                            <h3 class="text-gray-500 text-sm font-semibold">Slider Banners</h3>
-                            <h1 id="dash-slider-count" class="text-2xl font-bold text-gray-800">0</h1>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex items-center gap-4">
-                        <div class="p-4 bg-purple-100 text-purple-600 rounded-xl text-2xl"><i class="fas fa-users-cog"></i></div>
-                        <div>
-                            <h3 class="text-gray-500 text-sm font-semibold">Registered Admins</h3>
-                            <h1 id="dash-admin-count" class="text-2xl font-bold text-gray-800">0</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- ড্যাশবোর্ডে লগইন করার পর মূল পেজগুলোর কন্টেইনার -->
+            <div id="admin-content" class="hidden space-y-6">
 
-            <!-- TAB 2: MANAGE ADMINS -->
-            <div id="page-admins" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-users-cog text-purple-500"></i> <span data-lang="manage_admins">Manage Admins</span></h2>
-                    <div class="flex gap-2 mb-4">
-                        <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-500">
-                        <button id="add-admin-btn" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-bold shadow transition whitespace-nowrap"><i class="fas fa-plus"></i> <span data-lang="add_email">Add Email</span></button>
+                <!-- TAB 1: ADVANCED DASHBOARD OVERVIEW (নতুন গর্জিয়াস ডিজাইন) -->
+                <div id="page-dashboard" class="admin-page active space-y-6">
+                    <!-- Welcome Banner -->
+                    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute right-0 bottom-0 opacity-15 translate-x-10 translate-y-10">
+                            <i class="fas fa-crown text-9xl"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mb-2" data-lang="welcome_admin">Welcome Back, Admin!</h2>
+                        <p class="text-indigo-100 text-sm sm:text-base max-w-lg leading-relaxed" data-lang="welcome_subtitle">সবকিছু অত্যন্ত চমৎকারভাবে সচল রয়েছে। নিচে রিয়েল-টাইম তথ্য এবং সিস্টেম স্ট্যাটাস দেওয়া হলো।</p>
                     </div>
-                    <div id="admin-list-container" class="space-y-2 bg-gray-50 p-3 rounded border max-h-60 overflow-y-auto custom-scroll"></div>
-                </div>
-            </div>
 
-            <!-- TAB 3: APP CONFIGURATION -->
-            <div id="page-app-config" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-sliders-h text-indigo-500"></i> <span data-lang="app_config">App Configuration</span></h2>
+                    <!-- Metric Glow Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-blue-500">
+                            <div class="p-4 bg-blue-50 text-blue-600 rounded-2xl text-2xl"><i class="fas fa-folder-open"></i></div>
+                            <div>
+                                <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="total_files">Total Files</h3>
+                                <h1 id="dash-file-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-pink-500">
+                            <div class="p-4 bg-pink-50 text-pink-600 rounded-2xl text-2xl"><i class="fas fa-images"></i></div>
+                            <div>
+                                <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="slider_banners_menu">Slider Banners</h3>
+                                <h1 id="dash-slider-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-purple-500">
+                            <div class="p-4 bg-purple-50 text-purple-600 rounded-2xl text-2xl"><i class="fas fa-users-cog"></i></div>
+                            <div>
+                                <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="registered_admins">Registered Admins</h3>
+                                <h1 id="dash-admin-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Status & Quick Shortcuts -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-4">
-                            <label class="block font-semibold" data-lang="timer_delay">Timer Delay (Seconds)</label>
-                            <input type="number" id="timer-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
-                            <div>
-                                <label class="block font-semibold mb-1" data-lang="announce_text">Scrolling Announcement Text</label>
-                                <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+                            <h3 class="font-bold text-gray-700 text-lg mb-4 flex items-center gap-2"><i class="fas fa-server text-green-500 animate-pulse"></i> <span data-lang="system_status">System Status</span></h3>
+                            <div class="space-y-3 font-medium text-sm text-gray-600">
+                                <div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Database Connection</span><span class="text-green-600"><i class="fas fa-circle text-[10px] mr-1"></i> Online</span></div>
+                                <div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>Active Admin</span><span id="dash-active-email" class="text-gray-800 truncate max-w-[150px]">Loading...</span></div>
+                                <div class="flex justify-between p-3 bg-gray-50 rounded-xl"><span>System Date</span><span id="dash-system-date" class="text-gray-800">2025</span></div>
                             </div>
-                            <div>
-                                <label class="block font-semibold mb-1 text-red-500"><i class="fas fa-exclamation-circle"></i> Big Popup Notice (For Users)</label>
-                                <textarea id="popup-notice-setting" rows="3" placeholder="Enter popup message..." class="w-full p-2 border border-red-300 rounded focus:ring-2 focus:ring-red-500"></textarea>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+                            <h3 class="font-bold text-gray-700 text-lg mb-4 flex items-center gap-2"><i class="fas fa-rocket text-indigo-500 animate-bounce"></i> <span data-lang="quick_shortcuts">Quick Shortcuts</span></h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="window.switchTab('files')" class="p-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl text-center text-sm transition">Upload Files</button>
+                                <button onclick="window.switchTab('app-config')" class="p-3 bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold rounded-xl text-center text-sm transition">App Settings</button>
+                                <button onclick="window.switchTab('ads')" class="p-3 bg-orange-50 hover:bg-orange-100 text-orange-700 font-bold rounded-xl text-center text-sm transition">Ad Settings</button>
+                                <button onclick="window.switchTab('recycle-bin')" class="p-3 bg-red-50 hover:bg-red-100 text-red-700 font-bold rounded-xl text-center text-sm transition">Recycle Bin</button>
                             </div>
-                            
-                            <!-- বাধ্যতামূলক চ্যানেল ভেরিফিকেশন ফর্ম সেটিংস -->
-                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4">
-                                <h3 class="font-bold text-purple-700 text-sm"><i class="fab fa-telegram"></i> Telegram Membership Settings</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: MANAGE ADMINS -->
+                <div id="page-admins" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-users-cog text-purple-500"></i> <span data-lang="manage_admins">Manage Admins</span></h2>
+                        <div class="flex gap-2 mb-4">
+                            <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-500">
+                            <button id="add-admin-btn" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-bold shadow transition whitespace-nowrap"><i class="fas fa-plus"></i> <span data-lang="add_email">Add Email</span></button>
+                        </div>
+                        <div id="admin-list-container" class="space-y-2 bg-gray-50 p-3 rounded border max-h-60 overflow-y-auto custom-scroll"></div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: APP CONFIGURATION -->
+                <div id="page-app-config" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-sliders-h text-indigo-500"></i> <span data-lang="app_config">App Configuration</span></h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <label class="block font-semibold" data-lang="timer_delay">Timer Delay (Seconds)</label>
+                                <input type="number" id="timer-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification)</label>
-                                    <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
+                                    <label class="block font-semibold mb-1" data-lang="announce_text">Scrolling Announcement Text</label>
+                                    <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
-                                    <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 1 (Required)</div>
+                                <div>
+                                    <label class="block font-semibold mb-1 text-red-500"><i class="fas fa-exclamation-circle"></i> Big Popup Notice (For Users)</label>
+                                    <textarea id="popup-notice-setting" rows="3" placeholder="Enter popup message..." class="w-full p-2 border border-red-300 rounded focus:ring-2 focus:ring-red-500"></textarea>
+                                </div>
+                                
+                                <!-- App Logo URL Settings (নতুন ইনপুট ফিল্ড) -->
+                                <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
+                                    <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-image"></i> App Logo URL (For Verification Screen)</label>
+                                    <input type="url" id="logo-setting" placeholder="Paste App Logo URL here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+                                
+                                <!-- বাধ্যতামূলক চ্যানেল ভেরিফিকেশন ফর্ম সেটিংস -->
+                                <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4">
+                                    <h3 class="font-bold text-purple-700 text-sm"><i class="fab fa-telegram"></i> Telegram Membership Settings</h3>
                                     <div>
-                                        <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
-                                        <input type="text" id="ch1-name-setting" placeholder="e.g. Join Channel" class="w-full p-2 border rounded text-xs">
+                                        <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification)</label>
+                                        <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
                                     </div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
-                                        <input type="url" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
+                                        <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 1 (Required)</div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
+                                            <input type="text" id="ch1-name-setting" placeholder="e.g. Join Channel" class="w-full p-2 border rounded text-xs">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
+                                            <input type="url" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
+                                        <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 2 (Required)</div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
+                                            <input type="text" id="ch2-name-setting" placeholder="e.g. Payment Proofs" class="w-full p-2 border rounded text-xs">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
+                                            <input type="url" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
-                                    <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 2 (Required)</div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
-                                        <input type="text" id="ch2-name-setting" placeholder="e.g. Payment Proofs" class="w-full p-2 border rounded text-xs">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
-                                        <input type="url" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
-                                    </div>
-                                </div>
+
+                                <button id="save-gen-btn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 w-full font-bold shadow transition" data-lang="save_config">Save Config</button>
                             </div>
-
-                            <button id="save-gen-btn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 w-full font-bold shadow transition"><i class="fas fa-save"></i> <span data-lang="save_config">Save Config</span></button>
-                        </div>
-                        <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
-                            <h3 class="font-bold text-gray-600" data-lang="social_links">Social Media Links</h3>
-                            <input type="url" id="social-telegram" placeholder="Telegram URL" class="w-full p-2 border rounded text-sm">
-                            <input type="url" id="social-youtube" placeholder="YouTube URL" class="w-full p-2 border rounded text-sm">
-                            <input type="url" id="social-tiktok" placeholder="TikTok URL" class="w-full p-2 border rounded text-sm">
-                            <input type="url" id="social-facebook" placeholder="Facebook URL (Optional)" class="w-full p-2 border rounded text-sm">
-                            <input type="url" id="social-instagram" placeholder="Instagram URL (Optional)" class="w-full p-2 border rounded text-sm">
-                            <button id="save-social-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-bold shadow transition"><i class="fas fa-share-alt"></i> <span data-lang="update_links">Update Links</span></button>
+                            <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
+                                <h3 class="font-bold text-gray-600" data-lang="social_links">Social Media Links</h3>
+                                <input type="url" id="social-telegram" placeholder="Telegram URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-youtube" placeholder="YouTube URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-tiktok" placeholder="TikTok URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-facebook" placeholder="Facebook URL (Optional)" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-instagram" placeholder="Instagram URL (Optional)" class="w-full p-2 border rounded text-sm">
+                                <button id="save-social-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-bold shadow transition" data-lang="update_links">Update Links</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- TAB 4: SLIDER BANNERS -->
-            <div id="page-sliders" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-images text-pink-500"></i> <span data-lang="slider_banners">Slider Banners</span></h2>
-                    <div class="flex gap-2 mb-4">
-                        <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full p-2 border rounded">
-                        <button id="add-slider-btn" class="bg-pink-500 text-white px-6 py-2 rounded font-bold shadow"><i class="fas fa-plus"></i> <span data-lang="add_btn">Add</span></button>
-                    </div>
-                    <div id="slider-list" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
-                </div>
-            </div>
-
-            <!-- TAB 5: AD PLACEMENTS -->
-            <div id="page-ads" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-ad text-orange-500"></i> <span data-lang="ad_placements">Ad Placements</span></h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <textarea id="ad-slot-1" rows="4" placeholder="Header Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
-                        <textarea id="ad-slot-2" rows="4" placeholder="Middle Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
-                        <textarea id="ad-slot-3" rows="4" placeholder="Footer Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
-                    </div>
-                    <button id="save-ads-btn" class="mt-4 bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 font-bold shadow transition"><i class="fas fa-check"></i> <span data-lang="save_ads">Save Ads</span></button>
-                </div>
-            </div>
-
-            <!-- TAB 6: FILE MANAGEMENT -->
-            <div id="page-files" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
-                        <span>
-                            <i class="fas fa-folder-open text-blue-500"></i> <span data-lang="file_management">File Management</span>
-                            <span id="admin-file-count" class="bg-blue-100 text-blue-800 text-sm font-bold px-2 py-0.5 rounded-full ml-2 shadow-sm">0</span>
-                        </span>
-                        <button id="cancel-edit-btn" onclick="window.cancelEdit()" class="hidden text-sm bg-gray-500 text-white px-3 py-1.5 rounded-lg shadow">Cancel Edit</button>
-                    </h2>
-                    <div class="bg-blue-50 p-4 rounded-xl mb-6 shadow-inner border border-blue-100">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                            <input type="text" id="file-title" placeholder="Title" class="p-2 border rounded">
-                            <input type="number" id="file-ads" placeholder="Required Ads" class="p-2 border rounded">
-                            <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-2 border rounded">
-                            <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-2 border rounded text-sm">
-                            <input type="url" id="file-url" placeholder="Download Link" class="p-2 border rounded md:col-span-2">
-                            <textarea id="file-desc" placeholder="Description" rows="2" class="p-2 border rounded md:col-span-2"></textarea>
+                <!-- TAB 4: SLIDER BANNERS -->
+                <div id="page-sliders" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-images text-pink-500"></i> <span data-lang="slider_banners">Slider Banners</span></h2>
+                        <div class="flex gap-2 mb-4">
+                            <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full p-2 border rounded">
+                            <button id="add-slider-btn" class="bg-pink-500 text-white px-6 py-2 rounded font-bold shadow" data-lang="add_btn"><i class="fas fa-plus"></i> Add</button>
                         </div>
-                        <button id="add-file-btn" class="w-full bg-blue-600 text-white py-2 rounded font-bold shadow hover:bg-blue-700 transition">
-                            <span id="btn-file-icon"><i class="fas fa-cloud-upload-alt"></i></span> <span id="btn-file-text">Upload Content</span>
-                        </button>
-                    </div>
-                    <div class="bg-gray-50 border rounded-lg p-3 max-h-[500px] overflow-y-auto custom-scroll">
-                        <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                        <div id="slider-list" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
                     </div>
                 </div>
-            </div>
 
-            <!-- TAB 7: RECYCLE BIN -->
-            <div id="page-recycle-bin" class="admin-page hidden space-y-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                    <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-trash-restore text-red-500"></i> <span>Recycle Bin</span></h2>
-                    <div id="recycle-bin-list" class="space-y-4 bg-gray-50 p-4 rounded-xl max-h-[500px] overflow-y-auto custom-scroll"></div>
+                <!-- TAB 5: AD PLACEMENTS -->
+                <div id="page-ads" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-ad text-orange-500"></i> <span data-lang="ad_placements">Ad Placements</span></h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <textarea id="ad-slot-1" rows="4" placeholder="Header Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
+                            <textarea id="ad-slot-2" rows="4" placeholder="Middle Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
+                            <textarea id="ad-slot-3" rows="4" placeholder="Footer Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
+                        </div>
+                        <button id="save-ads-btn" class="mt-4 bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 font-bold shadow transition" data-lang="save_ads"><i class="fas fa-check"></i> Save Ads</button>
+                    </div>
                 </div>
+
+                <!-- TAB 6: FILE MANAGEMENT -->
+                <div id="page-files" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
+                            <span>
+                                <i class="fas fa-folder-open text-blue-500"></i> <span data-lang="file_management">File Management</span>
+                                <span id="admin-file-count" class="bg-blue-100 text-blue-800 text-sm font-bold px-2 py-0.5 rounded-full ml-2 shadow-sm">0</span>
+                            </span>
+                            <button id="cancel-edit-btn" onclick="window.cancelEdit()" class="hidden text-sm bg-gray-500 text-white px-3 py-1.5 rounded-lg shadow">Cancel Edit</button>
+                        </h2>
+                        <div class="bg-blue-50 p-4 rounded-xl mb-6 shadow-inner border border-blue-100">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+                                <input type="text" id="file-title" placeholder="Title" class="p-2 border rounded">
+                                <input type="number" id="file-ads" placeholder="Required Ads" class="p-2 border rounded">
+                                <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-2 border rounded">
+                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-2 border rounded text-sm">
+                                <input type="url" id="file-url" placeholder="Download Link" class="p-2 border rounded md:col-span-2">
+                                <textarea id="file-desc" placeholder="Description" rows="2" class="p-2 border rounded md:col-span-2"></textarea>
+                            </div>
+                            <button id="add-file-btn" class="w-full bg-blue-600 text-white py-2 rounded font-bold shadow hover:bg-blue-700 transition">
+                                <span id="btn-file-icon"><i class="fas fa-cloud-upload-alt"></i></span> <span id="btn-file-text" data-lang="upload_content">Upload Content</span>
+                            </button>
+                        </div>
+                        <div class="bg-gray-50 border rounded-lg p-3 max-h-[500px] overflow-y-auto custom-scroll">
+                            <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: RECYCLE BIN -->
+                <div id="page-recycle-bin" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-trash-restore text-red-500"></i> <span>Recycle Bin</span></h2>
+                        <div id="recycle-bin-list" class="space-y-4 bg-gray-50 p-4 rounded-xl max-h-[500px] overflow-y-auto custom-scroll"></div>
+                    </div>
+                </div>
+
             </div>
 
         </main>
@@ -341,10 +386,10 @@
                 slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Management", upload_content: "Upload Content", update_content: "Update Content"
             },
             bn: {
-                title: "এডমিন ড্যাশবোর্ড", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
-                login_title: "এডমিন পোর্টাল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
+                title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
+                login_title: "অ্যাডমিন পোর্টাল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
                 new_admin_text: "নতুন এডমিন? উপরে অনুমোদিত ইমেইল ও পাসওয়ার্ড দিয়ে এখানে ক্লিক করুন:", btn_register: "একাউন্ট তৈরি করুন",
-                manage_admins: "এডমিন ম্যানেজ", add_email: "ইমেইল যোগ করুন", app_config: "অ্যাপ সেটিং",
+                manage_admins: "অ্যাডমিন ম্যানেজ", add_email: "ইমেইল যোগ করুন", app_config: "অ্যাপ সেটিং",
                 timer_delay: "টাইমার সময় (সেকেন্ড)", announce_text: "ঘোষণাপত্র লেখা", save_config: "সেভ কনফিগ",
                 social_links: "সোশ্যাল মিডিয়া লিংক", update_links: "লিংক আপডেট", ad_placements: "অ্যাড প্লেসমেন্ট", save_ads: "অ্যাড সেভ",
                 slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "ফাইল ম্যানেজ", upload_content: "আপলোড করুন", update_content: "আপডেট করুন"
@@ -372,8 +417,12 @@
 
         async function fetchAdmins() {
             authorizedAdmins = [masterAdmin];
-            const q = await getDocs(collection(db, "admins"));
-            q.forEach(d => authorizedAdmins.push(d.data().email));
+            try {
+                const q = await getDocs(collection(db, "admins"));
+                q.forEach(d => authorizedAdmins.push(d.data().email));
+            } catch (e) {
+                console.error("Error fetching admins list: ", e);
+            }
         }
 
         document.getElementById('login-btn').addEventListener('click', async () => {
@@ -442,9 +491,9 @@
                 document.getElementById('sign-out-btn').classList.remove('hidden');
                 document.getElementById('admin-language-selector').classList.remove('hidden');
                 
-                // সাইডবার স্বয়ংক্রিয়ভাবে প্রদর্শন এবং ডাইনামিক ক্লাস ফিক্স
-                document.getElementById('sidebar').classList.add('translate-x-0');
-                document.getElementById('sidebar').classList.remove('-translate-x-full');
+                // সাইডবার ডাইনামিক রিমুভ (অন-লোড ওপেন বন্ধ করার ফিক্স)
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar').classList.remove('translate-x-0');
 
                 loadAllData();
             } else {
@@ -463,9 +512,14 @@
 
         // অ্যাডমিন প্যানেল ট্যাব সুইচার সিস্টেম
         window.switchTab = (tabId) => {
+            document.querySelectorAll('.admin-page').forEach(page => page.classList.remove('active'));
             document.querySelectorAll('.admin-page').forEach(page => page.classList.add('hidden'));
+            
             const targetPage = document.getElementById(`page-${tabId}`);
-            if(targetPage) targetPage.classList.remove('hidden');
+            if(targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('active');
+            }
             
             document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('bg-indigo-800', 'text-white'));
             const activeBtn = Array.from(document.querySelectorAll('.nav-item')).find(btn => btn.getAttribute('onclick').includes(`'${tabId}'`));
@@ -508,7 +562,7 @@
         };
 
         async function loadAllData() {
-            // ড্যাশবোর্ড ডাটা লোডিং এরর প্রোটেকশন সিস্টেম (এখানে ডাইনামিক ট্রাই-ক্যাচ ব্লক যোগ হলো)
+            // ড্যাশবোর্ড ডাটা লোডিং এরর প্রোটেকশন সিস্টেম
             const admList = document.getElementById('admin-list-container');
             let qAdmSize = 1;
             try {
@@ -534,6 +588,7 @@
                     document.getElementById('timer-setting').value = genData.timerDuration || 10;
                     document.getElementById('announce-setting').value = genData.announcementText || '';
                     document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
+                    document.getElementById('logo-setting').value = genData.logoUrl || ''; // ডাটা লোড
                     
                     document.getElementById('bot-token-setting').value = genData.botToken || '';
                     document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
@@ -589,6 +644,14 @@
                 document.getElementById('dash-slider-count').innerText = "0";
             }
 
+            // রিয়েল-টাইম অনলাইন ড্যাশবোর্ড টাইম আপডেট
+            const now = new Date();
+            document.getElementById('dash-system-date').innerText = now.toLocaleDateString();
+            if(currentUser) {
+                document.getElementById('dash-active-email').innerText = currentUser.email;
+                document.getElementById('dash-active-email').title = currentUser.email;
+            }
+
             loadSliders(); loadFiles();
         }
 
@@ -606,11 +669,12 @@
         };
 
         document.getElementById('save-gen-btn').onclick = async () => {
-            // ডাটাবেজে চ্যানেল ভেরিফিকেশন সেটিংস সেভ করা হচ্ছে
+            // ডাটাবেজে চ্যানেল ভেরিফিকেশন ও লোগো সেটিংস সেভ করা হচ্ছে
             await setDoc(doc(db, "settings", "general"), { 
                 timerDuration: Number(document.getElementById('timer-setting').value), 
                 announcementText: document.getElementById('announce-setting').value,
                 popupNotice: document.getElementById('popup-notice-setting').value,
+                logoUrl: document.getElementById('logo-setting').value.trim(), // লোগো ইউআরএল সংরক্ষণ
                 botToken: document.getElementById('bot-token-setting').value.trim(),
                 channel1Name: document.getElementById('ch1-name-setting').value.trim(),
                 channel1Url: document.getElementById('ch1-url-setting').value.trim(),
@@ -627,7 +691,7 @@
                 youtube: document.getElementById('social-youtube').value, 
                 tiktok: document.getElementById('social-tiktok').value,
                 facebook: document.getElementById('social-facebook').value,
-                instagram: document.getElementById('social-instagram').value
+                indigo: document.getElementById('social-instagram').value
             }); toast('Saved!');
         };
         document.getElementById('save-ads-btn').onclick = async () => {
@@ -840,7 +904,7 @@
                 document.getElementById('btn-file-text').innerText = adminDict[lang]['update_content'];
                 document.getElementById('file-title').focus();
                 
-                // এডিট করার সময় স্বয়ংক্রিয়ভাবে ফাইল ম্যানেজমেন্ট ট্যাবে নিয়ে যাওয়া হবে
+                // ফাইল ম্যানেজমেন্ট ট্যাবে নিয়ে যাওয়া হবে
                 window.switchTab('files');
             }
         };
@@ -890,5 +954,6 @@
         };
 
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"fbd0abfbeb044fef85aff402448f2392","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
