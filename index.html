@@ -98,35 +98,38 @@
         <!-- Dynamic Pages Area -->
         <main class="flex-1 overflow-y-auto p-6 pb-24 custom-scroll">
             
-            <!-- PREMIUM GLASSMORPHIC ADMIN LOGIN PORTAL -->
-            <div id="admin-login" class="bg-indigo-950/80 backdrop-blur-xl p-8 rounded-3xl shadow-2xl max-w-sm mx-auto border border-indigo-900 mt-16 animate-[fadeIn_0.5s_ease-out]">
-                 <div class="text-center mb-6">
-                     <div class="inline-block p-4 rounded-full bg-indigo-900/50 mb-2 border border-indigo-800">
-                         <i class="fas fa-user-lock text-4xl text-brand-yellow text-yellow-400"></i>
+            <!-- ULTRA-PREMIUM SLATE GLASSMORPHIC ADMIN LOGIN PORTAL -->
+            <div id="admin-login" class="bg-gradient-to-tr from-slate-900 to-indigo-950 p-10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.4)] max-w-md mx-auto border border-indigo-900/60 mt-16 animate-[fadeIn_0.5s_ease-out]">
+                 <div class="text-center mb-8">
+                     <div class="inline-block p-4 rounded-3xl bg-indigo-500/10 mb-3 border border-indigo-500/20 shadow-inner">
+                         <i class="fas fa-shield-halved text-5xl text-yellow-400"></i>
                      </div>
-                     <h2 class="text-2xl font-black text-white" data-lang="login_title">Admin Portal</h2>
+                     <h2 class="text-3xl font-black text-white tracking-tight" data-lang="login_title">Admin Portal</h2>
+                     <p class="text-xs text-indigo-300/80 mt-1.5 font-semibold">ড্যাশবোর্ডে প্রবেশ করতে আপনার তথ্য প্রদান করুন</p>
                  </div>
-                 <div class="space-y-4">
+                 <div class="space-y-5">
                      <div>
+                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">অ্যাডমিন ইমেইল</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-envelope"></i></span>
-                             <input type="email" id="email-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400" placeholder="admin@example.com">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-envelope"></i></span>
+                             <input type="email" id="email-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
                          </div>
                      </div>
                      <div>
+                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">পাসওয়ার্ড</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-lock"></i></span>
-                             <input type="password" id="password-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400" placeholder="Password">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-lock"></i></span>
+                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
                          </div>
-                         <div class="text-right mt-1.5">
+                         <div class="text-right mt-2">
                              <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
                          </div>
                      </div>
-                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-950/40 border border-red-900/60 p-2.5 rounded-xl">Invalid credentials.</div>
-                     <button id="login-btn" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 font-black transition shadow-lg shadow-indigo-500/20" data-lang="btn_login">Login Dashboard</button>
-                     <div class="text-center pt-3 border-t border-indigo-900/60 mt-4">
-                        <p class="text-[10px] text-indigo-400 mb-2" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
-                        <button id="register-btn" class="w-full bg-indigo-900 hover:bg-indigo-800 text-indigo-200 py-2.5 rounded-xl font-bold transition text-xs border border-indigo-800" data-lang="btn_register">Create Account</button>
+                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-950/40 border border-red-900/60 p-3 rounded-xl font-bold">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
+                     <button id="login-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 font-black transition shadow-lg shadow-blue-500/20" data-lang="btn_login">Login Dashboard</button>
+                     <div class="text-center pt-3 border-t border-indigo-900/50 mt-5">
+                        <p class="text-[10px] text-indigo-400 mb-2.5" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
+                        <button id="register-btn" class="w-full bg-indigo-900/40 hover:bg-indigo-800 text-indigo-200 py-3 rounded-xl font-bold transition text-xs border border-indigo-800" data-lang="btn_register">Create Account</button>
                      </div>
                  </div>
             </div>
@@ -392,24 +395,25 @@
                     </div>
                 </div>
 
-                <!-- TAB 8: ALL FILES LIST WITH PAGINATION (20 files per page) -->
+                <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in 2 columns) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="bg-white p-6 rounded-2xl border border-gray-150 shadow-sm">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
                             <span>
                                 <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-2 shadow-sm">0</span>
                             </span>
                         </h2>
-                        <div class="bg-gray-50 border rounded-xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
-                            <div id="file-list-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                        <!-- 2 columns layout beautifully spaced -->
+                        <div class="bg-gray-50 border rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
+                            <div id="file-list-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
                         </div>
 
                         <!-- File Pagination controller buttons -->
-                        <div class="flex justify-between items-center mt-4">
-                            <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
-                            <span id="files-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
-                            <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Next Page</button>
+                        <div class="flex justify-between items-center mt-4 border-t pt-4">
+                            <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Prev Page</button>
+                            <span id="files-page-indicator" class="text-xs text-gray-500 font-black bg-gray-100 px-3 py-1.5 rounded-full">Page 1</span>
+                            <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Next Page</button>
                         </div>
                     </div>
                 </div>
@@ -475,8 +479,8 @@
         let usersFirstDoc = null;
         let usersCurrentPage = 1;
 
-        // Files pagination controllers
-        let filesPageSize = 20;
+        // Files page size updated to 15 items per page in 2 columns
+        let filesPageSize = 15;
         let filesLastDoc = null;
         let filesFirstDoc = null;
         let filesCurrentPage = 1;
@@ -720,8 +724,8 @@
                 usersFirstDoc = snap.docs[0];
                 usersLastDoc = snap.docs[snap.docs.length - 1];
 
-                snap.forEach(doc => {
-                    const u = doc.data();
+                snap.forEach(docSnap => {
+                    const u = docSnap.data();
                     const initial = u.name ? u.name.charAt(0).toUpperCase() : 'U';
                     const avatar = u.photo 
                         ? `<img src="${u.photo}" class="w-8 h-8 rounded-full object-cover">`
@@ -734,7 +738,7 @@
                                 <span class="text-sm font-bold text-gray-800">${u.name || "N/A"}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">@${u.username || "N/A"}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>
                             </td>
@@ -987,7 +991,7 @@
             loadSliders(); document.getElementById('slider-img').value = '';
         };
 
-        // PAGINATED ALL FILES LIST LOAD FOR BETTER PERFORMANCE (20 files per page)
+        // PAGINATED ALL FILES LIST LOAD FOR BETTER PERFORMANCE (15 files per page in 2 columns)
         window.loadFiles = async (direction = 'init') => {
             try {
                 const totalSnap = await getDocs(collection(db, "files"));
@@ -1025,31 +1029,31 @@
                     
                     let btns = '';
                     if(isMaster || isOwner) {
-                        btns += `<button onclick="window.editFile('${f.id}')" class="text-xs bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-600 hover:text-white transition font-medium"><i class="fas fa-edit"></i> Edit</button>`;
-                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-medium"><i class="fas fa-trash"></i> Del</button>`;
+                        btns += `<button onclick="window.editFile('${f.id}')" class="text-xs bg-indigo-50 border border-indigo-150 text-indigo-700 px-3 py-1.5 rounded-xl hover:bg-indigo-600 hover:text-white transition font-black"><i class="fas fa-edit mr-0.5"></i> Edit</button>`;
+                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-50 border border-red-150 text-red-700 px-3 py-1.5 rounded-xl hover:bg-red-650 hover:text-white transition font-black"><i class="fas fa-trash mr-0.5"></i> Del</button>`;
                     }
                     if(isMaster) {
-                        btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-medium"><i class="fas fa-comments"></i> Cmts</button>`;
+                        btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3 py-1.5 rounded-xl hover:bg-green-650 hover:text-white transition font-black"><i class="fas fa-comments mr-0.5"></i> Cmts</button>`;
                     }
 
                     div.innerHTML += `
-                        <div class="bg-white p-3 border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition flex flex-col gap-3">
-                            <div class="flex gap-3 items-center">
-                                <div class="relative shrink-0">
-                                    <img src="${f.thumbnailUrl}" class="w-14 h-14 object-cover rounded-lg border bg-gray-100">
-                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-lg"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
+                        <div class="bg-white p-3 border border-gray-150 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col gap-3">
+                            <div class="flex gap-3 items-center min-w-0">
+                                <div class="relative shrink-0 w-12 h-12">
+                                    <img src="${f.thumbnailUrl}" class="w-full h-full object-cover rounded-xl border bg-gray-100">
+                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl"><i class="fas fa-play text-white text-[10px]"></i></div>' : ''}
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="font-bold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
-                                    <p class="text-[10px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
-                                    <div class="flex gap-3 text-[10px] text-gray-600 mt-1 font-medium bg-gray-50 px-2 py-0.5 rounded inline-block">
-                                        <span title="Views"><i class="fas fa-eye text-blue-400"></i> ${f.views||0}</span>
-                                        <span title="Downloads"><i class="fas fa-download text-emerald-400"></i> ${f.downloadCount||0}</span>
-                                        <span title="Comments"><i class="fas fa-comment text-orange-400"></i> ${f.commentCount||0}</span>
+                                    <h4 class="font-bold text-xs text-gray-800 truncate" title="${f.title}">${f.title}</h4>
+                                    <p class="text-[9px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    <div class="flex gap-2 text-[9px] text-gray-650 mt-1 font-extrabold bg-gray-50 px-2 py-0.5 rounded inline-block">
+                                        <span title="Views"><i class="fas fa-eye text-blue-500"></i> ${f.views||0}</span>
+                                        <span title="Downloads"><i class="fas fa-download text-emerald-500"></i> ${f.downloadCount||0}</span>
+                                        <span title="Comments"><i class="fas fa-comment text-indigo-500"></i> ${f.commentCount||0}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex flex-wrap gap-2 border-t pt-2 justify-end">
+                            <div class="flex flex-wrap gap-1 border-t pt-2 justify-end">
                                 ${btns}
                             </div>
                         </div>`;
@@ -1260,7 +1264,6 @@
                 document.getElementById('file-thumb').value = f.thumbnailUrl || '';
                 document.getElementById('file-video').value = f.videoUrl || '';
                 
-                // Screenshot Edit inputs loading
                 document.getElementById('file-ss1').value = f.screenshot1 || '';
                 document.getElementById('file-ss2').value = f.screenshot2 || '';
                 document.getElementById('file-ss3').value = f.screenshot3 || '';
@@ -1310,7 +1313,6 @@
                 thumbnailUrl: document.getElementById('file-thumb').value, 
                 videoUrl: document.getElementById('file-video').value,
                 
-                // Added Screenshot input payloads
                 screenshot1: document.getElementById('file-ss1').value.trim(),
                 screenshot2: document.getElementById('file-ss2').value.trim(),
                 screenshot3: document.getElementById('file-ss3').value.trim(),
