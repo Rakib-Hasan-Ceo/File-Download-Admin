@@ -29,55 +29,55 @@
 
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="window.toggleSidebar()"></div>
 
-    <!-- SIDEBAR NAVIGATION MENU -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-indigo-900 text-white z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl">
-        <div class="p-5 bg-indigo-950 flex justify-between items-center border-b border-indigo-800 shrink-0">
+    <!-- SIDEBAR NAVIGATION MENU WITH GORGEOUS INDIGO STYLING -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-indigo-950 text-white z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl border-r border-indigo-900">
+        <div class="p-5 bg-indigo-950 flex justify-between items-center border-b border-indigo-900 shrink-0">
             <h2 class="text-lg font-bold flex items-center gap-2"><i class="fas fa-shield-alt text-yellow-400"></i> <span data-lang="title">Admin Panel</span></h2>
             <button onclick="window.toggleSidebar()" class="md:hidden text-white hover:text-gray-300 text-xl"><i class="fas fa-times"></i></button>
         </div>
         
         <!-- Navigation Links -->
-        <nav class="flex-1 overflow-y-auto p-4 space-y-1 custom-scroll">
-            <button onclick="window.switchTab('dashboard')" class="nav-item bg-indigo-800 text-white w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-tachometer-alt text-teal-400 w-5"></i> <span data-lang="dashboard_menu">Dashboard</span>
+        <nav class="flex-1 overflow-y-auto p-4 space-y-2 custom-scroll">
+            <button onclick="window.switchTab('dashboard')" class="nav-item bg-indigo-900/60 border border-indigo-800/80 text-white w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 transition font-bold text-xs shadow-sm">
+                <i class="fas fa-tachometer-alt text-teal-400 w-5 text-sm"></i> <span data-lang="dashboard_menu">Dashboard</span>
             </button>
-            <button onclick="window.switchTab('admins')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-user-shield text-blue-400 w-5"></i> <span data-lang="manage_admins">Manage Admins</span>
+            <button onclick="window.switchTab('admins')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-user-shield text-blue-400 w-5 text-sm"></i> <span data-lang="manage_admins">Manage Admins</span>
             </button>
             <!-- MANAGE USERS TAB MENU -->
-            <button onclick="window.switchTab('users')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-users text-blue-300 w-5"></i> <span>Manage Users</span>
+            <button onclick="window.switchTab('users')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-users text-blue-300 w-5 text-sm"></i> <span>Manage Users</span>
             </button>
-            <button onclick="window.switchTab('app-config')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-sliders-h text-purple-400 w-5"></i> <span data-lang="app_config_menu">App Settings</span>
+            <button onclick="window.switchTab('app-config')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-sliders-h text-purple-400 w-5 text-sm"></i> <span data-lang="app_config_menu">App Settings</span>
             </button>
-            <button onclick="window.switchTab('sliders')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-images text-pink-400 w-5"></i> <span data-lang="slider_banners_menu">Slider Banners</span>
+            <button onclick="window.switchTab('sliders')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-images text-pink-400 w-5 text-sm"></i> <span data-lang="slider_banners_menu">Slider Banners</span>
             </button>
-            <button onclick="window.switchTab('ads')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-ad text-orange-400 w-5"></i> <span data-lang="ad_placements_menu">Ad Placements</span>
+            <button onclick="window.switchTab('ads')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-ad text-orange-400 w-5 text-sm"></i> <span data-lang="ad_placements_menu">Ad Placements</span>
             </button>
-            <button onclick="window.switchTab('files')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-cloud-upload-alt text-yellow-400 w-5"></i> <span data-lang="file_management_menu">Upload Content</span>
+            <button onclick="window.switchTab('files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-cloud-upload-alt text-yellow-400 w-5 text-sm"></i> <span data-lang="file_management_menu">Upload Content</span>
             </button>
-            <button onclick="window.switchTab('all-files')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-list text-emerald-400 w-5"></i> <span data-lang="all_files_menu">All Files List</span>
+            <button onclick="window.switchTab('all-files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-list text-emerald-400 w-5 text-sm"></i> <span data-lang="all_files_menu">All Files List</span>
             </button>
-            <button onclick="window.switchTab('recycle-bin')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
-                <i class="fas fa-trash-restore text-red-400 w-5"></i> <span data-lang="recycle_bin_menu">Recycle Bin</span>
+            <button onclick="window.switchTab('recycle-bin')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-trash-restore text-red-400 w-5 text-sm"></i> <span data-lang="recycle_bin_menu">Recycle Bin</span>
             </button>
         </nav>
         
         <!-- Language Selector -->
         <div class="px-4 mb-4 shrink-0">
             <label class="block text-xs font-bold text-indigo-300 uppercase mb-2"><i class="fas fa-language"></i> Language / ভাষা</label>
-            <select id="admin-language-selector" onchange="window.changeAdminLang(this.value)" class="w-full bg-indigo-800 text-white text-sm rounded-xl border border-indigo-700 px-3 py-2.5 focus:outline-none shadow-inner">
+            <select id="admin-language-selector" onchange="window.changeAdminLang(this.value)" class="w-full bg-indigo-900 border border-indigo-800 text-white text-xs rounded-xl px-3 py-2.5 focus:outline-none shadow-inner">
                 <option value="en">English</option>
                 <option value="bn">বাংলা</option>
             </select>
         </div>
 
-        <div class="p-4 bg-indigo-950 border-t border-indigo-800 text-center text-xs text-indigo-300 shrink-0">
+        <div class="p-4 bg-indigo-950 border-t border-indigo-900 text-center text-xs text-indigo-300 shrink-0">
             <button id="sign-out-btn" class="hidden w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2 mb-2 shadow-md">
                 <i class="fas fa-sign-out-alt"></i> <span data-lang="logout">Logout</span>
             </button>
@@ -98,35 +98,35 @@
         <!-- Dynamic Pages Area -->
         <main class="flex-1 overflow-y-auto p-6 pb-24 custom-scroll">
             
-            <!-- Login portal -->
-            <div id="admin-login" class="bg-white p-8 rounded-2xl shadow-xl max-w-sm mx-auto border border-gray-200 mt-10">
+            <!-- PREMIUM GLASSMORPHIC ADMIN LOGIN PORTAL -->
+            <div id="admin-login" class="bg-indigo-950/80 backdrop-blur-xl p-8 rounded-3xl shadow-2xl max-w-sm mx-auto border border-indigo-900 mt-16 animate-[fadeIn_0.5s_ease-out]">
                  <div class="text-center mb-6">
-                     <div class="inline-block p-4 rounded-full bg-indigo-100 mb-2">
-                         <i class="fas fa-user-lock text-4xl text-indigo-600"></i>
+                     <div class="inline-block p-4 rounded-full bg-indigo-900/50 mb-2 border border-indigo-800">
+                         <i class="fas fa-user-lock text-4xl text-brand-yellow text-yellow-400"></i>
                      </div>
-                     <h2 class="text-2xl font-bold text-gray-700" data-lang="login_title">Admin Portal</h2>
+                     <h2 class="text-2xl font-black text-white" data-lang="login_title">Admin Portal</h2>
                  </div>
                  <div class="space-y-4">
                      <div>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-envelope"></i></span>
-                             <input type="email" id="email-input" class="w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="admin@example.com">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-envelope"></i></span>
+                             <input type="email" id="email-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400" placeholder="admin@example.com">
                          </div>
                      </div>
                      <div>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400"><i class="fas fa-lock"></i></span>
-                             <input type="password" id="password-input" class="w-full py-2 pl-10 pr-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-lock"></i></span>
+                             <input type="password" id="password-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400" placeholder="Password">
                          </div>
-                         <div class="text-right mt-1">
-                             <button id="forgot-pass-btn" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium transition" data-lang="forgot_pass">Forgot Password?</button>
+                         <div class="text-right mt-1.5">
+                             <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
                          </div>
                      </div>
-                     <div id="login-error" class="hidden text-red-500 text-sm text-center bg-red-50 p-2 rounded">Invalid credentials.</div>
-                     <button id="login-btn" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg hover:bg-indigo-700 font-bold transition shadow-md" data-lang="btn_login">Login Dashboard</button>
-                     <div class="text-center pt-2 border-t mt-4">
-                        <p class="text-xs text-gray-500 mb-2" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
-                        <button id="register-btn" class="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 font-bold transition text-sm" data-lang="btn_register">Create Account</button>
+                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-950/40 border border-red-900/60 p-2.5 rounded-xl">Invalid credentials.</div>
+                     <button id="login-btn" class="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-indigo-700 font-black transition shadow-lg shadow-indigo-500/20" data-lang="btn_login">Login Dashboard</button>
+                     <div class="text-center pt-3 border-t border-indigo-900/60 mt-4">
+                        <p class="text-[10px] text-indigo-400 mb-2" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
+                        <button id="register-btn" class="w-full bg-indigo-900 hover:bg-indigo-800 text-indigo-200 py-2.5 rounded-xl font-bold transition text-xs border border-indigo-800" data-lang="btn_register">Create Account</button>
                      </div>
                  </div>
             </div>
@@ -147,21 +147,21 @@
 
                     <!-- Metric Glow Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-blue-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-blue-500">
                             <div class="p-4 bg-blue-50 text-blue-600 rounded-2xl text-2xl"><i class="fas fa-folder-open"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="total_files">Total Files</h3>
                                 <h1 id="dash-file-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-pink-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-pink-500">
                             <div class="p-4 bg-pink-50 text-pink-600 rounded-2xl text-2xl"><i class="fas fa-images"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="slider_banners_menu">Slider Banners</h3>
                                 <h1 id="dash-slider-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-lg transition-shadow flex items-center gap-5 border-l-4 border-l-purple-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-purple-500">
                             <div class="p-4 bg-purple-50 text-purple-600 rounded-2xl text-2xl"><i class="fas fa-users-cog"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="registered_admins">Registered Admins</h3>
@@ -170,8 +170,31 @@
                         </div>
                     </div>
 
+                    <!-- AGGREGATED STATISTICS DASHBOARD CARD -->
+                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm">
+                        <h3 class="text-sm font-black text-gray-400 uppercase tracking-wider mb-5"><i class="fas fa-chart-line text-indigo-500"></i> লাইভ ফাইল পরিসংখ্যান (Global Statistics)</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
+                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট ভিউ</span>
+                                <h2 id="agg-total-views" class="text-2xl font-black text-gray-800 mt-1">0</h2>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
+                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট ডাউনলোড</span>
+                                <h2 id="agg-total-downloads" class="text-2xl font-black text-gray-800 mt-1">0</h2>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
+                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট লাইক</span>
+                                <h2 id="agg-total-likes" class="text-2xl font-black text-gray-800 mt-1">0</h2>
+                            </div>
+                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
+                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট রেটিং</span>
+                                <h2 id="agg-total-ratings" class="text-2xl font-black text-gray-800 mt-1">0</h2>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-[0_8px_30px_rgb(0,0,0,0.02)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
                                 <i class="fas fa-code"></i>
@@ -200,7 +223,7 @@
                     </div>
                 </div>
 
-                <!-- TAB: MANAGE USERS WITH PAGINATION -->
+                <!-- TAB: MANAGE USERS WITH PAGINATION (20 Users per page) -->
                 <div id="page-users" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
@@ -222,7 +245,7 @@
                             </table>
                         </div>
 
-                        <!-- Pagination controls -->
+                        <!-- Pagination controls (next only displays if >20 users exist) -->
                         <div class="flex justify-between items-center mt-4">
                             <button id="btn-users-prev" onclick="window.fetchPrevUsersPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
                             <span id="users-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
@@ -243,9 +266,11 @@
                                     <label class="block font-semibold mb-1" data-lang="announce_text">Scrolling Announcement Text</label>
                                     <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                                 </div>
-                                <div>
-                                    <label class="block font-semibold mb-1 text-red-500"><i class="fas fa-exclamation-circle"></i> Big Popup Notice (For Users)</label>
-                                    <textarea id="popup-notice-setting" rows="3" placeholder="Enter popup message..." class="w-full p-2 border border-red-300 rounded focus:ring-2 focus:ring-red-500"></textarea>
+                                
+                                <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS -->
+                                <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
+                                    <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
+                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white dark:bg-gray-850 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
                                 </div>
                                 
                                 <!-- App Logo URL Settings -->
@@ -367,17 +392,24 @@
                     </div>
                 </div>
 
-                <!-- TAB 8: ALL FILES LIST -->
+                <!-- TAB 8: ALL FILES LIST WITH PAGINATION (20 files per page) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
                             <span>
-                                <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Files List</span>
+                                <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-2 shadow-sm">0</span>
                             </span>
                         </h2>
                         <div class="bg-gray-50 border rounded-xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
                             <div id="file-list-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                        </div>
+
+                        <!-- File Pagination controller buttons -->
+                        <div class="flex justify-between items-center mt-4">
+                            <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
+                            <span id="files-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
+                            <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Next Page</button>
                         </div>
                     </div>
                 </div>
@@ -442,6 +474,12 @@
         let usersLastDoc = null;
         let usersFirstDoc = null;
         let usersCurrentPage = 1;
+
+        // Files pagination controllers
+        let filesPageSize = 20;
+        let filesLastDoc = null;
+        let filesFirstDoc = null;
+        let filesCurrentPage = 1;
 
         const adminDict = {
             en: {
@@ -629,6 +667,12 @@
                 window.usersFirstDoc = null;
                 window.loadRegisteredUsers();
             }
+            if (tabId === 'all-files') {
+                window.filesCurrentPage = 1;
+                window.filesLastDoc = null;
+                window.filesFirstDoc = null;
+                window.loadFiles();
+            }
         };
 
         window.toggleSidebar = () => {
@@ -645,7 +689,7 @@
             }
         };
 
-        // NEW: PAGINATED REGISTERED USERS MANAGEMENT
+        // PAGINATED REGISTERED USERS MANAGEMENT
         window.loadRegisteredUsers = async (direction = 'init') => {
             const tableBody = document.getElementById('users-table-body');
             tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
@@ -800,9 +844,36 @@
             try {
                 const fSnap = await getDocs(collection(db, "files"));
                 let fileCount = 0; 
-                fSnap.forEach(d => { if(!d.data().isDeleted) fileCount++; });
+                let totalViews = 0;
+                let totalDownloads = 0;
+                let totalLikes = 0;
+                let totalComments = 0;
+
+                fSnap.forEach(d => { 
+                    const f = d.data();
+                    if(!f.isDeleted) {
+                        fileCount++; 
+                        totalViews += (f.views || 0);
+                        totalDownloads += (f.downloadCount || 0);
+                        totalComments += (f.commentCount || 0);
+
+                        const emojis = ['❤️', '👍', '😭', '😁', '😢', '👌', '🥰', '🫣', '🤯', '👀', '🌹', '💯', '🕊', '🔥', '💔', '🇧🇩'];
+                        emojis.forEach(e => {
+                            totalLikes += (f[`react_${e}`] || 0);
+                        });
+                        if(f.likeCount > 0) totalLikes += f.likeCount;
+                    }
+                });
+                
                 document.getElementById('dash-file-count').innerText = fileCount;
                 document.getElementById('admin-file-count').innerText = fileCount;
+
+                // Load Global Statistics Cards
+                document.getElementById('agg-total-views').innerText = totalViews;
+                document.getElementById('agg-total-downloads').innerText = totalDownloads;
+                document.getElementById('agg-total-likes').innerText = totalLikes;
+                document.getElementById('agg-total-ratings').innerText = totalComments;
+
             } catch (e) {
                 console.error("Error counting files: ", e);
                 document.getElementById('dash-file-count').innerText = "0";
@@ -916,25 +987,38 @@
             loadSliders(); document.getElementById('slider-img').value = '';
         };
 
-        async function loadFiles() {
+        // PAGINATED ALL FILES LIST LOAD FOR BETTER PERFORMANCE (20 files per page)
+        window.loadFiles = async (direction = 'init') => {
             try {
-                const qSnap = await getDocs(collection(db, "files"));
+                const totalSnap = await getDocs(collection(db, "files"));
+                let totalFiles = 0;
+                totalSnap.forEach(d => { if(!d.data().isDeleted) totalFiles++; });
+                document.getElementById('admin-file-count').innerText = totalFiles;
+
+                let q;
+                if (direction === 'next' && filesLastDoc) {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), startAfter(filesLastDoc), limit(filesPageSize));
+                } else if (direction === 'prev' && filesFirstDoc) {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), endBefore(filesFirstDoc), limit(filesPageSize));
+                } else {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), limit(filesPageSize));
+                }
+
+                const qSnap = await getDocs(q);
                 const div = document.getElementById('file-list-grid');
                 div.innerHTML = '';
-                let fileCount = 0;
 
-                const files = [];
-                qSnap.forEach(d => files.push({ id: d.id, ...d.data() }));
-                files.sort((a, b) => {
-                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
-                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
-                    return timeB - timeA;
-                });
-                
-                files.forEach(f => {
-                    if(f.isDeleted) return; 
-                    
-                    fileCount++;
+                if (qSnap.empty) {
+                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-500">কোনো ফাইল আপলোড করা হয়নি।</div>';
+                    return;
+                }
+
+                filesFirstDoc = qSnap.docs[0];
+                filesLastDoc = qSnap.docs[qSnap.docs.length - 1];
+
+                qSnap.forEach(docSnap => {
+                    const f = { id: docSnap.id, ...docSnap.data() };
+                    if(f.isDeleted) return;
 
                     const isMaster = currentAdminEmail === masterAdmin;
                     const isOwner = f.uploadedBy === currentAdminEmail;
@@ -970,13 +1054,41 @@
                             </div>
                         </div>`;
                 });
+
+                document.getElementById('files-page-indicator').textContent = `Page ${filesCurrentPage}`;
+
+                // Pagination buttons visibility configuration
+                const nextBtn = document.getElementById('btn-files-next');
+                const prevBtn = document.getElementById('btn-files-prev');
                 
-                document.getElementById('admin-file-count').innerText = fileCount;
-                document.getElementById('dash-file-count').innerText = fileCount;
+                if(filesCurrentPage * filesPageSize >= totalFiles) {
+                    nextBtn.classList.add('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+
+                if(filesCurrentPage === 1) {
+                    prevBtn.classList.add('hidden');
+                } else {
+                    prevBtn.classList.remove('hidden');
+                }
+
             } catch (e) {
                 console.error("Error loading files list: ", e);
             }
-        }
+        };
+
+        window.fetchNextFilesPage = () => {
+            filesCurrentPage++;
+            window.loadFiles('next');
+        };
+
+        window.fetchPrevFilesPage = () => {
+            if (filesCurrentPage > 1) {
+                filesCurrentPage--;
+                window.loadFiles('prev');
+            }
+        };
 
         window.softDelFile = async (id) => { 
             if(confirm("Move this file to Recycle Bin?")) {
@@ -1148,6 +1260,7 @@
                 document.getElementById('file-thumb').value = f.thumbnailUrl || '';
                 document.getElementById('file-video').value = f.videoUrl || '';
                 
+                // Screenshot Edit inputs loading
                 document.getElementById('file-ss1').value = f.screenshot1 || '';
                 document.getElementById('file-ss2').value = f.screenshot2 || '';
                 document.getElementById('file-ss3').value = f.screenshot3 || '';
@@ -1197,6 +1310,7 @@
                 thumbnailUrl: document.getElementById('file-thumb').value, 
                 videoUrl: document.getElementById('file-video').value,
                 
+                // Added Screenshot input payloads
                 screenshot1: document.getElementById('file-ss1').value.trim(),
                 screenshot2: document.getElementById('file-ss2').value.trim(),
                 screenshot3: document.getElementById('file-ss3').value.trim(),
