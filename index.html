@@ -44,7 +44,7 @@
             <button onclick="window.switchTab('admins')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
                 <i class="fas fa-user-shield text-blue-400 w-5"></i> <span data-lang="manage_admins">Manage Admins</span>
             </button>
-            <!-- NEW: MANAGE USERS TAB MENU -->
+            <!-- MANAGE USERS TAB MENU -->
             <button onclick="window.switchTab('users')" class="nav-item w-full flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-800/50 transition font-semibold text-sm">
                 <i class="fas fa-users text-blue-300 w-5"></i> <span>Manage Users</span>
             </button>
@@ -171,7 +171,7 @@
                     </div>
 
                     <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.02)] flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-[0_8px_30px_rgb(0,0,0,0.02)] flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
                                 <i class="fas fa-code"></i>
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <!-- NEW: TAB: MANAGE USERS WITH PAGINATION -->
+                <!-- TAB: MANAGE USERS WITH PAGINATION -->
                 <div id="page-users" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
@@ -218,9 +218,7 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                     </tr>
                                 </thead>
-                                <tbody id="users-table-body" class="bg-white divide-y divide-gray-200">
-                                    <!-- Populated dynamically -->
-                                </tbody>
+                                <tbody id="users-table-body" class="bg-white divide-y divide-gray-200"></tbody>
                             </table>
                         </div>
 
@@ -439,8 +437,8 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // Manage Users Pagination Fields
-        let usersPageSize = 10;
+        // Updated Page view size to 20 users per page
+        let usersPageSize = 20;
         let usersLastDoc = null;
         let usersFirstDoc = null;
         let usersCurrentPage = 1;
@@ -655,7 +653,8 @@
             try {
                 // Get total users count
                 const totalSnap = await getDocs(collection(db, "users"));
-                document.getElementById('admin-users-total').innerText = `Total: ${totalSnap.size}`;
+                const totalCount = totalSnap.size;
+                document.getElementById('admin-users-total').innerText = `Total: ${totalCount}`;
 
                 let q;
                 if (direction === 'next' && usersLastDoc) {
@@ -700,6 +699,23 @@
                 });
 
                 document.getElementById('users-page-indicator').textContent = `Page ${usersCurrentPage}`;
+
+                // Next Button visibility dynamic checks based on total count
+                const nextBtn = document.getElementById('btn-users-next');
+                const prevBtn = document.getElementById('btn-users-prev');
+                
+                if(usersCurrentPage * usersPageSize >= totalCount) {
+                    nextBtn.classList.add('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+
+                if(usersCurrentPage === 1) {
+                    prevBtn.classList.add('hidden');
+                } else {
+                    prevBtn.classList.remove('hidden');
+                }
+
             } catch (e) {
                 console.error("Error loading users: ", e);
                 tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
@@ -978,7 +994,7 @@
                 let count = 0;
                 let html = '';
 
-                // ১. ডিলিট হওয়া ফাইল লোড করা হচ্ছে
+                // ডিলিট হওয়া ফাইল লোড করা হচ্ছে
                 const qFilesSnap = await getDocs(collection(db, "files"));
                 const files = [];
                 qFilesSnap.forEach(doc => files.push({ id: doc.id, ...doc.data() }));
@@ -1010,7 +1026,7 @@
                     }
                 });
 
-                // ২. ডিলিট হওয়া স্লাইডার ব্যানার লোড করা হচ্ছে
+                // ডিলিট হওয়া স্লাইডার ব্যানার লোড করা হচ্ছে
                 const qSlidersSnap = await getDocs(collection(db, "sliders"));
                 const sliders = [];
                 qSlidersSnap.forEach(doc => sliders.push({ id: doc.id, ...doc.data() }));
@@ -1132,7 +1148,6 @@
                 document.getElementById('file-thumb').value = f.thumbnailUrl || '';
                 document.getElementById('file-video').value = f.videoUrl || '';
                 
-                // Screenshot Edit inputs loading
                 document.getElementById('file-ss1').value = f.screenshot1 || '';
                 document.getElementById('file-ss2').value = f.screenshot2 || '';
                 document.getElementById('file-ss3').value = f.screenshot3 || '';
@@ -1159,7 +1174,6 @@
             document.getElementById('file-thumb').value = '';
             document.getElementById('file-video').value = '';
             
-            // Screenshoot inputs reset
             document.getElementById('file-ss1').value = '';
             document.getElementById('file-ss2').value = '';
             document.getElementById('file-ss3').value = '';
@@ -1183,7 +1197,6 @@
                 thumbnailUrl: document.getElementById('file-thumb').value, 
                 videoUrl: document.getElementById('file-video').value,
                 
-                // Added Screenshot input payloads
                 screenshot1: document.getElementById('file-ss1').value.trim(),
                 screenshot2: document.getElementById('file-ss2').value.trim(),
                 screenshot3: document.getElementById('file-ss3').value.trim(),
