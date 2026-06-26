@@ -97,42 +97,28 @@
         </nav>
 
         <!-- Dynamic Pages Area -->
-        <main class="flex-1 overflow-y-auto p-6 pb-24 custom-scroll">
-            
-            <!-- ULTRA-PREMIUM SLATE GLASSMORPHIC ADMIN LOGIN PORTAL -->
-            <div id="admin-login" class="bg-gradient-to-tr from-slate-900 to-indigo-950 p-10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.4)] max-w-md mx-auto border border-indigo-900/60 mt-16 animate-[fadeIn_0.5s_ease-out]">
-                 <div class="text-center mb-8">
-                     <div class="inline-block p-4 rounded-3xl bg-indigo-500/10 mb-3 border border-indigo-500/20 shadow-inner">
-                         <i class="fas fa-shield-halved text-5xl text-yellow-400"></i>
-                     </div>
-                     <h2 class="text-3xl font-black text-white tracking-tight" data-lang="login_title">Admin Portal</h2>
-                     <p class="text-xs text-indigo-300/80 mt-1.5 font-semibold">ড্যাশবোর্ডে প্রবেশ করতে আপনার তথ্য প্রদান করুন</p>
-                 </div>
-                 <div class="space-y-5">
-                     <div>
-                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">অ্যাডমিন ইমেইল</label>
-                         <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-envelope"></i></span>
-                             <input type="email" id="email-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
-                         </div>
-                     </div>
-                     <div>
-                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">পাসওয়ার্ড</label>
-                         <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-lock"></i></span>
-                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
-                         </div>
-                         <div class="text-right mt-2">
-                             <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
-                         </div>
-                     </div>
-                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-950/40 border border-red-900/60 p-3 rounded-xl font-bold">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
-                     <button id="login-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 font-black transition shadow-lg shadow-blue-500/20" data-lang="btn_login">Login Dashboard</button>
-                     <div class="text-center pt-3 border-t border-indigo-900/50 mt-5">
-                        <p class="text-[10px] text-indigo-400 mb-2.5" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
-                        <button id="register-btn" class="w-full bg-indigo-900/40 hover:bg-indigo-800 text-indigo-200 py-3 rounded-xl font-bold transition text-xs border border-indigo-800" data-lang="btn_register">Create Account</button>
-                     </div>
-                 </div>
+        <main class="flex-1 overflow-y-auto custom-scroll p-4">
+            <div id="admin-login" class="hidden max-w-md mx-auto mt-20 bg-white dark:bg-darkCard p-8 rounded-3xl shadow-2xl border dark:border-gray-800 animate-[fadeIn_0.4s_ease-out]">
+                <h2 class="text-3xl font-black text-gray-800 dark:text-white text-center mb-6" data-lang="login_title">Admin Portal</h2>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">অ্যাডমিন ইমেইল</label>
+                        <input type="email" id="email-input" placeholder="admin@example.com" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 bg-gray-50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">পাসওয়ার্ড</label>
+                        <input type="password" id="password-input" placeholder="••••••••" class="w-full p-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 bg-gray-50">
+                    </div>
+                    <div id="login-error" class="hidden text-red-500 text-sm font-bold text-center bg-red-50 p-2 rounded-xl border border-red-100">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
+                    <button id="login-btn" class="w-full py-3.5 bg-indigo-600 text-white rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition" data-lang="btn_login">Login Dashboard</button>
+                    <div class="text-center pt-3 border-t">
+                        <button id="forgot-pass-btn" class="text-xs text-indigo-500 hover:text-indigo-700 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
+                    </div>
+                    <div class="text-center pt-3 border-t">
+                        <p class="text-[10px] text-gray-400 mb-2" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
+                        <button id="register-btn" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl font-bold transition text-xs border" data-lang="btn_register">Create Account</button>
+                    </div>
+                </div>
             </div>
 
             <!-- মূল পেজগুলোর কন্টেইনার -->
@@ -191,22 +177,17 @@
                                 <h2 id="agg-total-likes" class="text-2xl font-black text-gray-800 mt-1">0</h2>
                             </div>
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট রেটিং</span>
+                                <span class="text-xs text-gray-400 block font-bold uppercase" data-lang="agg_total_comments_text">মোট কমেন্ট</span>
                                 <h2 id="agg-total-ratings" class="text-2xl font-black text-gray-800 mt-1">0</h2>
                             </div>
                         </div>
                     </div>
 
                     <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-extrabold text-gray-800">Developed by Web Rakib</h4>
-                                <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
-                            </div>
+                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <h4 class="font-extrabold text-gray-850 dark:text-white text-base">ওয়েব অ্যাপ রাকিব</h4>
+                            <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="text-xs bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full font-bold">Version 2.5.0</span>
@@ -452,8 +433,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc, updateDoc, query, orderBy, limit, startAfter, startAt, endBefore, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, setDoc, query, updateDoc, increment, addDoc, orderBy, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBFLa7OKNIz9nnRC714Yo53pMZj9vMnhzg",
@@ -496,7 +476,8 @@
                 social_links: "Social Media Links", update_links: "Update Links", ad_placements: "Ad Placements", save_ads: "Save Ads",
                 slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Upload", upload_content: "Upload Content", update_content: "Update Content",
                 all_files_menu: "All Files List", all_files_title: "All Uploaded Files",
-                file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard"
+                file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard",
+                total_comments_stat: "Total Comments", agg_total_comments_text: "Total Comments"
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
@@ -507,7 +488,8 @@
                 social_links: "সোশ্যাল মিডিয়া লিংক", update_links: "লিংক আপডেট", ad_placements: "অ্যাড প্লেসমেন্ট", save_ads: "অ্যাড সেভ",
                 slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "কনটেন্ট আপলোড", upload_content: "আপলোড করুন", update_content: "আপডেট করুন",
                 all_files_menu: "সকল ফাইল তালিকা", all_files_title: "আপলোডকৃত ফাইলসমূহ",
-                file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড"
+                file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড",
+                total_comments_stat: "মোট কমেন্ট", agg_total_comments_text: "মোট কমেন্ট"
             }
         };
 
@@ -556,24 +538,11 @@
             }
         });
 
-        document.getElementById('forgot-pass-btn').addEventListener('click', async () => {
-            const email = document.getElementById('email-input').value.trim();
-            const err = document.getElementById('login-error');
-            if(!email) {
-                err.textContent = "Type your email in the box first to reset password.";
-                return err.classList.remove('hidden');
-            }
-            try {
-                await sendPasswordResetEmail(auth, email);
-                err.classList.add('hidden');
-                toast("Password reset link sent to your email!");
-            } catch(error) {
-                err.textContent = "Failed to send reset link. User may not exist.";
-                err.classList.remove('hidden');
-            }
+        document.getElementById('forgot-pass-btn').addEventListener('click', () => {
+            alert("Please contact the primary system administrator to reset your password.");
         });
 
-        document.getElementById('register-btn').addEventListener('click', async () => {
+        async function registerNewAdmin() {
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
             const err = document.getElementById('login-error');
@@ -591,11 +560,12 @@
                 await createUserWithEmailAndPassword(auth, email, password);
                 err.classList.add('hidden');
                 toast("Account created! Logging in...");
-            } catch (error) {
-                err.textContent = "Account creation failed or already exists.";
+            } catch(error) {
+                err.textContent = error.message;
                 err.classList.remove('hidden');
             }
-        });
+        }
+        document.getElementById('register-btn').addEventListener('click', registerNewAdmin);
 
         onAuthStateChanged(auth, async user => {
             await fetchAdmins();
@@ -877,7 +847,7 @@
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
-                document.getElementById('agg-total-ratings').innerText = totalComments;
+                document.getElementById('agg-total-comments').innerText = totalComments;
 
             } catch (e) {
                 console.error("Error counting files: ", e);
@@ -1126,7 +1096,7 @@
                     if(f.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1137,7 +1107,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1158,7 +1128,7 @@
                     if(s.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1169,7 +1139,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-750 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1193,11 +1163,11 @@
             toast("File Restored!");
         };
 
-        window.permanentDelFile = async (id) => {
-            if(confirm("Are you sure? This will delete the file PERMANENTLY and cannot be undone.")) {
-                await deleteDoc(doc(db, 'files', id));
+        window.permanentDelFile = async (fileId) => {
+            if (confirm("Are you sure you want to permanently delete this file? This cannot be undone.")) {
+                await deleteDoc(doc(db, "files", fileId));
                 window.loadRecycleBin();
-                toast("Deleted Permanently!");
+                toast("File permanently deleted.");
             }
         };
 
@@ -1205,59 +1175,19 @@
             await updateDoc(doc(db, 'sliders', id), { isDeleted: false });
             window.loadRecycleBin();
             loadSliders();
-            toast("Slider Banner Restored!");
+            toast("Slider Restored!");
         };
 
         window.permanentDelSlider = async (id) => {
-            if(confirm("Are you sure? This will delete the banner PERMANENTLY and cannot be undone.")) {
-                await deleteDoc(doc(db, 'sliders', id));
+            if (confirm("Are you sure you want to permanently delete this slider? This cannot be undone.")) {
+                await deleteDoc(doc(db, "sliders", id));
                 window.loadRecycleBin();
-                toast("Deleted Permanently!");
-            }
-        };
-
-        window.manageComments = async (fileId) => {
-            const modal = document.getElementById('admin-comment-modal');
-            const list = document.getElementById('admin-comment-list');
-            modal.classList.remove('hidden');
-            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
-            
-            try {
-                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
-                list.innerHTML = '';
-                if(q.empty) {
-                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
-                } else {
-                    q.forEach(d => {
-                        const c = d.data();
-                        list.innerHTML += `
-                            <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
-                                    <p class="text-sm text-gray-600 mt-1">${c.text}</p>
-                                </div>
-                                <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
-                            </div>
-                        `;
-                    });
-                }
-            } catch (e) {
-                console.error("Error loading comments: ", e);
-                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
-            }
-        };
-
-        window.delComment = async (fileId, commentId) => {
-            if(confirm("Delete this comment permanently?")) {
-                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
-                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
-                window.manageComments(fileId);
-                loadFiles();
-                toast("Comment Deleted!");
+                toast("Slider permanently deleted.");
             }
         };
 
         window.editFile = async (id) => {
+            editingFileId = id;
             const d = await getDoc(doc(db, "files", id));
             if(d.exists()) {
                 const f = d.data();
@@ -1274,7 +1204,6 @@
                 document.getElementById('file-url').value = f.downloadUrl || '';
                 document.getElementById('file-desc').value = f.description || '';
                 
-                editingFileId = id;
                 document.getElementById('cancel-edit-btn').classList.remove('hidden');
                 
                 const lang = document.getElementById('admin-language-selector').value || 'en';
@@ -1342,7 +1271,47 @@
             loadFiles();
         };
 
+        window.manageComments = async (fileId) => {
+            const modal = document.getElementById('admin-comment-modal');
+            const list = document.getElementById('admin-comment-list');
+            modal.classList.remove('hidden');
+            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
+            
+            try {
+                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
+                list.innerHTML = '';
+                if(q.empty) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
+                } else {
+                    q.forEach(d => {
+                        const c = d.data();
+                        list.innerHTML += `
+                            <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
+                                    <p class="text-sm text-gray-600 mt-1">${c.text}</p>
+                                </div>
+                                <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading comments: ", e);
+                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
+            }
+        };
+
+        window.delComment = async (fileId, commentId) => {
+            if(confirm("Delete this comment permanently?")) {
+                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
+                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
+                window.manageComments(fileId);
+                loadFiles();
+                toast("Comment Deleted!");
+            }
+        };
+
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"fbd0abfbeb044fef85aff402448f2392","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
