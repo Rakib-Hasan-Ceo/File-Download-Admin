@@ -281,7 +281,7 @@
                                 <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS WITH TEXT-COLOR CORRECTION -->
                                 <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
                                     <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
-                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white text-gray-900 dark:bg-slate-800 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
+                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যಂತ আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white text-gray-900 dark:bg-slate-800 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
                                 </div>
                                 
                                 <!-- App Logo URL Settings -->
@@ -512,1402 +512,834 @@
                 new_admin_text: "নতুন এডমিন? উপরে অনুমোদিত ইমেইল ও পাসওয়ার্ড দিয়ে এখানে ক্লিক করুন:", btn_register: "একাউন্ট তৈরি করুন",
                 manage_admins: "অ্যাডমিন ম্যানেজ", add_email: "ইমেইল যোগ করুন", app_config: "অ্যাপ সেটিং",
                 timer_delay: "টাইমার সময় (সেকেন্ড)", announce_text: "ঘোষণাপত্র লেখা", save_config: "সেভ কনফিগ",
-                social_links: "সোশ্যাল মিডিয়া লিংক", update_links: "লিংক আপডেট", ad_placements: "অ্যাড প্লেসমেন্ট", save_ads: "অ্যাড প্লেসমেন্ট সেভ করুন",
-                slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Upload", upload_content: "Upload Content", update_content: "Update Content",
-                all_files_menu: "All Files List", all_files_title: "All Uploaded Files",
-                file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard",
-                total_comments_stat: "Total Comments", agg_total_comments_text: "Total Comments", agg_total_ratings_text: "Total Ratings"
+                social_links: "সোশ্যাল মিডিয়া লিংক", update_links: "লিংক আপডেট", ad_placements: "অ্যাড প্লেসমেন্ট", save_ads: "অ্যাড সেভ",
+                slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "কনটেন্ট আপলোড", upload_content: "আপলোড করুন", update_content: "আপডেট করুন",
+                all_files_menu: "সকল ফাইল তালিকা", all_files_title: "আপলোডকৃত ফাইলসমূহ",
+                file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড",
+                total_comments_stat: "মোট কমেন্ট", agg_total_comments_text: "মোট কমেন্ট", agg_total_ratings_text: "মোট রেটিং"
             }
         };
 
-        const getTxt = (k, p={}) => { let t = translations[currentLang][k] || k; for(let key in p) t = t.replace(`{${key}}`, p[key]); return t; };
+        window.changeAdminLang = (lang) => {
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if(adminDict[lang][key]) el.innerText = adminDict[lang][key];
+            });
+            if(editingFileId) {
+                document.getElementById('btn-file-text').innerText = adminDict[lang]['update_content'];
+            } else {
+                document.getElementById('btn-file-text').innerText = adminDict[lang]['upload_content'];
+            }
+        };
 
-        const showToast = (msgKey, p={}, raw=false) => {
+        function toast(msg) {
             const t = document.getElementById('toast');
-            document.getElementById('toast-message').textContent = raw ? msgKey : getTxt(msgKey, p);
-            t.classList.remove('opacity-0', 'translate-y-10');
-            setTimeout(() => t.classList.add('opacity-0', 'translate-y-10'), 3000);
-        };
+            document.getElementById('toast-msg').innerText = msg;
+            t.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 3000);
+        }
 
-        const renderAd = (id, code) => {
-            const el = document.getElementById(id);
-            if(el && code) {
-                el.innerHTML = code;
-                Array.from(el.querySelectorAll('script')).forEach(s => {
-                    const ns = document.createElement('script');
-                    Array.from(s.attributes).forEach(a => ns.setAttribute(a.name, a.value));
-                    ns.appendChild(document.createTextNode(s.innerHTML));
-                    s.parentNode.replaceChild(ns, s);
-                });
-            }
-        };
-
-        window.showAllFiles = () => {
-            window.forceShowAll = true;
-            if (window.history.pushState) {
-                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                window.history.pushState({path:newUrl},'',newUrl);
-            }
-            document.getElementById('slider-container').style.display = 'block';
-            document.getElementById('search-section').style.display = 'block';
-            document.getElementById('single-view-header').innerHTML = '';
-            document.getElementById('single-view-footer').innerHTML = '';
-            document.getElementById('files-grid').innerHTML = '<div class="col-span-full text-center py-10"><i class="fas fa-spinner fa-spin text-3xl text-blue-500"></i></div>';
-            loadData();
-        };
-
-        window.updateReactDom = (id, emoji, change) => {
-            let summary = document.getElementById(`react-summary-${id}`);
-            if(!summary) return;
-            let btn = document.getElementById(`count-${id}-${emoji}`);
-            
-            let currentReact = localStorage.getItem('react_' + id);
-            let isMyReact = (currentReact === emoji);
-            
-            if(btn) {
-                let numSpan = btn.querySelector('.r-cnt');
-                let newCount = Math.max(0, parseInt(numSpan.innerText) + change);
-                if(newCount <= 0) {
-                    btn.remove();
-                } else {
-                    numSpan.innerText = newCount;
-                    if(isMyReact) {
-                        btn.className = "flex items-center gap-1 hover:bg-gray-200 dark:hover:bg-gray-700 px-1.5 py-0.5 rounded-lg border bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700 transition-colors cursor-pointer";
-                        numSpan.className = "text-xs text-blue-600 dark:text-blue-400 font-bold r-cnt";
-                    } else {
-                        btn.className = "flex items-center gap-1 hover:bg-gray-200 dark:hover:bg-gray-700 px-1.5 py-0.5 rounded-lg border border-transparent bg-transparent transition-colors cursor-pointer";
-                        numSpan.className = "text-xs text-gray-500 dark:text-gray-400 font-bold r-cnt";
-                    }
-                }
-            } else if(change > 0) {
-                summary.insertAdjacentHTML('beforeend', `<button onclick="window.handleBadgeClick('${id}', '${emoji}')" id="count-${id}-${emoji}" class="flex items-center gap-1 hover:bg-gray-200 dark:hover:bg-gray-700 px-1.5 py-0.5 rounded-lg border bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-700 transition-colors cursor-pointer">${emoji} <span class="text-xs text-blue-600 dark:text-blue-400 font-bold r-cnt">1</span></button>`);
-            }
-        };
-
-        let appConfig = {};
-        let tgUser = {};
-
-        const checkRequiredChannelsLive = async () => {
-            if (!appConfig.channel1Url && !appConfig.channel2Url) return true; 
-            const botToken = appConfig.botToken;
-            if (!botToken) return true; 
-
-            const getUsername = (url) => {
-                if (!url) return "";
-                let cleanUrl = url.trim().replace('@', '');
-                const parts = cleanUrl.split('/');
-                const lastPart = parts[parts.length - 1];
-                return lastPart ? '@' + lastPart.split('?')[0] : "";
-            };
-
-            const ch1User = getUsername(appConfig.channel1Url);
-            const ch2User = getUsername(appConfig.channel2Url);
-
+        async function fetchAdmins() {
+            authorizedAdmins = [masterAdmin];
             try {
-                let joined1 = true;
-                let joined2 = true;
-
-                if (ch1User) {
-                    const res = await fetch(`https://api.telegram.org/bot${botToken}/getChatMember?chat_id=${ch1User}&user_id=${tgUser.id}`);
-                    const data = await res.json();
-                    if (data.ok) {
-                        const status = data.result.status;
-                        joined1 = (status === 'member' || status === 'administrator' || status === 'creator');
-                    } else { joined1 = false; }
-                }
-
-                if (ch2User) {
-                    const res = await fetch(`https://api.telegram.org/bot${botToken}/getChatMember?chat_id=${ch2User}&user_id=${tgUser.id}`);
-                    const data = await res.json();
-                    if (data.ok) {
-                        const status = data.result.status;
-                        joined2 = (status === 'member' || status === 'administrator' || status === 'creator');
-                    } else { joined2 = false; }
-                }
-
-                return (joined1 && joined2);
+                const q = await getDocs(collection(db, "admins"));
+                q.forEach(d => authorizedAdmins.push(d.data().email));
             } catch (e) {
-                console.error("Membership check failed: ", e);
-                return true; 
-            }
-        };
-
-        window.verifyChannelMembership = async () => {
-            const btn = document.querySelector('#channel-verify-screen button');
-            btn.disabled = true;
-            btn.textContent = "যাচাই করা হচ্ছে...";
-
-            const isVerified = await checkRequiredChannelsLive();
-            if (isVerified) {
-                localStorage.setItem(`channelVerified_${tgUser.id}`, 'true');
-                document.getElementById('channel-verify-screen').classList.add('hidden');
-                document.getElementById('channel-verify-screen').classList.remove('flex');
-                showToast("স্বাগতম! চ্যানেল ভেরিফিকেশন সফল হয়েছে।", {}, true);
-            } else {
-                alert("আপনি এখনো সবগুলো চ্যানেলে জয়েন করেননি! দয়া করে সবগুলো চ্যানেলে জয়েন করে আবার চেষ্টা করুন।");
-            }
-            btn.disabled = false;
-            btn.textContent = "VERIFY MEMBERSHIP";
-        };
-
-        // TAB SWITCHER
-        window.switchTab = (tab) => {
-            const homeTabBtn = document.getElementById('nav-home');
-            const bgNavHistory = document.getElementById('nav-history');
-            const homeContent = document.getElementById('home-tab-content');
-            const histContent = document.getElementById('history-tab-content');
-
-            if(tab === 'home') {
-                homeContent.classList.remove('hidden');
-                histContent.classList.add('hidden');
-                homeTabBtn.className = "flex items-center gap-2 px-6 py-2 rounded-xl text-blue-600 bg-blue-50 dark:bg-blue-900/30 transition-all font-black text-sm";
-                bgNavHistory.className = "flex items-center gap-2 px-6 py-2 rounded-xl text-gray-400 hover:text-blue-500 transition-all font-black text-sm";
-            } else {
-                homeContent.classList.add('hidden');
-                histContent.classList.remove('hidden');
-                bgNavHistory.className = "flex items-center gap-2 px-6 py-2 rounded-xl text-blue-600 bg-blue-50 dark:bg-blue-900/30 transition-all font-black text-sm";
-                homeTabBtn.className = "flex items-center gap-2 px-6 py-2 rounded-xl text-gray-400 hover:text-blue-500 transition-all font-black text-sm";
-                renderHistoryTab();
-            }
-        };
-
-        // RENDER HISTORICAL UNLOCKED LIST
-        function renderHistoryTab() {
-            const grid = document.getElementById('history-grid');
-            const emptyState = document.getElementById('history-empty');
-            grid.innerHTML = '';
-            let unlockedCount = 0;
-
-            globalFiles.forEach(f => {
-                const req = parseInt(f.requiredAds || 0);
-                const done = parseInt(localStorage.getItem(`ad_${f.id}`) || 0);
-                if (done >= req && req > 0) {
-                    unlockedCount++;
-                    const card = document.createElement('div');
-                    card.className = "file-card bg-white dark:bg-darkCard rounded-2xl shadow-lg border border-gray-150 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col cursor-pointer";
-                    
-                    card.onclick = (e) => {
-                        window.openDetailsOverlay(f.id);
-                    };
-
-                    const mediaElement = f.videoUrl 
-                        ? `<video src="${f.videoUrl}" poster="${f.thumbnailUrl}" controls preload="none" class="w-full h-full object-contain bg-black"></video>`
-                        : `<img src="${f.thumbnailUrl}" class="w-full h-full object-fill transition-transform duration-500 hover:scale-110">`;
-
-                    card.innerHTML = `
-                        <div class="relative h-28 sm:h-36 overflow-hidden bg-black flex justify-center">
-                            ${mediaElement}
-                            <!-- Download count overlay badge left -->
-                            <div class="absolute top-2 left-2 bg-black/65 text-white text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-md flex items-center gap-1">
-                                <i class="fas fa-download text-blue-400"></i> <span id="download-badge-hist-${f.id}">${f.downloadCount || 0}</span>
-                            </div>
-                            <div class="absolute top-2 right-2 bg-emerald-600 text-white text-[9px] sm:text-[10px] font-extrabold px-1.5 py-0.5 sm:px-2 sm:py-1 rounded backdrop-blur-md"><i class="fas fa-check-circle"></i> Unlocked</div>
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-1">
-                            <h3 class="text-sm sm:text-lg font-bold text-gray-800 dark:text-gray-100 line-clamp-1">${f.title}</h3>
-                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 flex-1 line-clamp-2">${f.description}</p>
-                            
-                            <div class="mt-3">
-                                <button class="w-full py-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-white shadow-lg text-xs sm:text-sm flex items-center justify-center gap-1">
-                                    <i class="fas fa-download"></i> ${getTxt('download_now_button')}
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                }
-            });
-
-            if (unlockedCount > 0) {
-                emptyState.classList.add('hidden');
-            } else {
-                emptyState.classList.remove('hidden');
+                console.error("Error fetching admins list: ", e);
             }
         }
 
-        // DETAILED OVERLAY CONTROLLERS
-        window.openDetailsOverlay = async (id, focusCommentBox = false) => {
-            detailsActiveFileId = id;
-            editingReviewDocId = null; 
-            const fileObj = globalFiles.find(f => f.id === id);
-            if(!fileObj) return;
-
-            window.trackView(id);
-
-            // Populate static UI elements
-            document.getElementById('details-title-top').textContent = fileObj.title;
-            document.getElementById('details-thumb').src = fileObj.thumbnailUrl;
-            document.getElementById('details-title').textContent = fileObj.title;
-            document.getElementById('details-downloads-badge').innerHTML = `📥 ${fileObj.downloadCount || 0}`;
-            document.getElementById('details-description').textContent = fileObj.description || "কোনো ডেসক্রিপশন দেওয়া হয়নি।";
-
-            // screenshots
-            const ssContainer = document.getElementById('details-screenshots-container');
-            const ssSec = document.getElementById('details-screenshots-sec');
-            ssContainer.innerHTML = '';
-            
-            const screenshots = [];
-            if(fileObj.screenshot1) screenshots.push(fileObj.screenshot1);
-            if(fileObj.screenshot2) screenshots.push(fileObj.screenshot2);
-            if(fileObj.screenshot3) screenshots.push(fileObj.screenshot3);
-
-            if(screenshots.length > 0) {
-                ssSec.classList.remove('hidden');
-                screenshots.forEach(url => {
-                    ssContainer.innerHTML += `
-                        <div class="w-48 h-80 shrink-0 rounded-2xl overflow-hidden border dark:border-gray-700 bg-gray-100 dark:bg-gray-800 snap-center shadow-sm cursor-pointer" onclick="window.openLightbox('${url}')">
-                            <img src="${url}" class="w-full h-full object-cover hover:scale-105 transition duration-300">
-                        </div>`;
-                });
-            } else {
-                ssSec.classList.add('hidden');
-            }
-
-            // star system reset
-            window.setReviewStars(0);
-            document.getElementById('review-comment-text').value = '';
-
-            // Update sticky unlock btn status
-            updateDetailsStickyBtn(fileObj);
-
-            // Load reviews & comments live from subcollection
-            loadDetailsReviewsLive(id);
-
-            // Open overlay page
-            document.getElementById('details-overlay').classList.remove('hidden');
-
-            if(focusCommentBox) {
-                setTimeout(() => {
-                    document.getElementById('details-review-box-anchor').scrollIntoView({ behavior: 'smooth' });
-                    document.getElementById('review-comment-text').focus();
-                }, 400);
-            }
-        };
-
-        // NEW: STABLE LONG PRESS TO TRIGGER REACTION LIST MODAL WITH NO SHAKING
-        window.startLikePress = (fileId) => {
-            window.endLikePress();
-            likePressTimeout = setTimeout(async () => {
-                const modal = document.createElement('div');
-                modal.id = 'reactions-popup-modal';
-                modal.className = "fixed inset-0 bg-black/75 backdrop-blur-sm z-[105] flex items-center justify-center p-4 animate-[fadeIn_0.2s_ease-out]";
-                modal.onclick = () => modal.remove();
-
-                modal.innerHTML = `
-                    <div class="bg-white dark:bg-darkCard w-full max-w-xs rounded-3xl p-5 shadow-2xl relative" onclick="event.stopPropagation()">
-                        <div class="flex justify-between items-center pb-2 border-b dark:border-gray-800 mb-4">
-                            <h4 class="font-extrabold text-sm text-gray-800 dark:text-white"><i class="fas fa-heart text-pink-500 mr-1.5 animate-pulse"></i> লাইক দেওয়া ইউজাররা</h4>
-                            <button onclick="document.getElementById('reactions-popup-modal').remove()" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-times"></i></button>
-                        </div>
-                        <div id="likers-real-list" class="max-h-60 overflow-y-auto custom-scroll space-y-3.5">
-                            <div class="text-center py-4 text-xs text-gray-400"><i class="fas fa-spinner fa-spin animate-spin"></i> Loading...</div>
-                        </div>
-                    </div>`;
-                document.body.appendChild(modal);
-
-                try {
-                    const snap = await getDocs(collection(db, "files", fileId, "comments"));
-                    const uContainer = document.getElementById('likers-real-list');
-                    if(!uContainer) return;
-                    uContainer.innerHTML = '';
-                    let count = 0;
-                    snap.forEach(d => {
-                        const c = d.data();
-                        count++;
-                        const initial = c.name ? c.name.charAt(0).toUpperCase() : 'U';
-                        const avatar = c.avatar 
-                            ? `<img src="${c.avatar}" class="w-8 h-8 rounded-full object-cover shrink-0">`
-                            : `<div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-xs shrink-0">${initial}</div>`;
-                        
-                        uContainer.innerHTML += `
-                            <div class="flex items-center gap-2">
-                                ${avatar}
-                                <span class="text-xs font-bold text-gray-800 dark:text-gray-200 truncate">${c.name}</span>
-                            </div>`;
-                    });
-                    if(count === 0) {
-                        uContainer.innerHTML = '<div class="text-center py-4 text-xs text-gray-500">কেউ এখনও রিঅ্যাকশন বা রেটিং দেয়নি।</div>';
-                    }
-                } catch(e) {
-                    const uContainer = document.getElementById('likers-real-list');
-                    if(uContainer) uContainer.innerHTML = '<div class="text-center py-4 text-xs text-red-500">লোডিং ব্যর্থ হয়েছে।</div>';
-                }
-            }, 800);
-        };
-
-        window.endLikePress = () => {
-            if(likePressTimeout) clearTimeout(likePressTimeout);
-        };
-
-        // NEW: HOME PAGE CARD LIKE BUTTON LONG-PRESS -> SHOW WHO LIKED (REUSES SAME REAL LIKERS LIST AS DETAILS VIEW)
-        window.startHomeLikePress = (fileId) => {
-            window.endHomeLikePress();
-            homeLikeLongPressTriggered = false;
-            homeLikePressTimeout = setTimeout(async () => {
-                homeLikeLongPressTriggered = true;
-                const modal = document.createElement('div');
-                modal.id = 'reactions-popup-modal';
-                modal.className = "fixed inset-0 bg-black/75 backdrop-blur-sm z-[105] flex items-center justify-center p-4 animate-[fadeIn_0.2s_ease-out]";
-                modal.onclick = () => modal.remove();
-
-                modal.innerHTML = `
-                    <div class="bg-white dark:bg-darkCard w-full max-w-xs rounded-3xl p-5 shadow-2xl relative" onclick="event.stopPropagation()">
-                        <div class="flex justify-between items-center pb-2 border-b dark:border-gray-855 mb-4">
-                            <h4 class="font-extrabold text-sm text-gray-800 dark:text-white"><i class="fas fa-heart text-pink-500 mr-1.5 animate-pulse"></i> লাইক দেওয়া ইউজাররা</h4>
-                            <button onclick="document.getElementById('reactions-popup-modal').remove()" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-times"></i></button>
-                        </div>
-                        <div id="likers-real-list" class="max-h-60 overflow-y-auto custom-scroll space-y-3.5">
-                            <div class="text-center py-4 text-xs text-gray-400"><i class="fas fa-spinner fa-spin animate-spin"></i> Loading...</div>
-                        </div>
-                    </div>`;
-                document.body.appendChild(modal);
-
-                try {
-                    const snap = await getDocs(collection(db, "files", fileId, "comments"));
-                    const uContainer = document.getElementById('likers-real-list');
-                    if(!uContainer) return;
-                    uContainer.innerHTML = '';
-                    let count = 0;
-                    snap.forEach(d => {
-                        const c = d.data();
-                        count++;
-                        const initial = c.name ? c.name.charAt(0).toUpperCase() : 'U';
-                        const avatar = c.avatar 
-                            ? `<img src="${c.avatar}" class="w-8 h-8 rounded-full object-cover shrink-0">`
-                            : `<div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-black text-xs shrink-0">${initial}</div>`;
-                        
-                        uContainer.innerHTML += `
-                            <div class="flex items-center gap-2">
-                                ${avatar}
-                                <span class="text-xs font-bold text-gray-800 dark:text-gray-200 truncate">${c.name}</span>
-                            </div>`;
-                    });
-                    if(count === 0) {
-                        uContainer.innerHTML = '<div class="text-center py-4 text-xs text-gray-500">কেউ এখনও রিঅ্যাকশন বা রেটিং দেয়নি।</div>';
-                    }
-                } catch(e) {
-                    const uContainer = document.getElementById('likers-real-list');
-                    if(uContainer) uContainer.innerHTML = '<div class="text-center py-4 text-xs text-red-500">লোডিং ব্যর্থ হয়েছে।</div>';
-                }
-            }, 600);
-        };
-
-        window.endHomeLikePress = () => {
-            if(homeLikePressTimeout) clearTimeout(homeLikePressTimeout);
-        };
-
-        function renderDetailsReactions(fileObj) {
-            // Emptied to prevent errors as it is no longer shown inside details overlay
-        }
-
-        window.submitReaction = async (fileId, emoji) => {
-            const currentReact = localStorage.getItem('react_' + fileId);
-            let updates = {};
-
-            if(currentReact === emoji) {
-                localStorage.removeItem('react_' + fileId);
-                updates[`react_${emoji}`] = increment(-1);
-            } else {
-                if(currentReact) {
-                    updates[`react_${currentReact}`] = increment(-1);
-                }
-                localStorage.setItem('react_' + fileId, emoji);
-                updates[`react_${emoji}`] = increment(1);
-            }
-
-            await updateDoc(doc(db, "files", fileId), updates);
-            
-            const updatedDoc = await getDoc(doc(db, "files", fileId));
-            if(updatedDoc.exists()) {
-                const updatedData = {id: updatedDoc.id, ...updatedDoc.data()};
-                const idx = globalFiles.findIndex(f => f.id === fileId);
-                if(idx !== -1) globalFiles[idx] = updatedData;
-                loadData(); 
-            }
-        };
-
-        window.closeDetailsOverlay = () => {
-            document.getElementById('details-overlay').classList.add('hidden');
-            detailsActiveFileId = null;
-        };
-
-        window.openLightbox = (url) => {
-            const modal = document.getElementById('lightbox-modal');
-            const img = document.getElementById('lightbox-img');
-            img.src = url;
-            modal.classList.remove('hidden');
-        };
-
-        window.setReviewStars = (stars) => {
-            currentActiveReviewStars = stars;
-            const starBtns = document.querySelectorAll('#review-stars-container .star-btn');
-            starBtns.forEach((btn, i) => {
-                if(i < stars) {
-                    btn.className = "star-btn text-yellow-400 transition-transform hover:scale-110";
-                } else {
-                    btn.className = "star-btn text-gray-300 transition-transform hover:scale-110";
-                }
-            });
-        };
-
-        window.submitFileReview = async () => {
-            if(!detailsActiveFileId) return;
-            const text = document.getElementById('review-comment-text').value.trim();
-            if(currentActiveReviewStars === 0) {
-                return alert("দয়া করে একটি স্টার রেটিং সিলেক্ট করুন!");
-            }
-
-            const userName = (tgUser && tgUser.first_name) ? (tgUser.first_name + ' ' + (tgUser.last_name || '')).trim() : "Anonymous User";
-            const userAvatar = (tgUser && tgUser.photo_url) ? tgUser.photo_url : "";
-            const userId = (tgUser && tgUser.id) ? String(tgUser.id) : userDeviceId;
-
-            const reviewPayload = {
-                name: userName,
-                text: text || "রেট করেছেন!",
-                stars: currentActiveReviewStars,
-                timestamp: new Date(),
-                deviceId: userDeviceId,
-                uid: userId,
-                avatar: userAvatar
-            };
-
-            if(editingReviewDocId) {
-                await updateDoc(doc(db, "files", detailsActiveFileId, "comments", editingReviewDocId), {
-                    text: text || "রেট করেছেন!",
-                    stars: currentActiveReviewStars,
-                    timestamp: new Date()
-                });
-                editingReviewDocId = null;
-                document.getElementById('btn-submit-file-review').textContent = "পর্যালোচনা জমা দিন";
-                showToast("পর্যালোচনা আপডেট করা হয়েছে!");
-            } else {
-                await addDoc(collection(db, "files", detailsActiveFileId, "comments"), reviewPayload);
-                await updateDoc(doc(db, "files", detailsActiveFileId), { commentCount: increment(1) });
-                showToast("পর্যালোচনা জমা দেওয়া হয়েছে!");
-            }
-
-            const commentsSnap = await getDocs(collection(db, "files", detailsActiveFileId, "comments"));
-            let totalStars = 0;
-            let count = 0;
-            commentsSnap.forEach(d => {
-                const c = d.data();
-                if(c.stars) {
-                    totalStars += c.stars;
-                    count++;
-                }
-            });
-            const avg = count > 0 ? (totalStars / count).toFixed(1) : "0.0";
-            await updateDoc(doc(db, "files", detailsActiveFileId), {
-                avgRating: avg
-            });
-
-            document.getElementById('review-comment-text').value = '';
-            window.setReviewStars(0);
-        };
-
-        window.editReviewInline = (id, stars, text) => {
-            editingReviewDocId = id;
-            window.setReviewStars(stars);
-            document.getElementById('review-comment-text').value = text;
-            document.getElementById('btn-submit-file-review').textContent = "পর্যালোচনা আপডেট করুন";
-            document.getElementById('review-stars-container').scrollIntoView({ behavior: 'smooth' });
-        };
-
-        window.deleteReviewInline = async (fileId, docId) => {
-            if(confirm("আপনার পর্যালোচনাটি ডিলিট করতে চান?")) {
-                await deleteDoc(doc(db, "files", fileId, "comments", docId));
-                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
-                
-                const commentsSnap = await getDocs(collection(db, "files", fileId, "comments"));
-                let totalStars = 0;
-                let count = 0;
-                commentsSnap.forEach(d => {
-                    const c = d.data();
-                    if(c.stars) {
-                        totalStars += c.stars;
-                        count++;
-                    }
-                });
-                const avg = count > 0 ? (totalStars / count).toFixed(1) : "0.0";
-                await updateDoc(doc(db, "files", fileId), {
-                    avgRating: avg
-                });
-                showToast("পর্যালোচনা মুছে ফেলা হয়েছে!");
-            }
-        };
-
-        function loadDetailsReviewsLive(fileId) {
-            const list = document.getElementById('details-comments-section');
-            const q = query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc"));
-            onSnapshot(q, (snap) => {
-                list.innerHTML = '';
-                let totalStars = 0;
-                let starCount = 0;
-
-                if(snap.empty) {
-                    list.innerHTML = `<div class="text-center text-gray-400 py-4">${getTxt('no_comments_text')}</div>`;
-                    document.getElementById('details-rating-avg').textContent = '0.0';
-                    return;
-                }
-
-                snap.forEach(d => {
-                    const c = d.data();
-                    let timeStr = "Just now";
-                    if(c.timestamp) {
-                        const date = c.timestamp.toDate();
-                        timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    }
-
-                    let starsHtml = '';
-                    if(c.stars) {
-                        totalStars += c.stars;
-                        starCount++;
-                        for(let i=1; i<=5; i++) {
-                            starsHtml += `<i class="fas fa-star text-[11px] ${i <= c.stars ? 'text-yellow-400' : 'text-gray-300'}"></i>`;
-                        }
-                    }
-
-                    const initial = c.name ? c.name.charAt(0).toUpperCase() : 'U';
-                    const avatarContent = c.avatar 
-                        ? `<img src="${c.avatar}" class="w-full h-full object-cover">` 
-                        : `<div class="w-full h-full flex items-center justify-center font-bold text-sm bg-gradient-to-br from-blue-400 to-indigo-600 text-white">${initial}</div>`;
-
-                    const isMyComment = (c.deviceId === userDeviceId) || (tgUser && String(c.uid) === String(tgUser.id));
-                    let controlsHtml = '';
-                    if(isMyComment) {
-                        controlsHtml = `
-                            <div class="flex gap-2.5 mt-2 justify-end text-xs font-bold text-gray-400">
-                                <button onclick="window.editReviewInline('${d.id}', ${c.stars}, '${c.text.replace(/'/g, "\\'")}')" class="hover:text-blue-500 transition-colors"><i class="fas fa-edit mr-0.5"></i> Edit</button>
-                                <button onclick="window.deleteReviewInline('${fileId}', '${d.id}')" class="hover:text-red-500 transition-colors"><i class="fas fa-trash-alt mr-0.5"></i> Delete</button>
-                            </div>`;
-                    }
-
-                    list.innerHTML += `
-                        <div class="flex gap-3 text-left">
-                            <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-sm">
-                                ${avatarContent}
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-2xl rounded-tl-none">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h4 class="font-extrabold text-sm text-gray-800 dark:text-gray-200 truncate">${c.name}</h4>
-                                            <div class="flex items-center gap-1 mt-0.5">${starsHtml}</div>
-                                        </div>
-                                        <span class="text-[9px] text-gray-400 shrink-0">${timeStr}</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-300 mt-2 leading-relaxed whitespace-pre-wrap">${c.text}</p>
-                                    ${controlsHtml}
-                                </div>
-                            </div>
-                        </div>`;
-                });
-
-                if(starCount > 0) {
-                    document.getElementById('details-rating-avg').textContent = (totalStars / starCount).toFixed(1);
-                }
-            });
-        }
-
-        function updateDetailsStickyBtn(fileObj) {
-            const btn = document.getElementById('details-sticky-unlock-btn');
-            const id = fileObj.id;
-            const req = parseInt(fileObj.requiredAds || 0);
-            const done = parseInt(localStorage.getItem(`ad_${id}`) || 0);
-            const isUnlocked = done >= req;
-
-            btn.disabled = false;
-            btn.onclick = () => handleStickyBtnClick(id, req, fileObj.downloadUrl);
-
-            if(isUnlocked) {
-                btn.innerHTML = `<i class="fas fa-download"></i> ${getTxt('download_now_button')}`;
-                btn.className = "w-full max-w-xl py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-black text-base shadow-lg shadow-green-500/25 flex items-center justify-center gap-3 active:scale-95 transition";
-            } else {
-                btn.innerHTML = `<i class="fas fa-lock"></i> ${getTxt('unlock_button')} (${req - done})`;
-                btn.className = "w-full max-w-xl py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-black text-base shadow-lg shadow-blue-500/25 flex items-center justify-center gap-3 active:scale-95 transition";
-            }
-        }
-
-        async function handleStickyBtnClick(id, req, downloadUrl) {
-            let done = parseInt(localStorage.getItem(`ad_${id}`) || 0);
-            if(done >= req) { 
-                await updateDoc(doc(db, "files", id), { downloadCount: increment(1) });
-                window.open(downloadUrl, '_blank'); 
-
-                // Live-update the UI everywhere the download count is shown, without a full reload
-                try {
-                    const updatedDoc = await getDoc(doc(db, "files", id));
-                    if(updatedDoc.exists()) {
-                        const newCount = updatedDoc.data().downloadCount || 0;
-                        const idx = globalFiles.findIndex(f => f.id === id);
-                        if(idx !== -1) globalFiles[idx].downloadCount = newCount;
-
-                        const detailsBadge = document.getElementById('details-downloads-badge');
-                        if(detailsBadge) detailsBadge.innerHTML = `📥 ${newCount}`;
-
-                        const homeBadge = document.getElementById(`download-badge-${id}`);
-                        if(homeBadge) homeBadge.innerText = newCount;
-
-                        const histBadge = document.getElementById(`download-badge-hist-${id}`);
-                        if(histBadge) histBadge.innerText = newCount;
-                    }
-                } catch(e) { console.error("Failed to refresh download count UI: ", e); }
-
-                return; 
-            }
-
-            const btn = document.getElementById('details-sticky-unlock-btn');
-            btn.disabled = true;
-            try {
-                btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${getTxt('toast_ad_load')}`;
-                showToast('toast_ad_load');
-                
-                if (typeof show_10889205 !== 'function') {
-                    throw new Error("AdBlocked");
-                }
-                
-                await show_10889205();
-                done++;
-                localStorage.setItem(`ad_${id}`, done);
-                
-                const fileObj = globalFiles.find(f => f.id === id);
-                updateDetailsStickyBtn(fileObj);
-                loadData(); 
-
-                if(done >= req) { 
-                    showToast('toast_unlocked'); 
-                    return; 
-                }
-                showToast('toast_progress', {done, req});
-            } catch(err) {
-                const fileObj = globalFiles.find(f => f.id === id);
-                updateDetailsStickyBtn(fileObj);
-                if (err.message === "AdBlocked") {
-                    alert("বিজ্ঞাপন লোড হচ্ছে না! ⚠️\nPrivate DNS (যেমন AdGuard) চালু থাকলে বন্ধ করুন বা নেটওয়ার্ক চেক করুন।");
-                } else {
-                    alert("Failed to load ad. Please try again.");
-                }
-            }
-        }
-
-        // ডিকোডেড ইউআরএল কোয়েরি এবং হ্যাশ অবজেক্ট থেকে নিখুঁত ডেটা প্যারামিটার রিডার ফাংশন
-        const getParamFromUrl = (name) => {
-            try {
-                // Decode the full URL (including search, hash, and nested query params inside tgWebAppData)
-                const decodedUrl = decodeURIComponent(window.location.href);
-                
-                // Regex matches parameters "parameterName=value" (Firestore ID format)
-                const regex = new RegExp('[?&|#]' + name + '=([a-zA-Z0-9_-]+)', 'i');
-                const match = regex.exec(decodedUrl);
-                if (match && match[1]) {
-                    return match[1].trim();
-                }
-                
-                // Fallback: search for other common start-parameter keys in case of naming variations
-                if (name === 'start_param' || name === 'startapp' || name === 'tgWebAppStartParam' || name === 'v') {
-                    const fallbackKeys = ['start_param', 'startapp', 'tgWebAppStartParam', 'v'];
-                    for (const key of fallbackKeys) {
-                        const fallbackRegex = new RegExp('[?&|#]' + key + '=([a-zA-Z0-9_-]+)', 'i');
-                        const fallbackMatch = fallbackRegex.exec(decodedUrl);
-                        if (fallbackMatch && fallbackMatch[1]) {
-                            return fallbackMatch[1].trim();
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Url regex parsing failed: ", e);
-            }
-
-            // Telegram WebApp SDK fallback
-            try {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    const tgApp = window.Telegram.WebApp;
-                    if (tgApp.initDataUnsafe && tgApp.initDataUnsafe.start_param) {
-                        return String(tgApp.initDataUnsafe.start_param).trim();
-                    }
-                    if (tgApp.initData) {
-                        const decodedInitData = decodeURIComponent(tgApp.initData);
-                        const regex = new RegExp('[?&]start_param=([a-zA-Z0-9_-]+)', 'i');
-                        const match = regex.exec(decodedInitData);
-                        if (match && match[1]) {
-                            return match[1].trim();
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error("Telegram WebApp SDK fallback failed: ", e);
-            }
-
-            return null;
-        };
-
-        async function loadData() {
-            const tgApp = window.Telegram.WebApp;
-            tgApp.ready(); tgApp.expand();
-            tgUser = tgApp.initDataUnsafe.user;
-            
-            if (!tgUser || !tgUser.id) {
-                tgUser = { id: 6579664275, first_name: "AlorHawa Developer", photo_url: "" }; 
-            }
-
-            if (tgUser && tgUser.id) {
-                document.getElementById('tg-profile-widget').classList.remove('hidden');
-                document.getElementById('tg-name').textContent = (tgUser.first_name + ' ' + (tgUser.last_name || '')).trim();
-                document.getElementById('tg-id-text').textContent = `ID: ${tgUser.id}`;
-                if (tgUser.photo_url) {
-                    const imgEl = document.getElementById('tg-photo');
-                    imgEl.src = tgUser.photo_url;
-                    imgEl.classList.remove('hidden');
-                    document.getElementById('tg-avatar-placeholder').classList.add('hidden');
-
-                    const sidebarImg = document.getElementById('sidebar-tg-img');
-                    sidebarImg.src = tgUser.photo_url;
-                    sidebarImg.classList.remove('hidden');
-                    document.getElementById('sidebar-avatar-placeholder').classList.add('hidden');
-
-                    const commentImg = document.getElementById('comment-avatar-img');
-                    commentImg.src = tgUser.photo_url;
-                    commentImg.classList.remove('hidden');
-                    document.getElementById('comment-avatar-placeholder').classList.add('hidden');
-                }
-                document.getElementById('sidebar-username').textContent = (tgUser.first_name + ' ' + (tgUser.last_name || '')).trim();
-                document.getElementById('sidebar-tg-id').textContent = `ID: ${tgUser.id}`;
-
-                try {
-                    await setDoc(doc(db, "users", String(tgUser.id)), {
-                        id: tgUser.id,
-                        name: (tgUser.first_name + ' ' + (tgUser.last_name || '')).trim(),
-                        photo: tgUser.photo_url || "",
-                        username: tgUser.username || "",
-                        lastActive: new Date(),
-                        status: "ACTIVE"
-                    }, { merge: true });
-                } catch(e) { console.error("Error writing user: ", e); }
-            }
-
-            // ডিকোডেড ইউআরএল কোয়েরি পার্সার রান করে টার্গেট ফাইল আইডি রিড করা
-            let targetVid = null;
-            if(!window.forceShowAll) {
-                targetVid = getParamFromUrl('start_param') || 
-                            getParamFromUrl('startapp') || 
-                            getParamFromUrl('tgWebAppStartParam') || 
-                            getParamFromUrl('v');
-
-                if (targetVid === "null" || targetVid === "undefined" || targetVid === "") {
-                    targetVid = null;
-                }
-            }
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            const err = document.getElementById('login-error');
+            if(!email || !password) return err.classList.remove('hidden');
 
             try {
-                let socialLinks = {};
-                const setSnap = await getDocs(query(collection(db, "settings")));
-                
-                setSnap.forEach(d => {
-                    const data = d.data();
-                    const id = d.id;
-                    
-                    if(id === 'general') {
-                        timerDuration = data.timerDuration || 10;
-                        appConfig = data; 
-                        
-                        if(data.announcementText) {
-                            document.getElementById('announcement-container').classList.remove('hidden');
-                            document.getElementById('announcement-text').textContent = data.announcementText;
-                        }
-                        
-                        // শেয়ার লিংকের মাধ্যমে প্রবেশ করলে নোটিফিকেশন প্রদর্শন বন্ধ রাখা হয়েছে
-                        if(data.popupNotice && data.popupNotice.trim() !== '' && !targetVid) {
-                            if(!sessionStorage.getItem('popupNoticeShown')) {
-                                document.getElementById('popup-notice-content').textContent = data.popupNotice;
-                                document.getElementById('popup-notice-modal').classList.remove('hidden');
-                                sessionStorage.setItem('popupNoticeShown', 'true');
-                            }
-                        }
-
-                        const logoContainer = document.getElementById('cv-logo-container');
-                        if (logoContainer) {
-                            if (data.logoUrl && data.logoUrl.trim() !== '') {
-                                logoContainer.innerHTML = `<img src="${data.logoUrl}" class="w-full h-full object-cover" alt="Logo">`;
-                            } else {
-                                logoContainer.innerHTML = `<i class="fas fa-cloud-download-alt text-3xl text-white"></i>`;
-                            }
-                        }
-                    }
-                    if(id === 'ads') {
-                        renderAd('ad-container-1', data.adSlot1);
-                        renderAd('ad-container-2', data.adSlot2);
-                        renderAd('ad-container-3', data.adSlot3);
-                    }
-                    
-                    Object.keys(data).forEach(key => {
-                        const k = key.toLowerCase();
-                        const val = data[key];
-                        if(typeof val === 'string' && val.trim() !== '') {
-                            let cleanUrl = val.startsWith('http') ? val : 'https://' + val;
-                            
-                            if(k.includes('facebook')) socialLinks['facebook'] = cleanUrl;
-                            else if(k.includes('telegram')) socialLinks['telegram'] = cleanUrl;
-                            else if(k.includes('youtube')) socialLinks['youtube'] = cleanUrl;
-                            else if(k.includes('whatsapp')) socialLinks['whatsapp'] = cleanUrl;
-                            else if(k.includes('twitter')) socialLinks['twitter'] = cleanUrl;
-                            else if(k.includes('instagram')) socialLinks['instagram'] = cleanUrl;
-                            else if(k.includes('tiktok')) socialLinks['tiktok'] = cleanUrl;
-                        }
-                    });
-                });
-
-                const alreadyVerifiedCached = (tgUser && tgUser.id) ? (localStorage.getItem(`channelVerified_${tgUser.id}`) === 'true') : false;
-                const isVerifiedLive = alreadyVerifiedCached ? true : await checkRequiredChannelsLive();
-                if (!isVerifiedLive) {
-                    const screen = document.getElementById('channel-verify-screen');
-                    const btn1 = document.getElementById('cv-channel1-btn');
-                    const btn2 = document.getElementById('cv-channel2-btn');
-                    const title1 = document.getElementById('cv-ch1-title');
-                    const title2 = document.getElementById('cv-ch2-title');
-                    
-                    if (appConfig.channel1Url) { btn1.href = appConfig.channel1Url; if (appConfig.channel1Name) title1.textContent = appConfig.channel1Name; } else { btn1.style.display = 'none'; }
-                    if (appConfig.channel2Url) { btn2.href = appConfig.channel2Url; if (appConfig.channel2Name) title2.textContent = appConfig.channel2Name; } else { btn2.style.display = 'none'; }
-                    
-                    screen.classList.remove('hidden');
-                    screen.classList.add('flex');
-                } else if (tgUser && tgUser.id) {
-                    localStorage.setItem(`channelVerified_${tgUser.id}`, 'true');
-                }
-
-                const sideSocials = document.getElementById('sidebar-social-links');
-                const footSocials = document.getElementById('footer-socials');
-                let sideHtml = '';
-                let footHtml = '';
-                
-                const sIcons = { facebook: 'fab fa-facebook', telegram: 'fab fa-telegram', youtube: 'fab fa-youtube', whatsapp: 'fab fa-whatsapp', twitter: 'fab fa-twitter', instagram: 'fab fa-indigo', tiktok: 'fab fa-tiktok' };
-                const sColors = { facebook: 'text-blue-600', telegram: 'text-blue-500', youtube: 'text-red-600', whatsapp: 'text-green-500', twitter: 'text-blue-400', instagram: 'text-pink-500', tiktok: 'text-gray-900 dark:text-gray-100' };
-
-                let hasLinks = false;
-                for(const [platform, url] of Object.entries(socialLinks)) {
-                    hasLinks = true;
-                    const iconClass = sIcons[platform] || 'fas fa-link';
-                    const colorClass = sColors[platform] || 'text-gray-500';
-                    const name = platform.charAt(0).toUpperCase() + platform.slice(1);
-                    
-                    sideHtml += `
-                    <a href="${url}" target="_blank" class="flex items-center gap-4 p-3 rounded-2xl bg-slate-50 hover:bg-blue-50/50 dark:bg-slate-800/50 dark:hover:bg-blue-950/30 border border-slate-100 dark:border-slate-700/50 transition-all duration-300 transform active:scale-95 hover:translate-x-1 group shadow-sm">
-                        <div class="w-9 h-9 rounded-xl bg-blue-500/10 dark:bg-blue-500/20 text-blue-500 flex items-center justify-center text-xl shrink-0 group-hover:rotate-12 transition-transform duration-300">
-                            <i class="${iconClass}"></i>
-                        </div>
-                        <span class="font-bold text-xs text-slate-700 dark:text-slate-200">${name}</span>
-                    </a>`;
-                    
-                    footHtml += `<a href="${url}" target="_blank" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-400 hover:${colorClass} hover:shadow-md transition-all text-xl"><i class="${iconClass}"></i></a>`;
-                }
-                
-                if(hasLinks) {
-                    sideSocials.innerHTML = sideHtml;
-                    if(footSocials) footSocials.innerHTML = footHtml;
-                }
-            } catch(e) { console.error(e); }
-
-            if(targetVid) {
-                document.getElementById('slider-container').style.display = 'none';
-                document.getElementById('search-section').style.display = 'none';
-                document.getElementById('single-view-header').innerHTML = ''; 
-                
-                document.getElementById('single-view-footer').innerHTML = `
-                    <button onclick="window.showAllFiles()" class="w-full sm:w-auto mt-6 bg-white dark:bg-gray-800 border-2 border-blue-500 text-blue-600 dark:text-blue-400 px-8 py-4 rounded-2xl font-extrabold shadow-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-all flex items-center justify-center gap-3 group text-lg">
-                        <i class="fas fa-home text-xl group-hover:scale-110 transition-transform"></i> 
-                        <span data-key="back_to_home_btn">অন্যান্য সব ফাইল দেখুন (Home)</span>
-                    </button>`;
-            } else {
-                document.getElementById('slider-container').style.display = 'block';
-                document.getElementById('search-section').style.display = 'block';
-                document.getElementById('single-view-footer').innerHTML = '';
-
-                try {
-                    const sSnap = await getDocs(query(collection(db, "sliders")));
-                    const wrapper = document.getElementById('slider-wrapper');
-                    const dots = document.getElementById('slider-dots');
-                    wrapper.innerHTML = ''; dots.innerHTML = '';
-                    const slides = [];
-                    sSnap.forEach(d => slides.push(d.data()));
-                    if(slides.length) {
-                        slides.forEach((s, i) => {
-                            const img = document.createElement('img');
-                            img.src = s.imageUrl;
-                            img.className = 'w-full h-full object-cover flex-shrink-0'; 
-                            wrapper.appendChild(img);
-                            const dot = document.createElement('div');
-                            dot.className = `w-2 h-2 rounded-full bg-white/50 transition-all ${i===0 ? 'w-6 bg-white' : ''}`;
-                            dots.appendChild(dot);
-                        });
-                        setInterval(() => {
-                            currentSlide = (currentSlide + 1) % slides.length;
-                            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-                            Array.from(dots.children).forEach((d, i) => { d.className = `w-2 h-2 rounded-full bg-white/50 transition-all ${i===currentSlide ? 'w-6 bg-white' : ''}`; });
-                        }, 4000);
-                    } else { document.getElementById('slider-container').style.display = 'none'; }
-                } catch(e) {}
-            }
-
-            try {
-                const fSnap = await getDocs(query(collection(db, "files"), orderBy("createdAt", "desc")));
-                const grid = document.getElementById('files-grid');
-                grid.innerHTML = '';
-                let count = 0;
-                
-                globalFiles = []; 
-
-                fSnap.forEach(d => {
-                    const f = {id: d.id, ...d.data()};
-                    if(f.isDeleted) return; 
-
-                    globalFiles.push(f); 
-
-                    // ৩. শেয়ার করা লিংকের টার্গেট ফাইল ফিল্টারিং নিশ্চিতকরণ
-                    if(targetVid && f.id !== targetVid) return; 
-                    count++;
-                    
-                    const localReact = localStorage.getItem('react_' + f.id);
-                    
-                    const mediaElement = f.videoUrl 
-                        ? `<video src="${f.videoUrl}" poster="${f.thumbnailUrl}" controls preload="none" class="w-full h-full object-contain bg-black"></video>`
-                        : `<img src="${f.thumbnailUrl}" class="w-full h-full object-fill transition-transform duration-500 hover:scale-110">`;
-
-                    const card = document.createElement('div');
-                    card.className = "file-card bg-white dark:bg-darkCard rounded-2xl shadow-lg border border-gray-150 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col cursor-pointer";
-                    
-                    card.onclick = (e) => {
-                        if (e.target.closest('.react-wrapper') || e.target.closest('.share-wrapper') || e.target.closest('.comment-btn-trigger') || e.target.closest('.likers-btn-trigger')) {
-                            return;
-                        }
-                        window.openDetailsOverlay(f.id);
-                    };
-
-                    const emojis = ['❤️'];
-                    let likesTotal = Math.max(0, f[`react_❤️`] || f.likeCount || 0);
-
-                    card.innerHTML = `
-                        <div class="relative h-32 sm:h-44 overflow-hidden bg-black flex justify-center shrink-0">
-                            ${mediaElement}
-                            <div class="absolute top-2 left-2 bg-black/65 text-white text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-md flex items-center gap-1">
-                                <i class="fas fa-download text-blue-400"></i> <span id="download-badge-${f.id}">${f.downloadCount || 0}</span>
-                            </div>
-                            ${!f.videoUrl ? `<div class="absolute top-2 right-2 bg-black/60 text-white text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 rounded backdrop-blur-md"><i class="fas fa-star text-yellow-400"></i> Premium</div>` : ''}
-                        </div>
-                        <div class="p-3 sm:p-4 flex flex-col flex-1 min-w-0">
-                            <h3 class="text-sm sm:text-lg font-bold text-gray-800 dark:text-gray-100 line-clamp-1">${f.title}</h3>
-                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 flex-1 line-clamp-2">${f.description}</p>
-                            
-                            <!-- UPPER ROW: Stat badges (Views, Likes, Comments) -->
-                            <div class="flex justify-between items-center mt-3 border-t border-gray-100 dark:border-gray-700 pt-2.5 text-sm text-gray-600 dark:text-gray-300 font-black shrink-0">
-                                <span title="Views" class="flex items-center gap-1"><i class="fas fa-eye text-blue-500 text-base"></i> <span class="text-xs sm:text-sm">${f.views || 0}</span></span>
-                                
-                                <span id="like-count-${f.id}" onclick="event.stopPropagation(); if(window.homeLikeLongPressTriggered){window.homeLikeLongPressTriggered=false;return;} window.toggleHomeLike('${f.id}')" onmousedown="event.stopPropagation(); window.startHomeLikePress('${f.id}')" onmouseup="window.endHomeLikePress()" onmouseleave="window.endHomeLikePress()" ontouchstart="event.stopPropagation(); window.startHomeLikePress('${f.id}')" ontouchend="window.endHomeLikePress()" ontouchcancel="window.endHomeLikePress()" oncontextmenu="event.preventDefault()" title="Like" class="likers-btn-trigger flex items-center gap-1 cursor-pointer transition-transform hover:scale-110 active:scale-95 select-none ${localReact === '❤️' ? 'text-red-500' : 'text-gray-400'}">
-                                    <i class="fas fa-heart text-base"></i> <span class="text-xs sm:text-sm">${likesTotal}</span>
-                                </span>
-                                
-                                <span onclick="event.stopPropagation(); window.openComments('${f.id}')" title="Comments" class="comment-btn-trigger flex items-center gap-1 hover:text-blue-500 transition-colors cursor-pointer"><i class="fas fa-comment text-indigo-500 text-base"></i> <span id="comment-count-${f.id}" class="text-xs sm:text-sm">${f.commentCount || 0}</span></span>
-                            </div>
-
-                            <!-- LOWER ROW: Copy and Share buttons -->
-                            <div class="grid grid-cols-2 gap-1 mt-2 mb-2 shrink-0">
-                                <button onclick="event.stopPropagation(); window.copyToClip('${f.id}')" class="flex items-center justify-center gap-1 py-1 px-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all">
-                                    <i class="fas fa-copy text-[9px] sm:text-xs"></i> <span data-key="copy_link">${getTxt('copy_link')}</span>
-                                </button>
-                                <button onclick="event.stopPropagation(); window.shareToSocial('${f.id}')" class="flex items-center justify-center gap-1 py-1 px-1.5 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-lg text-[10px] sm:text-[11px] font-bold transition-all">
-                                    <i class="fas fa-share-alt text-[9px] sm:text-xs"></i> <span data-key="share">${getTxt('share')}</span>
-                                </button>
-                            </div>
-
-                            <div class="mb-3 shrink-0">
-                                <div class="flex justify-between text-[10px] text-gray-400 mb-1"><span data-key="unlock_progress">${getTxt('unlock_progress')}</span><span class="prog-txt">0%</span></div>
-                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
-                                    <div class="prog-bar bg-gradient-to-r from-blue-500 to-purple-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                                </div>
-                            </div>
-                            <button onclick="event.stopPropagation(); window.openDetailsOverlay('${f.id}')" class="w-full py-2.5 rounded-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg text-xs sm:text-sm flex items-center justify-center gap-2 mt-auto shrink-0">
-                                <span><i class="fas fa-download"></i> ${getTxt('unlock_button')}</span>
-                            </button>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                    
-                    const progBar = card.querySelector('.prog-bar');
-                    const progTxt = card.querySelector('.prog-txt');
-                    const doneVal = parseInt(localStorage.getItem(`ad_${f.id}`) || 0);
-                    const reqVal = parseInt(f.requiredAds || 0);
-                    const pctVal = reqVal > 0 ? Math.min((doneVal / reqVal) * 100, 100) : 100;
-                    progBar.style.width = `${pctVal}%`;
-                    progTxt.innerText = `${Math.floor(pctVal)}%`;
-                });
-                document.getElementById('file-count').innerText = `${count} ${getTxt('items_unit')}`;
-                updateTexts();
-            } catch(e) { console.error(e); }
-        }
-
-        window.toggleHomeLike = async (fileId) => {
-            const currentReact = localStorage.getItem('react_' + fileId);
-            let updates = {};
-            if(currentReact === '❤️') {
-                localStorage.removeItem('react_' + fileId);
-                updates[`react_❤️`] = increment(-1);
-            } else {
-                localStorage.setItem('react_' + fileId, '❤️');
-                updates[`react_❤️`] = increment(1);
-            }
-            await updateDoc(doc(db, "files", fileId), updates);
-            
-            const updatedDoc = await getDoc(doc(db, "files", fileId));
-            if(updatedDoc.exists()) {
-                const updatedData = {id: updatedDoc.id, ...updatedDoc.data()};
-                const idx = globalFiles.findIndex(f => f.id === fileId);
-                if(idx !== -1) globalFiles[idx] = updatedData;
-                
-                const countEl = document.getElementById(`like-count-${fileId}`);
-                if(countEl) {
-                    const likesTotal = Math.max(0, updatedData[`react_❤️`] || 0);
-                    countEl.innerHTML = `<i class="fas fa-heart text-base sm:text-lg"></i> <span class="text-xs sm:text-sm">${likesTotal}</span>`;
-                    if(currentReact === '❤️') {
-                        countEl.className = "likers-btn-trigger flex items-center gap-1 cursor-pointer transition-transform hover:scale-125 active:scale-95 select-none text-gray-400";
-                    } else {
-                        countEl.className = "likers-btn-trigger flex items-center gap-1 cursor-pointer transition-transform hover:scale-125 active:scale-95 select-none text-red-500";
-                    }
-                }
-            }
-        };
-
-        document.addEventListener('click', (e) => {
-            if(!e.target.closest('.react-wrapper')) {
-                document.querySelectorAll('.react-menu-dropdown').forEach(m => m.classList.add('hidden'));
-            }
-            if(!e.target.closest('.share-wrapper')) {
-                document.querySelectorAll('.share-menu-dropdown').forEach(m => m.classList.add('hidden'));
+                await fetchAdmins(); 
+                await signInWithEmailAndPassword(auth, email, password);
+                err.classList.add('hidden');
+            } catch (error) {
+                err.textContent = "Login Failed: Wrong email or password.";
+                err.classList.remove('hidden');
             }
         });
 
-        window.getShareUrl = (id) => {
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
-                return "https://t.me/FileVaultDLBot?startapp=" + id;
-            }
-            return window.location.origin + window.location.pathname + "?v=" + id;
-        };
-
-        window.toggleShareMenu = (id) => {
-            document.querySelectorAll('.share-menu-dropdown').forEach(m => {
-                if(m.id !== `share-menu-${id}`) m.classList.add('hidden');
-            });
-            document.getElementById(`share-menu-${id}`).classList.toggle('hidden');
-        };
-
-        window.copyToClip = (id) => {
-            const url = window.getShareUrl(id);
-            navigator.clipboard.writeText(url).then(() => {
-                showToast("Link copied to clipboard!", {}, true);
-                const menu = document.getElementById(`share-menu-${id}`);
-                if (menu) menu.classList.add('hidden');
-            }).catch(err => {
-                alert("Failed to copy link: " + url);
-            });
-        };
-
-        window.shareToSocial = (id) => {
-            const url = window.getShareUrl(id);
-            const menu = document.getElementById(`share-menu-${id}`);
-            if (menu) menu.classList.add('hidden');
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Check this out!',
-                    text: 'View and download this amazing file:',
-                    url: url
-                }).catch(err => console.log('Share canceled'));
-            } else {
-                window.open('https://t.me/share/url?url=' + encodeURIComponent(url), '_blank');
-            }
-        };
-
-        window.trackView = async (id) => {
-            if(!localStorage.getItem('viewed_' + id)) {
-                localStorage.setItem('viewed_' + id, 'true');
-                const vSpan = document.getElementById(`view-count-${id}`);
-                if(vSpan) vSpan.innerText = parseInt(vSpan.innerText) + 1;
-                await updateDoc(doc(db, "files", id), { views: increment(1) });
-            }
-        };
-
-        window.toggleReactMenu = (id) => {
-            document.querySelectorAll('.react-menu-dropdown').forEach(m => {
-                if(m.id !== `react-menu-${id}`) m.classList.add('hidden');
-            });
-            document.getElementById(`react-menu-${id}`).classList.toggle('hidden');
-        };
-
-        window.handleBadgeClick = (id, emoji) => {
-            const currentReact = localStorage.getItem('react_' + id);
-            if(currentReact === emoji) {
-                window.removeReact(id);
-            } else {
-                window.setReact(id, emoji);
-            }
-        };
-
-        window.setReact = async (id, emoji) => {
-            const menu = document.getElementById('react-menu-' + id);
-            if(menu) menu.classList.add('hidden'); 
-            
-            const currentReact = localStorage.getItem('react_' + id);
-            if(currentReact === emoji) return; 
-            
-            if(currentReact) {
-                localStorage.removeItem('react_' + id);
-                window.updateReactDom(id, currentReact, -1);
-            }
-            
-            localStorage.setItem('react_' + id, emoji);
-            const iconSpan = document.getElementById('react-icon-' + id);
-            if(iconSpan) iconSpan.parentElement.classList.replace('text-gray-400', 'text-blue-500');
-            
-            window.updateReactDom(id, emoji, 1);
-            
-            let updates = {};
-            if(currentReact) {
-                updates[`react_${currentReact}`] = increment(-1);
-            }
-            updates[`react_${emoji}`] = increment(1);
-            await updateDoc(doc(db, "files", id), updates);
-        };
-
-        window.removeReact = async (id) => {
-            const menu = document.getElementById('react-menu-' + id);
-            if(menu) menu.classList.add('hidden');
-            
-            const currentReact = localStorage.getItem('react_' + id);
-            if(currentReact) {
-                localStorage.removeItem('react_' + id);
-                const iconSpan = document.getElementById('react-icon-' + id);
-                if(iconSpan) iconSpan.parentElement.classList.replace('text-blue-500', 'text-gray-400');
-                
-                window.updateReactDom(id, currentReact, -1);
-                
-                await updateDoc(doc(db, "files", id), { 
-                    [`react_${currentReact}`]: increment(-1)
-                });
-            }
-        };
-
-        let unsubscribeComments = null;
-        window.openComments = (id) => {
-            currentFileIdForComment = id;
-            document.getElementById('comment-modal').classList.remove('hidden');
-            const list = document.getElementById('comment-list');
-            const cCount = document.getElementById(`comment-count-${id}`);
-            document.getElementById('modal-comment-count').innerText = cCount ? `(${cCount.innerText})` : '';
-            list.innerHTML = '<div class="text-center text-gray-500 mt-10"><i class="fas fa-spinner fa-spin text-2xl"></i></div>';
-            if(unsubscribeComments) unsubscribeComments();
-            
-            const q = query(collection(db, "files", id, "comments"), orderBy("timestamp", "desc"));
-            unsubscribeComments = onSnapshot(q, (snap) => {
-                list.innerHTML = '';
-                if(snap.empty) list.innerHTML = `<div class="text-center text-gray-400 mt-10">${getTxt('no_comments_text')}</div>`;
-                snap.forEach(d => {
-                    const c = d.data();
-                    const initial = c.name ? c.name.charAt(0).toUpperCase() : 'U';
-                    let timeStr = "Just now";
-                    if(c.timestamp) {
-                        const date = c.timestamp.toDate();
-                        timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    }
-                    const isMyComment = (c.deviceId === userDeviceId) || (tgUser && String(c.uid) === String(tgUser.id));
-                    
-                    let controlsHtml = '';
-                    if(isMyComment) {
-                        controlsHtml = `
-                            <div class="flex gap-2.5 mt-1 justify-end text-xs font-bold text-gray-400">
-                                <button onclick="window.editCommentInline('${id}', '${d.id}', '${c.text.replace(/'/g, "\\'")}')" class="hover:text-blue-500 transition-colors"><i class="fas fa-edit mr-0.5"></i> Edit</button>
-                                <button onclick="window.deleteComment('${id}', '${d.id}')" class="hover:text-red-500 transition-colors"><i class="fas fa-trash-alt mr-0.5"></i> Delete</button>
-                            </div>`;
-                    }
-                    
-                    const avatarContent = c.avatar 
-                        ? `<img src="${c.avatar}" class="w-full h-full object-cover">` 
-                        : `<div class="w-full h-full flex items-center justify-center font-bold text-sm bg-gradient-to-br from-blue-400 to-indigo-600 text-white">${initial}</div>`;
-
-                    list.innerHTML += `
-                        <div class="flex gap-3 animate-[fadeIn_0.5s_ease-out]">
-                            <div class="w-10 h-10 rounded-full overflow-hidden shrink-0 shadow-sm">${avatarContent}</div>
-                            <div class="flex-1 min-w-0">
-                                <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 rounded-2xl rounded-tl-none">
-                                    <div class="flex justify-between items-baseline mb-1">
-                                        <h4 class="font-bold text-sm text-gray-800 dark:text-gray-200 truncate">${c.name}</h4>
-                                        <span class="text-[10px] text-gray-500 ml-2 whitespace-nowrap">${timeStr}</span>
-                                    </div>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">${c.text}</p>
-                                    ${controlsHtml}
-                                </div>
-                            </div>
-                        </div>`;
-                });
-            });
-        };
-
-        window.resetCommentInput = () => {
-            editingCommentDocId = null;
-            const textInput = document.getElementById('comment-text');
-            if (textInput) textInput.value = '';
-            const sendBtn = document.getElementById('send-comment-btn');
-            if (sendBtn) sendBtn.innerHTML = '<i class="fas fa-paper-plane"></i>';
-        };
-
-        window.editCommentInline = (fileId, docId, text) => {
-            editingCommentDocId = docId;
-            const textInput = document.getElementById('comment-text');
-            if (textInput) {
-                textInput.value = text;
-                textInput.focus();
-            }
-            const sendBtn = document.getElementById('send-comment-btn');
-            if (sendBtn) {
-                sendBtn.innerHTML = '<i class="fas fa-edit"></i>';
-            }
-        };
-
-        window.deleteComment = async (fileId, commentId) => {
-            if(confirm("Are you sure you want to delete your comment?")) {
-                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
-                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
-                window.openComments(fileId);
-                showToast("Comment deleted successfully!", {}, true);
-                
-                const cSpan = document.getElementById('comment-count-' + fileId);
-                if(cSpan) {
-                    const snap = await getDoc(doc(db, "files", fileId));
-                    if(snap.exists()) {
-                        cSpan.innerText = snap.data().commentCount || 0;
-                    }
-                }
-            }
-        };
-
-        document.getElementById('send-comment-btn').onclick = async () => {
-            const textInput = document.getElementById('comment-text');
-            const text = textInput.value.trim();
-            if(!text) return;
-            
-            const userName = (tgUser && tgUser.first_name) ? (tgUser.first_name + ' ' + (tgUser.last_name || '')).trim() : "Anonymous User";
-            const userAvatar = (tgUser && tgUser.photo_url) ? tgUser.photo_url : "";
-            const userId = (tgUser && tgUser.id) ? String(tgUser.id) : userDeviceId;
-
-            if (editingCommentDocId) {
-                await updateDoc(doc(db, "files", currentFileIdForComment, "comments", editingCommentDocId), {
-                    text: text,
-                    timestamp: new Date()
-                });
-                editingCommentDocId = null;
-                document.getElementById('send-comment-btn').innerHTML = '<i class="fas fa-paper-plane"></i>';
-                showToast("Comment updated successfully!", {}, true);
-            } else {
-                await addDoc(collection(db, "files", currentFileIdForComment, "comments"), { 
-                    name: userName, 
-                    text: text, 
-                    stars: 5,
-                    timestamp: new Date(), 
-                    deviceId: userDeviceId, 
-                    uid: userId,
-                    avatar: userAvatar
-                });
-                await updateDoc(doc(db, "files", currentFileIdForComment), { commentCount: increment(1) });
-                showToast("Comment posted successfully!", {}, true);
-            }
-            
-            textInput.value = '';
-            window.openComments(currentFileIdForComment);
-            
-            const cSpan = document.getElementById('comment-count-' + currentFileIdForComment);
-            if(cSpan) {
-                const snap = await getDoc(doc(db, "files", currentFileIdForComment));
-                if(snap.exists()) {
-                    cSpan.innerText = snap.data().commentCount || 0;
-                }
-            }
-        };
-
-        window.toggleTheme = () => {
-            const current = localStorage.getItem('theme') || 'light';
-            if(current === 'light') {
-                window.setTheme('dark');
-            } else {
-                window.setTheme('light');
-            }
-        };
-
-        window.setTheme = (mode) => {
-            const icon = document.getElementById('theme-icon');
-            const text = document.getElementById('theme-text');
-            if (mode === 'dark') {
-                document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark');
-                if(icon) icon.className = 'fas fa-sun text-yellow-400 text-xl';
-                if(text) {
-                    text.textContent = getTxt('light_mode');
-                    text.setAttribute('data-key', 'light_mode');
-                }
-            } else {
-                document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light');
-                if(icon) icon.className = 'fas fa-moon text-purple-500 text-xl';
-                if(text) {
-                    text.textContent = getTxt('dark_mode');
-                    text.setAttribute('data-key', 'dark_mode');
-                }
-            }
-        };
-
-        window.setLang = (l) => {
-            currentLang = l; localStorage.setItem('lang', l);
-            document.getElementById('language-modal').classList.add('hidden');
-            updateTexts(); loadData();
-        };
-
-        function updateTexts() {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                el.textContent = getTxt(el.dataset.key);
-            });
-            document.querySelectorAll('[data-key-placeholder]').forEach(el => {
-                el.placeholder = getTxt(el.dataset.keyPlaceholder);
-            });
-        }
-        window.updateTexts = updateTexts;
-
-        window.addEventListener('load', () => {
-            const savedTheme = localStorage.getItem('theme');
-            if(savedTheme === 'dark') window.setTheme('dark'); else window.setTheme('light');
-            if(!localStorage.getItem('lang')) document.getElementById('language-modal').classList.remove('hidden');
-            else updateTexts();
-            loadData();
+        document.getElementById('forgot-pass-btn').addEventListener('click', () => {
+            alert("Please contact the primary system administrator to reset your password.");
         });
 
-        // FIXED SIDEBAR BLURRY OVERFLOW TYPO
-        window.toggleMenu = () => {
+        async function registerNewAdmin() {
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+            const err = document.getElementById('login-error');
+            if(!email || !password) {
+                err.textContent = "Enter email and password to create account.";
+                return err.classList.remove('hidden');
+            }
+
+            try {
+                await fetchAdmins(); 
+                if(!authorizedAdmins.includes(email)) {
+                    err.textContent = "Your email is not approved by Master Admin.";
+                    return err.classList.remove('hidden');
+                }
+                await createUserWithEmailAndPassword(auth, email, password);
+                err.classList.add('hidden');
+                toast("Account created! Logging in...");
+            } catch(error) {
+                err.textContent = error.message;
+                err.classList.remove('hidden');
+            }
+        }
+        document.getElementById('register-btn').addEventListener('click', registerNewAdmin);
+
+        onAuthStateChanged(auth, async user => {
+            await fetchAdmins();
+            if (user && authorizedAdmins.includes(user.email)) {
+                currentAdminEmail = user.email;
+                document.getElementById('admin-login').classList.add('hidden');
+                document.getElementById('admin-content').classList.remove('hidden');
+                document.getElementById('sign-out-btn').classList.remove('hidden');
+                document.getElementById('admin-language-selector').classList.remove('hidden');
+                
+                // সাইডবার ডাইনামিক রিমুভ
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar').classList.remove('translate-x-0');
+
+                loadAllData();
+            } else {
+                currentAdminEmail = null;
+                document.getElementById('admin-login').classList.remove('hidden');
+                document.getElementById('admin-content').classList.add('hidden');
+                document.getElementById('sign-out-btn').classList.add('hidden');
+                document.getElementById('admin-language-selector').classList.add('hidden');
+                document.getElementById('sidebar').classList.add('-translate-x-full');
+                document.getElementById('sidebar').classList.remove('translate-x-0');
+                if (user) signOut(auth);
+            }
+        });
+
+        document.getElementById('sign-out-btn').onclick = () => signOut(auth);
+
+        // অ্যাডমিন প্যানেল ট্যাব সুইচার সিস্টেম
+        window.switchTab = (tabId) => {
+            document.querySelectorAll('.admin-page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.admin-page').forEach(page => page.classList.add('hidden'));
+            
+            const targetPage = document.getElementById(`page-${tabId}`);
+            if(targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('active');
+            }
+            
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('bg-indigo-800', 'text-white'));
+            const activeBtn = Array.from(document.querySelectorAll('.nav-item')).find(btn => btn.getAttribute('onclick').includes(`'${tabId}'`));
+            if(activeBtn) {
+                activeBtn.classList.add('bg-indigo-800', 'text-white');
+            }
+            
+            const pageTitles = {
+                dashboard: "Dashboard Overview",
+                admins: "Manage Admins",
+                users: "Manage Users",
+                "app-config": "App Settings",
+                sliders: "Slider Banners",
+                ads: "Ad Placements",
+                files: "Upload Content",
+                "all-files": "All Uploaded Files",
+                "recycle-bin": "Recycle Bin"
+            };
+            document.getElementById('header-title').innerText = pageTitles[tabId] || "Admin Panel";
+            
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
-            if(sidebar.classList.contains('sidebar-closed')) {
-                sidebar.classList.remove('sidebar-closed'); 
-                sidebar.classList.add('sidebar-open'); 
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+            }
+
+            if (tabId === 'recycle-bin') {
+                window.loadRecycleBin();
+            }
+            if (tabId === 'users') {
+                window.usersCurrentPage = 1;
+                window.usersLastDoc = null;
+                window.usersFirstDoc = null;
+                window.loadRegisteredUsers();
+            }
+            if (tabId === 'all-files') {
+                window.filesCurrentPage = 1;
+                window.filesLastDoc = null;
+                window.filesFirstDoc = null;
+                window.loadFiles();
+            }
+        };
+
+        window.toggleSidebar = () => {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
                 overlay.classList.remove('hidden');
             } else {
-                sidebar.classList.add('sidebar-closed'); 
-                sidebar.classList.remove('sidebar-open'); 
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
                 overlay.classList.add('hidden');
             }
         };
 
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            let visible = 0;
-            document.querySelectorAll('.file-card').forEach(c => {
-                const match = c.innerText.toLowerCase().includes(term);
-                c.style.display = match ? 'flex' : 'none';
-                if(match) visible++;
-            });
-            const noRes = document.getElementById('no-results');
-            if(visible === 0) noRes.classList.remove('hidden'); else noRes.classList.add('hidden');
-        });
+        // PAGINATED REGISTERED USERS MANAGEMENT
+        window.loadRegisteredUsers = async (direction = 'init') => {
+            const tableBody = document.getElementById('users-table-body');
+            tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
+            
+            try {
+                // Get total users count
+                const totalSnap = await getDocs(collection(db, "users"));
+                const totalCount = totalSnap.size;
+                document.getElementById('admin-users-total').innerText = `Total: ${totalCount}`;
+
+                let q;
+                if (direction === 'next' && usersLastDoc) {
+                    q = query(collection(db, "users"), orderBy("lastActive", "desc"), startAfter(usersLastDoc), limit(usersPageSize));
+                } else if (direction === 'prev' && usersFirstDoc) {
+                    q = query(collection(db, "users"), orderBy("lastActive", "desc"), endBefore(usersFirstDoc), limit(usersPageSize));
+                } else {
+                    q = query(collection(db, "users"), orderBy("lastActive", "desc"), limit(usersPageSize));
+                }
+
+                const snap = await getDocs(q);
+                tableBody.innerHTML = '';
+                
+                if (snap.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
+                    return;
+                }
+
+                usersFirstDoc = snap.docs[0];
+                usersLastDoc = snap.docs[snap.docs.length - 1];
+
+                snap.forEach(docSnap => {
+                    const u = docSnap.data();
+                    const initial = u.name ? u.name.charAt(0).toUpperCase() : 'U';
+                    const avatar = u.photo 
+                        ? `<img src="${u.photo}" class="w-8 h-8 rounded-full object-cover">`
+                        : `<div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs">${initial}</div>`;
+                    
+                    tableBody.innerHTML += `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
+                                ${avatar}
+                                <span class="text-sm font-bold text-gray-800">${u.name || "N/A"}</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                document.getElementById('users-page-indicator').textContent = `Page ${usersCurrentPage}`;
+
+                // Next Button visibility dynamic checks based on total count
+                const nextBtn = document.getElementById('btn-users-next');
+                const prevBtn = document.getElementById('btn-users-prev');
+                
+                if(usersCurrentPage * usersPageSize >= totalCount) {
+                    nextBtn.classList.add('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+
+                if(usersCurrentPage === 1) {
+                    prevBtn.classList.add('hidden');
+                } else {
+                    prevBtn.classList.remove('hidden');
+                }
+
+            } catch (e) {
+                console.error("Error loading users: ", e);
+                tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
+            }
+        };
+
+        window.fetchNextUsersPage = () => {
+            usersCurrentPage++;
+            window.loadRegisteredUsers('next');
+        };
+
+        window.fetchPrevUsersPage = () => {
+            if (usersCurrentPage > 1) {
+                usersCurrentPage--;
+                window.loadRegisteredUsers('prev');
+            }
+        };
+
+        async function loadAllData() {
+            const admList = document.getElementById('admin-list-container');
+            let qAdmSize = 1;
+            try {
+                const qAdm = await getDocs(collection(db, "admins"));
+                admList.innerHTML = `<div class="p-2 bg-white border rounded font-bold text-blue-600 shadow-sm">${masterAdmin} (Master)</div>`;
+                qAdm.forEach(d => {
+                    const canDel = currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 rounded"><i class="fas fa-trash"></i></button>` : '';
+                    admList.innerHTML += `<div class="p-2 bg-white border rounded flex justify-between shadow-sm mt-1">
+                        ${d.data().email} ${canDel}
+                    </div>`;
+                });
+                qAdmSize = qAdm.size + 1;
+                document.getElementById('dash-admin-count').innerText = qAdmSize;
+            } catch (e) {
+                console.error("Error loading admins list: ", e);
+                document.getElementById('dash-admin-count').innerText = "1";
+            }
+
+            try {
+                const gen = await getDoc(doc(db, "settings", "general"));
+                if(gen.exists()) {
+                    const genData = gen.data();
+                    document.getElementById('timer-setting').value = genData.timerDuration || 10;
+                    document.getElementById('announce-setting').value = genData.announcementText || '';
+                    document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
+                    document.getElementById('logo-setting').value = genData.logoUrl || ''; 
+                    
+                    document.getElementById('bot-token-setting').value = genData.botToken || '';
+                    document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
+                    document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
+                    document.getElementById('ch2-name-setting').value = genData.channel2Name || '';
+                    document.getElementById('ch2-url-setting').value = genData.channel2Url || '';
+                }
+            } catch (e) {
+                console.error("Error loading general config: ", e);
+            }
+
+            try {
+                const soc = await getDoc(doc(db, "settings", "socials"));
+                if(soc.exists()) {
+                    document.getElementById('social-telegram').value = soc.data().telegram || '';
+                    document.getElementById('social-youtube').value = soc.data().youtube || '';
+                    document.getElementById('social-tiktok').value = soc.data().tiktok || '';
+                    document.getElementById('social-facebook').value = soc.data().facebook || '';
+                    document.getElementById('social-instagram').value = soc.data().instagram || '';
+                }
+            } catch (e) {
+                console.error("Error loading socials config: ", e);
+            }
+
+            try {
+                const ads = await getDoc(doc(db, "settings", "ads"));
+                if(ads.exists()) {
+                    document.getElementById('ad-slot-1').value = ads.data().adSlot1 || '';
+                    document.getElementById('ad-slot-2').value = ads.data().adSlot2 || '';
+                    document.getElementById('ad-slot-3').value = ads.data().adSlot3 || '';
+                }
+            } catch (e) {
+                console.error("Error loading ads config: ", e);
+            }
+            
+            // ড্যাশবোর্ড পরিসংখ্যান ডাটা লোডিং
+            try {
+                const fSnap = await getDocs(collection(db, "files"));
+                let fileCount = 0; 
+                let totalViews = 0;
+                let totalDownloads = 0;
+                let totalLikes = 0;
+                let totalComments = 0;
+
+                fSnap.forEach(d => { 
+                    const f = d.data();
+                    if(!f.isDeleted) {
+                        fileCount++; 
+                        totalViews += (f.views || 0);
+                        totalDownloads += (f.downloadCount || 0);
+                        totalComments += (f.commentCount || 0);
+
+                        const emojis = ['❤️'];
+                        emojis.forEach(e => {
+                            totalLikes += (f[`react_${e}`] || 0);
+                        });
+                        if(f.likeCount > 0) totalLikes += f.likeCount;
+                    }
+                });
+                
+                document.getElementById('dash-file-count').innerText = fileCount;
+                document.getElementById('admin-file-count').innerText = fileCount;
+
+                // Load Global Statistics Cards
+                document.getElementById('agg-total-views').innerText = totalViews;
+                document.getElementById('agg-total-downloads').innerText = totalDownloads;
+                document.getElementById('agg-total-likes').innerText = totalLikes;
+                document.getElementById('agg-total-comments').innerText = totalComments;
+                document.getElementById('agg-total-ratings').innerText = totalComments; // Mapped properly to count of rated/review comments as requested
+
+            } catch (e) {
+                console.error("Error counting files: ", e);
+                document.getElementById('dash-file-count').innerText = "0";
+            }
+            
+            try {
+                const sSnap = await getDocs(collection(db, "sliders"));
+                let sliderCount = 0;
+                sSnap.forEach(d => { if(!d.data().isDeleted) sliderCount++; });
+                document.getElementById('dash-slider-count').innerText = sliderCount;
+            } catch (e) {
+                console.error("Error counting sliders: ", e);
+                document.getElementById('dash-slider-count').innerText = "0";
+            }
+
+            loadSliders(); loadFiles();
+        }
+
+        document.getElementById('add-admin-btn').onclick = async () => {
+            if(currentAdminEmail !== masterAdmin) return toast("Only Master Admin can add new admins!");
+            const email = document.getElementById('new-admin-email').value.trim();
+            if(!email) return toast('Enter an email address!');
+            await addDoc(collection(db, "admins"), { email: email });
+            document.getElementById('new-admin-email').value = ''; toast('Admin Email Added!'); loadAllData();
+        };
+
+        window.delAdmin = async (id) => { 
+            if(currentAdminEmail !== masterAdmin) return;
+            if(confirm('Remove admin?')) { await deleteDoc(doc(db, "admins", id)); loadAllData(); } 
+        };
+
+        document.getElementById('save-gen-btn').onclick = async () => {
+            await setDoc(doc(db, "settings", "general"), { 
+                timerDuration: Number(document.getElementById('timer-setting').value), 
+                announcementText: document.getElementById('announce-setting').value,
+                popupNotice: document.getElementById('popup-notice-setting').value,
+                logoUrl: document.getElementById('logo-setting').value.trim(), 
+                botToken: document.getElementById('bot-token-setting').value.trim(),
+                channel1Name: document.getElementById('ch1-name-setting').value.trim(),
+                channel1Url: document.getElementById('ch1-url-setting').value.trim(),
+                channel2Name: document.getElementById('ch2-name-setting').value.trim(),
+                channel2Url: document.getElementById('ch2-url-setting').value.trim()
+            }, { merge: true }); 
+            toast('Saved!');
+            loadAllData();
+        };
+        
+        document.getElementById('save-social-btn').onclick = async () => {
+            await setDoc(doc(db, "settings", "socials"), { 
+                telegram: document.getElementById('social-telegram').value, 
+                youtube: document.getElementById('social-youtube').value, 
+                tiktok: document.getElementById('social-tiktok').value,
+                facebook: document.getElementById('social-facebook').value,
+                instagram: document.getElementById('social-instagram').value
+            }); toast('Saved!');
+        };
+        document.getElementById('save-ads-btn').onclick = async () => {
+            await setDoc(doc(db, "settings", "ads"), { adSlot1: document.getElementById('ad-slot-1').value, adSlot2: document.getElementById('ad-slot-2').value, adSlot3: document.getElementById('ad-slot-3').value }); toast('Saved!');
+        };
+
+        async function loadSliders() {
+            try {
+                const qSnap = await getDocs(collection(db, "sliders"));
+                const div = document.getElementById('slider-list');
+                div.innerHTML = '';
+                let sliderCount = 0;
+                
+                const sliders = [];
+                qSnap.forEach(d => sliders.push({ id: d.id, ...d.data() }));
+                sliders.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                sliders.forEach(data => { 
+                    if(data.isDeleted) return; 
+
+                    sliderCount++;
+                    const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500 bg-opacity-90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    div.innerHTML += `
+                        <div class="relative group border border-gray-150 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
+                            <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black bg-opacity-50 via-transparent to-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            ${delBtn}
+                        </div>`; 
+                });
+                document.getElementById('dash-slider-count').innerText = sliderCount;
+            } catch (e) {
+                console.error("Error loading sliders list: ", e);
+            }
+        }
+
+        window.softDelSlider = async (id) => {
+            if(confirm("Move this banner to Recycle Bin?")) {
+                await updateDoc(doc(db, 'sliders', id), { isDeleted: true });
+                loadSliders();
+                toast("Banner moved to Recycle Bin!");
+            }
+        };
+
+        document.getElementById('add-slider-btn').onclick = async () => {
+            const url = document.getElementById('slider-img').value.trim(); if(!url) return;
+            await addDoc(collection(db, "sliders"), { 
+                imageUrl: url, 
+                uploadedBy: currentAdminEmail, 
+                createdAt: serverTimestamp(),
+                isDeleted: false 
+            }); 
+            loadSliders(); document.getElementById('slider-img').value = '';
+        };
+
+        // SPACIOUS HORIZONTAL CONTAINER REDESIGNED FLUIDLY WITH 15 FILES PER PAGE
+        window.loadFiles = async (direction = 'init') => {
+            try {
+                const totalSnap = await getDocs(collection(db, "files"));
+                let totalFiles = 0;
+                totalSnap.forEach(d => { if(!d.data().isDeleted) totalFiles++; });
+                document.getElementById('admin-file-count').innerText = totalFiles;
+
+                let q;
+                if (direction === 'next' && filesLastDoc) {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), startAfter(filesLastDoc), limit(filesPageSize));
+                } else if (direction === 'prev' && filesFirstDoc) {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), endBefore(filesFirstDoc), limit(filesPageSize));
+                } else {
+                    q = query(collection(db, "files"), orderBy("createdAt", "desc"), limit(filesPageSize));
+                }
+
+                const qSnap = await getDocs(q);
+                const div = document.getElementById('file-list-grid');
+                div.innerHTML = '';
+
+                if (qSnap.empty) {
+                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-500">কোনো ফাইল আপলোড করা হয়নি।</div>';
+                    return;
+                }
+
+                filesFirstDoc = qSnap.docs[0];
+                filesLastDoc = qSnap.docs[qSnap.docs.length - 1];
+
+                qSnap.forEach(docSnap => {
+                    const f = { id: docSnap.id, ...docSnap.data() };
+                    if(f.isDeleted) return;
+
+                    const isMaster = currentAdminEmail === masterAdmin;
+                    const isOwner = f.uploadedBy === currentAdminEmail;
+                    
+                    let btns = '';
+                    if(isMaster || isOwner) {
+                        btns += `<button onclick="window.editFile('${f.id}')" class="text-xs bg-indigo-50 border border-indigo-150 text-indigo-700 px-3.5 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition font-black"><i class="fas fa-edit mr-0.5"></i> Edit</button>`;
+                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-50 border border-red-155 text-red-700 px-3.5 py-2 rounded-xl hover:bg-red-655 hover:text-white transition font-black"><i class="fas fa-trash mr-0.5"></i> Del</button>`;
+                    }
+                    if(isMaster) {
+                        btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3.5 py-2 rounded-xl hover:bg-green-655 hover:text-white transition font-black"><i class="fas fa-comments mr-0.5"></i> Cmts</button>`;
+                    }
+
+                    // Dynamic Horizontal wide Card with no squeezed text
+                    div.innerHTML += `
+                        <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
+                            <div class="flex items-center gap-3.5 min-w-0">
+                                <div class="relative shrink-0 w-14 h-14">
+                                    <img src="${f.thumbnailUrl}" class="w-full h-full object-cover rounded-xl border bg-gray-100">
+                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-xl"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <h4 class="font-extrabold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
+                                    <p class="text-[10px] text-gray-400 font-bold truncate mt-0.5" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    <div class="flex gap-2.5 text-[10px] text-gray-500 mt-1.5 font-bold bg-gray-50 px-2 py-0.5 rounded-md inline-flex items-center">
+                                        <span><i class="fas fa-eye text-blue-500 mr-0.5"></i> ${f.views||0}</span>
+                                        <span><i class="fas fa-download text-emerald-500 mr-0.5"></i> ${f.downloadCount||0}</span>
+                                        <span><i class="fas fa-comment text-indigo-500 mr-0.5"></i> ${f.commentCount||0}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 shrink-0 justify-end border-t sm:border-t-0 pt-2.5 sm:pt-0 border-gray-100">
+                                ${btns}
+                            </div>
+                        </div>`;
+                });
+
+                document.getElementById('files-page-indicator').textContent = `Page ${filesCurrentPage}`;
+
+                // Pagination buttons visibility configuration
+                const nextBtn = document.getElementById('btn-files-next');
+                const prevBtn = document.getElementById('btn-files-prev');
+                
+                if(filesCurrentPage * filesPageSize >= totalFiles) {
+                    nextBtn.classList.add('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                }
+
+                if(filesCurrentPage === 1) {
+                    prevBtn.classList.add('hidden');
+                } else {
+                    prevBtn.classList.remove('hidden');
+                }
+
+            } catch (e) {
+                console.error("Error loading files list: ", e);
+            }
+        };
+
+        window.fetchNextFilesPage = () => {
+            filesCurrentPage++;
+            window.loadFiles('next');
+        };
+
+        window.fetchPrevFilesPage = () => {
+            if (filesCurrentPage > 1) {
+                filesCurrentPage--;
+                window.loadFiles('prev');
+            }
+        };
+
+        window.softDelFile = async (id) => { 
+            if(confirm("Move this file to Recycle Bin?")) {
+                await updateDoc(doc(db, 'files', id), { isDeleted: true }); 
+                loadFiles(); 
+                toast("Moved to Recycle Bin!");
+            }
+        };
+
+        window.loadRecycleBin = async () => {
+            const list = document.getElementById('recycle-bin-list');
+            list.innerHTML = '<div class="text-center py-10 col-span-full"><i class="fas fa-spinner fa-spin text-3xl text-red-500"></i></div>';
+            
+            try {
+                let count = 0;
+                let html = '';
+
+                // ডিলিট হওয়া ফাইল লোড করা হচ্ছে
+                const qFilesSnap = await getDocs(collection(db, "files"));
+                const files = [];
+                qFilesSnap.forEach(doc => files.push({ id: doc.id, ...doc.data() }));
+                files.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                files.forEach(f => {
+                    if(f.isDeleted) {
+                        count++;
+                        html += `
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                                <div class="flex gap-3 items-center min-w-0">
+                                    <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">File</span>
+                                        <h4 class="font-bold text-sm text-gray-800 truncate mt-1">${f.title}</h4>
+                                        <p class="text-[11px] text-gray-500 truncate mt-0.5">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 border-t pt-2.5 justify-end">
+                                    <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                // ডিলিট হওয়া স্লাইডার ব্যানার লোড করা হচ্ছে
+                const qSlidersSnap = await getDocs(collection(db, "sliders"));
+                const sliders = [];
+                qSlidersSnap.forEach(doc => sliders.push({ id: doc.id, ...doc.data() }));
+                sliders.sort((a, b) => {
+                    const timeA = a.createdAt ? (a.createdAt.seconds || 0) : 0;
+                    const timeB = b.createdAt ? (b.createdAt.seconds || 0) : 0;
+                    return timeB - timeA;
+                });
+
+                sliders.forEach(s => {
+                    if(s.isDeleted) {
+                        count++;
+                        html += `
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                                <div class="flex gap-3 items-center min-w-0">
+                                    <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] bg-pink-100 text-pink-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Banner</span>
+                                        <h4 class="font-bold text-sm text-gray-800 truncate mt-1">Slider Image</h4>
+                                        <p class="text-[11px] text-gray-500 truncate mt-0.5">By: ${s.uploadedBy || 'Unknown'}</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 border-t pt-2.5 justify-end">
+                                    <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-755 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                list.innerHTML = html;
+                if(count === 0) {
+                    list.innerHTML = '<div class="col-span-full"><p class="text-center text-gray-500 py-10 font-medium"><i class="fas fa-check-circle text-4xl mb-3 text-green-400 block"></i> Recycle Bin is empty.</p></div>';
+                }
+            } catch (e) {
+                console.error("Error loading recycle bin: ", e);
+                list.innerHTML = '<div class="col-span-full"><p class="text-center text-red-500 py-10 font-medium">Failed to load recycle bin.</p></div>';
+            }
+        };
+
+        window.restoreFile = async (id) => {
+            await updateDoc(doc(db, 'files', id), { isDeleted: false });
+            window.loadRecycleBin();
+            loadFiles();
+            toast("File Restored!");
+        };
+
+        window.permanentDelFile = async (fileId) => {
+            if (confirm("Are you sure you want to permanently delete this file? This cannot be undone.")) {
+                await deleteDoc(doc(db, "files", fileId));
+                window.loadRecycleBin();
+                toast("File permanently deleted.");
+            }
+        };
+
+        window.restoreSlider = async (id) => {
+            await updateDoc(doc(db, 'sliders', id), { isDeleted: false });
+            window.loadRecycleBin();
+            loadSliders();
+            toast("Slider Restored!");
+        };
+
+        window.permanentDelSlider = async (id) => {
+            if (confirm("Are you sure you want to permanently delete this slider? This cannot be undone.")) {
+                await deleteDoc(doc(db, "sliders", id));
+                window.loadRecycleBin();
+                toast("Slider permanently deleted.");
+            }
+        };
+
+        window.editFile = async (id) => {
+            editingFileId = id;
+            const d = await getDoc(doc(db, "files", id));
+            if(d.exists()) {
+                const f = d.data();
+                document.getElementById('file-title').value = f.title || '';
+                document.getElementById('file-ads').value = f.requiredAds || 0;
+                document.getElementById('file-thumb').value = f.thumbnailUrl || '';
+                document.getElementById('file-video').value = f.videoUrl || '';
+                
+                // Screenshot Edit inputs loading
+                document.getElementById('file-ss1').value = f.screenshot1 || '';
+                document.getElementById('file-ss2').value = f.screenshot2 || '';
+                document.getElementById('file-ss3').value = f.screenshot3 || '';
+
+                document.getElementById('file-url').value = f.downloadUrl || '';
+                document.getElementById('file-desc').value = f.description || '';
+                
+                document.getElementById('cancel-edit-btn').classList.remove('hidden');
+                
+                const lang = document.getElementById('admin-language-selector').value || 'en';
+                document.getElementById('btn-file-icon').innerHTML = '<i class="fas fa-edit"></i>';
+                document.getElementById('btn-file-text').innerText = adminDict[lang]['update_content'];
+                document.getElementById('file-title').focus();
+                
+                window.switchTab('files');
+            }
+        };
+
+        window.cancelEdit = () => {
+            editingFileId = null;
+            document.getElementById('file-title').value = '';
+            document.getElementById('file-ads').value = '';
+            document.getElementById('file-thumb').value = '';
+            document.getElementById('file-video').value = '';
+            
+            // Screenshoot inputs reset
+            document.getElementById('file-ss1').value = '';
+            document.getElementById('file-ss2').value = '';
+            document.getElementById('file-ss3').value = '';
+
+            document.getElementById('file-url').value = '';
+            document.getElementById('file-desc').value = '';
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            
+            const lang = document.getElementById('admin-language-selector').value || 'en';
+            document.getElementById('btn-file-icon').innerHTML = '<i class="fas fa-cloud-upload-alt"></i>';
+            document.getElementById('btn-file-text').innerText = adminDict[lang]['upload_content'];
+        };
+
+        document.getElementById('add-file-btn').onclick = async () => {
+            const title = document.getElementById('file-title').value;
+            if(!title) return toast("Title is required!");
+
+            const payload = {
+                title: title, 
+                requiredAds: Number(document.getElementById('file-ads').value),
+                thumbnailUrl: document.getElementById('file-thumb').value, 
+                videoUrl: document.getElementById('file-video').value,
+                
+                // Added Screenshot input payloads
+                screenshot1: document.getElementById('file-ss1').value.trim(),
+                screenshot2: document.getElementById('file-ss2').value.trim(),
+                screenshot3: document.getElementById('file-ss3').value.trim(),
+
+                downloadUrl: document.getElementById('file-url').value, 
+                description: document.getElementById('file-desc').value
+            };
+
+            if(editingFileId) {
+                await updateDoc(doc(db, "files", editingFileId), payload);
+                toast('File Updated Successfully!');
+                window.cancelEdit();
+            } else {
+                payload.likeCount = 0; payload.commentCount = 0; payload.views = 0; payload.downloadCount = 0;
+                payload.createdAt = serverTimestamp();
+                payload.uploadedBy = currentAdminEmail;
+                payload.isDeleted = false; 
+                await addDoc(collection(db, "files"), payload);
+                toast('File Uploaded!');
+                window.cancelEdit(); 
+            }
+            loadFiles();
+        };
+
+        window.manageComments = async (fileId) => {
+            const modal = document.getElementById('admin-comment-modal');
+            const list = document.getElementById('admin-comment-list');
+            modal.classList.remove('hidden');
+            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
+            
+            try {
+                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
+                list.innerHTML = '';
+                if(q.empty) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
+                } else {
+                    q.forEach(d => {
+                        const c = d.data();
+                        list.innerHTML += `
+                            <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
+                                <div>
+                                    <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
+                                    <p class="text-sm text-gray-600 mt-1">${c.text}</p>
+                                </div>
+                                <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading comments: ", e);
+                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
+            }
+        };
+
+        window.delComment = async (fileId, commentId) => {
+            if(confirm("Delete this comment permanently?")) {
+                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
+                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
+                window.manageComments(fileId);
+                loadFiles();
+                toast("Comment Deleted!");
+            }
+        };
+
     </script>
 </body>
 </html>
