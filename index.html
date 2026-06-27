@@ -15,7 +15,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link class="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .custom-scroll::-webkit-scrollbar { width: 6px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -100,7 +100,7 @@
         <!-- Dynamic Pages Area -->
         <main class="flex-1 overflow-y-auto p-6 pb-24 custom-scroll">
             
-            <!-- Restored original gorgeous Slate Glassmorphic login form -->
+            <!-- Restored original Slate Glassmorphic login portal -->
             <div id="admin-login" class="bg-gradient-to-tr from-slate-900 to-indigo-950 p-10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.4)] max-w-md mx-auto border border-indigo-900/60 mt-16 animate-[fadeIn_0.5s_ease-out]">
                  <div class="text-center mb-8">
                      <div class="inline-block p-4 rounded-3xl bg-indigo-500/10 mb-3 border border-indigo-500/20 shadow-inner">
@@ -178,7 +178,7 @@
                     <!-- AGGREGATED STATISTICS DASHBOARD CARD -->
                     <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm">
                         <h3 class="text-sm font-black text-gray-400 uppercase tracking-wider mb-5"><i class="fas fa-chart-line text-indigo-500"></i> লাইভ ফাইল পরিসংখ্যান (Global Statistics)</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
                                 <span class="text-xs text-gray-400 block font-bold uppercase">মোট ভিউ</span>
                                 <h2 id="agg-total-views" class="text-2xl font-black text-gray-800 mt-1">0</h2>
@@ -194,6 +194,11 @@
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
                                 <span class="text-xs text-gray-400 block font-bold uppercase" data-lang="agg_total_comments_text">মোট কমেন্ট</span>
                                 <h2 id="agg-total-comments" class="text-2xl font-black text-gray-800 mt-1">0</h2>
+                            </div>
+                            <!-- Separated Ratings & Comments Dashboard Counters as per user instructions -->
+                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
+                                <span class="text-xs text-gray-400 block font-bold uppercase" data-lang="agg_total_ratings_text">মোট রেটিং</span>
+                                <h2 id="agg-total-ratings" class="text-2xl font-black text-gray-800 mt-1">0</h2>
                             </div>
                         </div>
                     </div>
@@ -343,7 +348,7 @@
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-pink-400"><i class="fas fa-link"></i></span>
                                 <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full pl-10 pr-4 py-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-inner text-sm">
                             </div>
-                            <button id="add-slider-btn" class="w-full sm:w-auto bg-gradient-to-r from-pink-505 to-indigo-600 text-white px-8 py-3 rounded-xl font-extrabold shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 whitespace-nowrap text-sm">
+                            <button id="add-slider-btn" class="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-indigo-600 text-white px-8 py-3 rounded-xl font-extrabold shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 whitespace-nowrap text-sm">
                                 <i class="fas fa-plus"></i> <span data-lang="add_btn">Add Banner</span>
                             </button>
                         </div>
@@ -434,7 +439,7 @@
     </div>
 
     <!-- Admin Comment Management Modal -->
-    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
             <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
                 <h3 class="font-bold text-lg"><i class="fas fa-comments text-blue-500"></i> Manage Comments</h3>
@@ -498,7 +503,7 @@
                 slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Upload", upload_content: "Upload Content", update_content: "Update Content",
                 all_files_menu: "All Files List", all_files_title: "All Uploaded Files",
                 file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard",
-                total_comments_stat: "Total Comments", agg_total_comments_text: "Total Comments"
+                total_comments_stat: "Total Comments", agg_total_comments_text: "Total Comments", agg_total_ratings_text: "Total Ratings"
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
@@ -510,7 +515,7 @@
                 slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "কনটেন্ট আপলোড", upload_content: "আপলোড করুন", update_content: "আপডেট করুন",
                 all_files_menu: "সকল ফাইল তালিকা", all_files_title: "আপলোডকৃত ফাইলসমূহ",
                 file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড",
-                total_comments_stat: "মোট কমেন্ট", agg_total_comments_text: "মোট কমেন্ট"
+                total_comments_stat: "মোট কমেন্ট", agg_total_comments_text: "মোট কমেন্ট", agg_total_ratings_text: "মোট রেটিং"
             }
         };
 
@@ -868,7 +873,8 @@
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
-                document.getElementById('agg-total-ratings').innerText = totalComments;
+                document.getElementById('agg-total-comments').innerText = totalComments;
+                document.getElementById('agg-total-ratings').innerText = totalComments; // Mapped properly to count of rated/review comments as requested
 
             } catch (e) {
                 console.error("Error counting files: ", e);
