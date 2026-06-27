@@ -236,7 +236,7 @@
 
                 <!-- TAB: MANAGE USERS WITH PAGINATION (20 Users per page) -->
                 <div id="page-users" class="admin-page hidden space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 font-bold">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
                             <span><i class="fas fa-users text-blue-500"></i> Registered Telegram Users</span>
                             <span id="admin-users-total" class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full">Total: 0</span>
@@ -250,13 +250,14 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telegram ID</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-table-body" class="bg-white divide-y divide-gray-200"></tbody>
                             </table>
                         </div>
 
-                        <!-- Pagination controls (next only displays if >20 users exist) -->
+                        <!-- Pagination controls -->
                         <div class="flex justify-between items-center mt-4">
                             <button id="btn-users-prev" onclick="window.fetchPrevUsersPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
                             <span id="users-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
@@ -277,11 +278,30 @@
                                     <label class="block font-semibold mb-1" data-lang="announce_text">Scrolling Announcement Text</label>
                                     <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
                                 </div>
+
+                                <!-- App On/Off and Custom Maintenance Settings -->
+                                <div class="bg-yellow-50/50 p-4 rounded-xl border border-yellow-200 space-y-3">
+                                    <label class="block text-sm font-black text-yellow-800"><i class="fas fa-power-off text-yellow-600"></i> App Access Control (On / Off)</label>
+                                    <select id="maintenance-setting" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
+                                        <option value="false">APP ON (স্বাভাবিক চালু থাকবে)</option>
+                                        <option value="true">APP OFF (মেইনটেন্যান্স মোড)</option>
+                                    </select>
+                                    <div>
+                                        <label class="block text-xs font-bold text-gray-500 mb-1">মেইনটেন্যান্স মেসেজ (কেন বন্ধ আছে বলুন)</label>
+                                        <textarea id="maintenance-msg-setting" rows="2" placeholder="অ্যাপ আপডেটের কাজ চলতেছে, কিছুক্ষণের মধ্যেই আবার চালু হবে..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800"></textarea>
+                                    </div>
+                                </div>
                                 
                                 <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS WITH TEXT-COLOR CORRECTION -->
                                 <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
                                     <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
-                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white text-gray-900 dark:bg-slate-800 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
+                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যಂತ আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white text-gray-900 dark:bg-slate-800 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
+                                </div>
+
+                                <!-- Admin support / Contact URL Configuration Settings -->
+                                <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
+                                    <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-headset"></i> Admin Contact/Support URL (Telegram link)</label>
+                                    <input type="url" id="admin-support-setting" placeholder="e.g. https://t.me/AlorHawa_Developer" class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
                                 </div>
                                 
                                 <!-- App Logo URL Settings -->
@@ -304,8 +324,8 @@
                                             <input type="text" id="ch1-name-setting" placeholder="e.g. Join Channel" class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
                                         </div>
                                         <div>
-                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
-                                            <input type="url" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link/ID</label>
+                                            <input type="text" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
@@ -315,8 +335,8 @@
                                             <input type="text" id="ch2-name-setting" placeholder="e.g. Payment Proofs" class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
                                         </div>
                                         <div>
-                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
-                                            <input type="url" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link/ID</label>
+                                            <input type="text" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
                                         </div>
                                     </div>
                                 </div>
@@ -403,7 +423,7 @@
                     </div>
                 </div>
 
-                <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in horizontal spacious layout) -->
+                <!-- TAB 8: ALL FILES LIST WITH PAGINATION -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm">
                         <h2 class="text-xl font-bold mb-4 text-gray-755 border-b pb-3 flex justify-between items-center">
@@ -412,7 +432,6 @@
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-1 shadow-sm">0</span>
                             </span>
                         </h2>
-                        <!-- 1-Column full width horizontal lists on mobile, 2-columns on wider desktop -->
                         <div class="bg-gray-50 border border-gray-150 rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
                             <div id="file-list-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
                         </div>
@@ -691,10 +710,10 @@
             }
         };
 
-        // PAGINATED REGISTERED USERS MANAGEMENT
+        // PAGINATED REGISTERED USERS MANAGEMENT WITH BAN & DELETE ACTIONS
         window.loadRegisteredUsers = async (direction = 'init') => {
             const tableBody = document.getElementById('users-table-body');
-            tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
             
             try {
                 // Get total users count
@@ -715,7 +734,7 @@
                 tableBody.innerHTML = '';
                 
                 if (snap.empty) {
-                    tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
                     return;
                 }
 
@@ -729,6 +748,16 @@
                         ? `<img src="${u.photo}" class="w-8 h-8 rounded-full object-cover">`
                         : `<div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs">${initial}</div>`;
                     
+                    const statusBadge = u.status === 'BANNED' 
+                        ? `<span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-red-100 text-red-800">● BANNED</span>`
+                        : `<span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>`;
+                    
+                    const toggleBanBtn = u.status === 'BANNED'
+                        ? `<button onclick="window.unbanUser('${docSnap.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-black"><i class="fas fa-user-check"></i> Unban</button>`
+                        : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 border border-yellow-150 text-yellow-700 px-3 py-1.5 rounded-lg hover:bg-yellow-600 hover:text-white transition font-black"><i class="fas fa-user-slash"></i> Ban</button>`;
+
+                    const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 border border-red-150 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-600 hover:text-white transition font-black"><i class="fas fa-trash-alt"></i> Delete</button>`;
+
                     tableBody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
@@ -737,8 +766,10 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>
+                            <td class="px-6 py-4 whitespace-nowrap">${statusBadge}</td>
+                            <td class="px-6 py-4 whitespace-nowrap flex items-center gap-2">
+                                ${toggleBanBtn}
+                                ${deleteBtn}
                             </td>
                         </tr>
                     `;
@@ -764,7 +795,31 @@
 
             } catch (e) {
                 console.error("Error loading users: ", e);
-                tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
+            }
+        };
+
+        window.banUser = async (uid) => {
+            if(confirm("ব্যান করতে চান? এই ইউজার আর অ্যাপ ব্যবহার করতে পারবে না।")) {
+                await updateDoc(doc(db, "users", uid), { status: "BANNED" });
+                toast("ইউজারকে ব্যান করা হয়েছে!");
+                window.loadRegisteredUsers();
+            }
+        };
+
+        window.unbanUser = async (uid) => {
+            if(confirm("আনব্যান করতে চান? ইউজার আবার অ্যাপ ব্যবহার করতে পারবে।")) {
+                await updateDoc(doc(db, "users", uid), { status: "ACTIVE" });
+                toast("ইউজারকে আনব্যান করা হয়েছে!");
+                window.loadRegisteredUsers();
+            }
+        };
+
+        window.deleteUser = async (uid) => {
+            if(confirm("অ্যাকাউন্টটি ডিলিট করতে চান? ডিলিট করলে ইউজার আবার নতুন করে অ্যাপে ঢুকতে পারবে।")) {
+                await deleteDoc(doc(db, "users", uid));
+                toast("ইউজার অ্যাকাউন্ট ডিলিট করা হয়েছে!");
+                window.loadRegisteredUsers();
             }
         };
 
@@ -808,6 +863,10 @@
                     document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
                     document.getElementById('logo-setting').value = genData.logoUrl || ''; 
                     
+                    document.getElementById('maintenance-setting').value = String(genData.maintenanceMode || false);
+                    document.getElementById('maintenance-msg-setting').value = genData.maintenanceMessage || '';
+                    document.getElementById('admin-support-setting').value = genData.adminSupportUrl || '';
+
                     document.getElementById('bot-token-setting').value = genData.botToken || '';
                     document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
                     document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
@@ -875,7 +934,7 @@
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
                 document.getElementById('agg-total-comments').innerText = totalComments;
-                document.getElementById('agg-total-ratings').innerText = totalComments; // Mapped properly to count of rated/review comments as requested
+                document.getElementById('agg-total-ratings').innerText = totalComments; 
 
             } catch (e) {
                 console.error("Error counting files: ", e);
@@ -909,11 +968,15 @@
         };
 
         document.getElementById('save-gen-btn').onclick = async () => {
+            const isMaintenance = document.getElementById('maintenance-setting').value === 'true';
             await setDoc(doc(db, "settings", "general"), { 
                 timerDuration: Number(document.getElementById('timer-setting').value), 
                 announcementText: document.getElementById('announce-setting').value,
                 popupNotice: document.getElementById('popup-notice-setting').value,
                 logoUrl: document.getElementById('logo-setting').value.trim(), 
+                maintenanceMode: isMaintenance,
+                maintenanceMessage: document.getElementById('maintenance-msg-setting').value,
+                adminSupportUrl: document.getElementById('admin-support-setting').value.trim(),
                 botToken: document.getElementById('bot-token-setting').value.trim(),
                 channel1Name: document.getElementById('ch1-name-setting').value.trim(),
                 channel1Url: document.getElementById('ch1-url-setting').value.trim(),
@@ -1135,7 +1198,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-750 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1167,7 +1230,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-755 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-750 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
