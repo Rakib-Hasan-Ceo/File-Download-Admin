@@ -4,16 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin Panel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: { 
-                    colors: { primary: '#4F46E5', darkBg: '#0f172a', darkCard: '#1e293b' }
-                }
-            }
-        }
-    </script>
+    <!-- Pre-compiled Static Tailwind CSS stylesheet for WebView/Telegram Compatibility -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .custom-scroll::-webkit-scrollbar { width: 6px; }
@@ -24,11 +16,16 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         /* Smooth scrolling setup to prevent hangs */
         body { overflow-y: auto; }
+        
+        /* Fallback styling for main colors */
+        .bg-indigo-950 { background-color: #1e1b4b; }
+        .bg-gray-855 { background-color: #1f2937; }
+        .border-indigo-900 { border-color: #312e81; }
     </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 flex h-screen w-screen overflow-hidden">
 
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="window.toggleSidebar()"></div>
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-60 z-40 hidden backdrop-blur-sm transition-opacity" onclick="window.toggleSidebar()"></div>
 
     <!-- SIDEBAR NAVIGATION MENU WITH GORGEOUS INDIGO STYLING -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-indigo-950 text-white z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col shadow-2xl border-r border-indigo-900">
@@ -39,32 +36,32 @@
         
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto p-4 space-y-2 custom-scroll">
-            <button onclick="window.switchTab('dashboard')" class="nav-item bg-indigo-900/60 border border-indigo-800/80 text-white w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 transition font-bold text-xs shadow-sm">
+            <button onclick="window.switchTab('dashboard')" class="nav-item bg-indigo-900 bg-opacity-60 border border-indigo-800 text-white w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 transition font-bold text-xs shadow-sm">
                 <i class="fas fa-tachometer-alt text-teal-400 w-5 text-sm"></i> <span data-lang="dashboard_menu">Dashboard</span>
             </button>
-            <button onclick="window.switchTab('admins')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('admins')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-user-shield text-blue-400 w-5 text-sm"></i> <span data-lang="manage_admins">Manage Admins</span>
             </button>
             <!-- MANAGE USERS TAB MENU -->
-            <button onclick="window.switchTab('users')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('users')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-users text-blue-300 w-5 text-sm"></i> <span>Manage Users</span>
             </button>
-            <button onclick="window.switchTab('app-config')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('app-config')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-sliders-h text-purple-400 w-5 text-sm"></i> <span data-lang="app_config_menu">App Settings</span>
             </button>
-            <button onclick="window.switchTab('sliders')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('sliders')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-images text-pink-400 w-5 text-sm"></i> <span data-lang="slider_banners_menu">Slider Banners</span>
             </button>
-            <button onclick="window.switchTab('ads')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('ads')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-ad text-orange-400 w-5 text-sm"></i> <span data-lang="ad_placements_menu">Ad Placements</span>
             </button>
-            <button onclick="window.switchTab('files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-cloud-upload-alt text-yellow-400 w-5 text-sm"></i> <span data-lang="file_management_menu">Upload Content</span>
             </button>
-            <button onclick="window.switchTab('all-files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('all-files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-list text-emerald-400 w-5 text-sm"></i> <span data-lang="all_files_menu">All Files List</span>
             </button>
-            <button onclick="window.switchTab('recycle-bin')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+            <button onclick="window.switchTab('recycle-bin')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900 hover:bg-opacity-60 transition font-bold text-xs">
                 <i class="fas fa-trash-restore text-red-400 w-5 text-sm"></i> <span data-lang="recycle_bin_menu">Recycle Bin</span>
             </button>
         </nav>
@@ -97,9 +94,11 @@
         </nav>
 
         <!-- Dynamic Pages Area -->
-        <main class="flex-1 overflow-y-auto custom-scroll p-4">
-            <div id="admin-login" class="hidden max-w-md mx-auto mt-20 bg-white dark:bg-darkCard p-8 rounded-3xl shadow-2xl border dark:border-gray-800 animate-[fadeIn_0.4s_ease-out]">
-                <h2 class="text-3xl font-black text-gray-800 dark:text-white text-center mb-6" data-lang="login_title">Admin Portal</h2>
+        <main class="flex-1 overflow-y-auto custom-scroll p-4 bg-gray-100">
+            
+            <!-- Login Portal is rendered visible by default to prevent white screen flashes -->
+            <div id="admin-login" class="max-w-md mx-auto mt-20 bg-white p-8 rounded-3xl shadow-2xl border border-gray-200 animate-[fadeIn_0.4s_ease-out]">
+                <h2 class="text-3xl font-black text-gray-800 text-center mb-6" data-lang="login_title">Admin Portal</h2>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">অ্যাডমিন ইমেইল</label>
@@ -127,7 +126,7 @@
                 <!-- TAB 1: ADVANCED DASHBOARD OVERVIEW -->
                 <div id="page-dashboard" class="admin-page active space-y-6">
                     <!-- Welcome Banner -->
-                    <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+                    <div class="bg-gradient-to-r from-indigo-600 to-pink-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
                         <div class="absolute right-0 bottom-0 opacity-15 translate-x-10 translate-y-10">
                             <i class="fas fa-crown text-9xl"></i>
                         </div>
@@ -137,21 +136,21 @@
 
                     <!-- Metric Glow Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-blue-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm flex items-center gap-5 border-l-4 border-blue-500">
                             <div class="p-4 bg-blue-50 text-blue-600 rounded-2xl text-2xl"><i class="fas fa-folder-open"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="total_files">Total Files</h3>
                                 <h1 id="dash-file-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-pink-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm flex items-center gap-5 border-l-4 border-pink-500">
                             <div class="p-4 bg-pink-50 text-pink-600 rounded-2xl text-2xl"><i class="fas fa-images"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="slider_banners_menu">Slider Banners</h3>
                                 <h1 id="dash-slider-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-purple-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm flex items-center gap-5 border-l-4 border-purple-500">
                             <div class="p-4 bg-purple-50 text-purple-600 rounded-2xl text-2xl"><i class="fas fa-users-cog"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="registered_admins">Registered Admins</h3>
@@ -161,7 +160,7 @@
                     </div>
 
                     <!-- AGGREGATED STATISTICS DASHBOARD CARD -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm">
                         <h3 class="text-sm font-black text-gray-400 uppercase tracking-wider mb-5"><i class="fas fa-chart-line text-indigo-500"></i> লাইভ ফাইল পরিসংখ্যান (Global Statistics)</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
@@ -184,9 +183,9 @@
                     </div>
 
                     <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div>
-                            <h4 class="font-extrabold text-gray-850 dark:text-white text-base">ওয়েব অ্যাপ রাকিব</h4>
+                            <h4 class="font-extrabold text-gray-800 text-base">ওয়েব অ্যাপ রাকিব</h4>
                             <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
                         </div>
                         <div class="flex items-center gap-2">
@@ -201,7 +200,7 @@
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-users-cog text-purple-500"></i> <span data-lang="manage_admins">Manage Admins</span></h2>
                         <div class="flex gap-2 mb-4">
-                            <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-500">
+                            <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                             <button id="add-admin-btn" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-bold shadow transition whitespace-nowrap"><i class="fas fa-plus"></i> <span data-lang="add_email">Add Email</span></button>
                         </div>
                         <div id="admin-list-container" class="space-y-2 bg-gray-50 p-3 rounded border max-h-60 overflow-y-auto custom-scroll"></div>
@@ -253,13 +252,13 @@
                                 </div>
                                 
                                 <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS -->
-                                <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
-                                    <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
-                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white dark:bg-gray-855 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
+                                <div class="bg-red-50 p-5 rounded-2xl border border-red-250 space-y-2">
+                                    <label class="block text-sm font-black flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
+                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white border-2 border-red-200 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
                                 </div>
                                 
                                 <!-- App Logo URL Settings -->
-                                <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
+                                <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100">
                                     <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-image"></i> App Logo URL (For Verification Screen)</label>
                                     <input type="url" id="logo-setting" placeholder="Paste App Logo URL here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
                                 </div>
@@ -271,7 +270,7 @@
                                         <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification)</label>
                                         <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
                                     </div>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50 p-3 rounded-lg border border-purple-100">
                                         <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 1 (Required)</div>
                                         <div>
                                             <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
@@ -282,7 +281,7 @@
                                             <input type="url" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
                                         </div>
                                     </div>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50 p-3 rounded-lg border border-purple-100">
                                         <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 2 (Required)</div>
                                         <div>
                                             <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
@@ -318,7 +317,7 @@
                         </h2>
                         
                         <!-- Upload Form Box -->
-                        <div class="bg-gradient-to-tr from-pink-50 to-indigo-50/50 p-5 rounded-2xl border border-pink-100/50 mb-6 flex flex-col sm:flex-row gap-3 items-center">
+                        <div class="bg-gradient-to-tr from-pink-50 to-indigo-50 p-5 rounded-2xl border border-pink-100 mb-6 flex flex-col sm:flex-row gap-3 items-center">
                             <div class="relative w-full">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-pink-400"><i class="fas fa-link"></i></span>
                                 <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full pl-10 pr-4 py-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-inner text-sm">
@@ -355,7 +354,7 @@
                             </span>
                             <button id="cancel-edit-btn" onclick="window.cancelEdit()" class="hidden text-sm bg-gray-500 text-white px-3 py-1.5 rounded-lg shadow">Cancel Edit</button>
                         </h2>
-                        <div class="bg-blue-50/50 p-5 rounded-2xl shadow-inner border border-blue-100">
+                        <div class="bg-blue-50 p-5 rounded-2xl shadow-inner border border-blue-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                                 <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
@@ -379,23 +378,23 @@
 
                 <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in horizontal spacious layout) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
-                    <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm">
-                        <h2 class="text-xl font-bold mb-4 text-gray-750 border-b pb-3 flex justify-between items-center">
+                    <div class="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm">
+                        <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-3 flex justify-between items-center">
                             <span class="flex items-center gap-1.5">
                                 <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-1 shadow-sm">0</span>
                             </span>
                         </h2>
                         <!-- 1-Column full width horizontal lists on mobile, 2-columns on wider desktop -->
-                        <div class="bg-gray-50 border border-gray-150 rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
+                        <div class="bg-gray-50 border border-gray-250 rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
                             <div id="file-list-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
                         </div>
 
                         <!-- File Pagination controller buttons -->
                         <div class="flex justify-between items-center mt-4 border-t pt-4">
-                            <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Prev Page</button>
+                            <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-200 transition-all">Prev Page</button>
                             <span id="files-page-indicator" class="text-xs text-gray-500 font-black bg-gray-100 px-4 py-2 rounded-full">Page 1</span>
-                            <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Next Page</button>
+                            <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-200 transition-all">Next Page</button>
                         </div>
                     </div>
                 </div>
@@ -414,7 +413,7 @@
     </div>
 
     <!-- Admin Comment Management Modal -->
-    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
             <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
                 <h3 class="font-bold text-lg"><i class="fas fa-comments text-blue-500"></i> Manage Comments</h3>
@@ -433,7 +432,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, getDoc, setDoc, query, updateDoc, increment, addDoc, orderBy, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, deleteDoc, updateDoc, query, orderBy, limit, startAfter, startAt, endBefore, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBFLa7OKNIz9nnRC714Yo53pMZj9vMnhzg",
@@ -832,7 +832,7 @@
                         totalDownloads += (f.downloadCount || 0);
                         totalComments += (f.commentCount || 0);
 
-                        const emojis = ['❤️', '👍', '😭', '😁', '😢', '👌', '🥰', '🫣', '🤯', '👀', '🌹', '💯', '🕊', '🔥', '💔', '🇧🇩'];
+                        const emojis = ['❤️'];
                         emojis.forEach(e => {
                             totalLikes += (f[`react_${e}`] || 0);
                         });
@@ -847,7 +847,7 @@
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
-                document.getElementById('agg-total-comments').innerText = totalComments;
+                document.getElementById('agg-total-ratings').innerText = totalComments;
 
             } catch (e) {
                 console.error("Error counting files: ", e);
@@ -929,11 +929,11 @@
 
                     sliderCount++;
                     const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
-                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500 bg-opacity-90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
                     div.innerHTML += `
                         <div class="relative group border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
                             <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black bg-opacity-50 via-transparent to-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             ${delBtn}
                         </div>`; 
                 });
@@ -1013,7 +1013,7 @@
                             <div class="flex items-center gap-3.5 min-w-0">
                                 <div class="relative shrink-0 w-14 h-14">
                                     <img src="${f.thumbnailUrl}" class="w-full h-full object-cover rounded-xl border bg-gray-100">
-                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
+                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-xl"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
                                 </div>
                                 <div class="min-w-0 flex-1">
                                     <h4 class="font-extrabold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
