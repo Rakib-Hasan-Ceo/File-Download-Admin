@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Admin Panel</title>
-    <!-- Your original beautiful Tailwind JIT compiler restored -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,7 +14,6 @@
             }
         }
     </script>
-    <!-- Fixed the FontAwesome stylesheet rel type -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .custom-scroll::-webkit-scrollbar { width: 6px; }
@@ -24,7 +22,6 @@
         .admin-page { display: none; }
         .admin-page.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        /* Smooth scrolling setup to prevent hangs */
         body { overflow-y: auto; }
     </style>
 </head>
@@ -101,28 +98,25 @@
         <!-- Dynamic Pages Area -->
         <main class="flex-1 overflow-y-auto p-6 pb-24 custom-scroll">
             
-            <!-- Restored original Slate Glassmorphic login portal -->
+            <!-- ULTRA-PREMIUM SLATE GLASSMORPHIC ADMIN LOGIN PORTAL -->
             <div id="admin-login" class="bg-gradient-to-tr from-slate-900 to-indigo-950 p-10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.4)] max-w-md mx-auto border border-indigo-900/60 mt-16 animate-[fadeIn_0.5s_ease-out]">
-                 <div class="text-center mb-8">
-                     <div class="inline-block p-4 rounded-3xl bg-indigo-500/10 mb-3 border border-indigo-500/20 shadow-inner">
-                         <i class="fas fa-shield-halved text-5xl text-yellow-400"></i>
+                 <div class="text-center mb-6">
+                     <div class="inline-block p-4 rounded-full bg-indigo-900/50 mb-2 border border-indigo-800">
+                         <i class="fas fa-user-lock text-4xl text-brand-yellow text-yellow-400"></i>
                      </div>
-                     <h2 class="text-3xl font-black text-white tracking-tight" data-lang="login_title">Admin Portal</h2>
-                     <p class="text-xs text-indigo-300/80 mt-1.5 font-semibold">ড্যাশবোর্ডে প্রবেশ করতে আপনার তথ্য প্রদান করুন</p>
+                     <h2 class="text-3xl font-black text-white" data-lang="login_title">Admin Portal</h2>
                  </div>
-                 <div class="space-y-5">
+                 <div class="space-y-4">
                      <div>
-                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">অ্যাডমিন ইমেইল</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-envelope"></i></span>
-                             <input type="email" id="email-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-envelope"></i></span>
+                             <input type="email" id="email-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
                          </div>
                      </div>
                      <div>
-                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">পাসওয়ার্ড</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-lock"></i></span>
-                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-lock"></i></span>
+                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
                          </div>
                          <div class="text-right mt-2">
                              <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
@@ -176,14 +170,10 @@
                         </div>
                     </div>
 
-                    <!-- AGGREGATED STATISTICS DASHBOARD CARD (6 Columns for Balanced UI) -->
+                    <!-- AGGREGATED STATISTICS DASHBOARD CARD -->
                     <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm">
                         <h3 class="text-sm font-black text-gray-400 uppercase tracking-wider mb-5"><i class="fas fa-chart-line text-indigo-500"></i> লাইভ ফাইল পরিসংখ্যান (Global Statistics)</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট ইউজার</span>
-                                <h2 id="agg-total-users" class="text-2xl font-black text-gray-800 mt-1">0</h2>
-                            </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
                                 <span class="text-xs text-gray-400 block font-bold uppercase">মোট ভিউ</span>
                                 <h2 id="agg-total-views" class="text-2xl font-black text-gray-800 mt-1">0</h2>
@@ -197,24 +187,20 @@
                                 <h2 id="agg-total-likes" class="text-2xl font-black text-gray-800 mt-1">0</h2>
                             </div>
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-                                <span class="text-xs text-gray-400 block font-bold uppercase" data-lang="agg_total_comments_text">মোট কমেন্ট</span>
-                                <h2 id="agg-total-comments" class="text-2xl font-black text-gray-800 mt-1">0</h2>
-                            </div>
-                            <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
-                                <span class="text-xs text-gray-400 block font-bold uppercase" data-lang="agg_total_ratings_text">মোট রেটিং</span>
+                                <span class="text-xs text-gray-400 block font-bold uppercase">মোট রেটিং</span>
                                 <h2 id="agg-total-ratings" class="text-2xl font-black text-gray-800 mt-1">0</h2>
                             </div>
                         </div>
                     </div>
 
-                    <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
+                    <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
                     <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
                                 <i class="fas fa-code"></i>
                             </div>
                             <div>
-                                <h4 class="font-extrabold text-gray-800 font-sans">Developed by Web Rakib</h4>
+                                <h4 class="font-extrabold text-gray-800">Developed by Web Rakib</h4>
                                 <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
                             </div>
                         </div>
@@ -230,7 +216,7 @@
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-users-cog text-purple-500"></i> <span data-lang="manage_admins">Manage Admins</span></h2>
                         <div class="flex gap-2 mb-4">
-                            <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-500 text-gray-900 dark:text-white dark:bg-slate-800">
+                            <input type="email" id="new-admin-email" placeholder="Enter new admin email..." class="w-full p-2 border rounded focus:ring-2 focus:ring-purple-500">
                             <button id="add-admin-btn" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 font-bold shadow transition whitespace-nowrap"><i class="fas fa-plus"></i> <span data-lang="add_email">Add Email</span></button>
                         </div>
                         <div id="admin-list-container" class="space-y-2 bg-gray-50 p-3 rounded border max-h-60 overflow-y-auto custom-scroll"></div>
@@ -239,7 +225,7 @@
 
                 <!-- TAB: MANAGE USERS WITH PAGINATION (20 Users per page) -->
                 <div id="page-users" class="admin-page hidden space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 font-bold">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
                             <span><i class="fas fa-users text-blue-500"></i> Registered Telegram Users</span>
                             <span id="admin-users-total" class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-full">Total: 0</span>
@@ -253,14 +239,13 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telegram ID</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-table-body" class="bg-white divide-y divide-gray-200"></tbody>
                             </table>
                         </div>
 
-                        <!-- Pagination controls -->
+                        <!-- Pagination controls (next only displays if >20 users exist) -->
                         <div class="flex justify-between items-center mt-4">
                             <button id="btn-users-prev" onclick="window.fetchPrevUsersPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
                             <span id="users-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
@@ -276,41 +261,22 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-4">
                                 <label class="block font-semibold" data-lang="timer_delay">Timer Delay (Seconds)</label>
-                                <input type="number" id="timer-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
+                                <input type="number" id="timer-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                                 <div>
                                     <label class="block font-semibold mb-1" data-lang="announce_text">Scrolling Announcement Text</label>
-                                    <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
-                                </div>
-
-                                <!-- App On/Off and Custom Maintenance Settings -->
-                                <div class="bg-yellow-50/50 p-4 rounded-xl border border-yellow-200 space-y-3">
-                                    <label class="block text-sm font-black text-yellow-800"><i class="fas fa-power-off text-yellow-600"></i> App Access Control (On / Off)</label>
-                                    <select id="maintenance-setting" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
-                                        <option value="false">APP ON (স্বাভাবিক চালু থাকবে)</option>
-                                        <option value="true">APP OFF (মেইনটেন্যান্স মোড)</option>
-                                    </select>
-                                    <div>
-                                        <label class="block text-xs font-bold text-gray-500 mb-1">মেইনটেন্যান্স মেসেজ (কেন বন্ধ আছে বলুন)</label>
-                                        <textarea id="maintenance-msg-setting" rows="2" placeholder="অ্যাপ আপডেটের কাজ চলতেছে, কিছুক্ষণের মধ্যেই আবার চালু হবে..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800"></textarea>
-                                    </div>
+                                    <input type="text" id="announce-setting" class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
                                 </div>
                                 
-                                <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS WITH TEXT-COLOR CORRECTION -->
+                                <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS -->
                                 <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
                                     <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
-                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white text-gray-900 dark:bg-slate-800 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
-                                </div>
-
-                                <!-- Admin support / Contact URL Configuration Settings -->
-                                <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
-                                    <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-headset"></i> Admin Contact/Support URL (Telegram link)</label>
-                                    <input type="url" id="admin-support-setting" placeholder="e.g. https://t.me/AlorHawa_Developer" class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
+                                    <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white dark:bg-gray-855 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
                                 </div>
                                 
                                 <!-- App Logo URL Settings -->
                                 <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
                                     <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-image"></i> App Logo URL (For Verification Screen)</label>
-                                    <input type="url" id="logo-setting" placeholder="Paste App Logo URL here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500 text-gray-900 dark:text-white dark:bg-slate-800">
+                                    <input type="url" id="logo-setting" placeholder="Paste App Logo URL here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
                                 </div>
                                 
                                 <!-- চ্যানেল ভেরিফিকেশন ফর্ম সেটিংস -->
@@ -318,28 +284,28 @@
                                     <h3 class="font-bold text-purple-700 text-sm"><i class="fab fa-telegram"></i> Telegram Membership Settings</h3>
                                     <div>
                                         <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification)</label>
-                                        <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500 text-gray-900 dark:text-white dark:bg-slate-800">
+                                        <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
                                         <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 1 (Required)</div>
                                         <div>
                                             <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
-                                            <input type="text" id="ch1-name-setting" placeholder="e.g. Join Channel" class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <input type="text" id="ch1-name-setting" placeholder="e.g. Join Channel" class="w-full p-2 border rounded text-xs">
                                         </div>
                                         <div>
-                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link/ID</label>
-                                            <input type="text" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
+                                            <input type="url" id="ch1-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
                                         <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 2 (Required)</div>
                                         <div>
                                             <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Button Name</label>
-                                            <input type="text" id="ch2-name-setting" placeholder="e.g. Payment Proofs" class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <input type="text" id="ch2-name-setting" placeholder="e.g. Payment Proofs" class="w-full p-2 border rounded text-xs">
                                         </div>
                                         <div>
-                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link/ID</label>
-                                            <input type="text" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs text-gray-900 dark:text-white dark:bg-slate-800">
+                                            <label class="block text-[10px] font-bold text-gray-500 mb-0.5">Telegram Link</label>
+                                            <input type="url" id="ch2-url-setting" placeholder="https://t.me/..." class="w-full p-2 border rounded text-xs">
                                         </div>
                                     </div>
                                 </div>
@@ -348,11 +314,11 @@
                             </div>
                             <div class="space-y-3 bg-gray-50 p-4 rounded-lg">
                                 <h3 class="font-bold text-gray-600" data-lang="social_links">Social Media Links</h3>
-                                <input type="url" id="social-telegram" placeholder="Telegram URL" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
-                                <input type="url" id="social-youtube" placeholder="YouTube URL" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
-                                <input type="url" id="social-tiktok" placeholder="TikTok URL" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
-                                <input type="url" id="social-facebook" placeholder="Facebook URL (Optional)" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
-                                <input type="url" id="social-instagram" placeholder="Instagram URL (Optional)" class="w-full p-2 border rounded text-sm text-gray-900 dark:text-white dark:bg-slate-800">
+                                <input type="url" id="social-telegram" placeholder="Telegram URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-youtube" placeholder="YouTube URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-tiktok" placeholder="TikTok URL" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-facebook" placeholder="Facebook URL (Optional)" class="w-full p-2 border rounded text-sm">
+                                <input type="url" id="social-instagram" placeholder="Instagram URL (Optional)" class="w-full p-2 border rounded text-sm">
                                 <button id="save-social-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-bold shadow transition" data-lang="update_links">Update Links</button>
                             </div>
                         </div>
@@ -370,7 +336,7 @@
                         <div class="bg-gradient-to-tr from-pink-50 to-indigo-50/50 p-5 rounded-2xl border border-pink-100/50 mb-6 flex flex-col sm:flex-row gap-3 items-center">
                             <div class="relative w-full">
                                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-pink-400"><i class="fas fa-link"></i></span>
-                                <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full pl-10 pr-4 py-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-inner text-sm text-gray-900 dark:text-white">
+                                <input type="url" id="slider-img" placeholder="Paste Slider Image URL Here..." class="w-full pl-10 pr-4 py-3 border border-pink-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white shadow-inner text-sm">
                             </div>
                             <button id="add-slider-btn" class="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-indigo-600 text-white px-8 py-3 rounded-xl font-extrabold shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2 whitespace-nowrap text-sm">
                                 <i class="fas fa-plus"></i> <span data-lang="add_btn">Add Banner</span>
@@ -387,9 +353,9 @@
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2"><i class="fas fa-ad text-orange-500"></i> <span data-lang="ad_placements">Ad Placements</span></h2>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <textarea id="ad-slot-1" rows="4" placeholder="Header Ad Code" class="w-full p-2 border rounded text-xs font-mono text-gray-900 dark:text-white dark:bg-slate-800"></textarea>
-                            <textarea id="ad-slot-2" rows="4" placeholder="Middle Ad Code" class="w-full p-2 border rounded text-xs font-mono text-gray-900 dark:text-white dark:bg-slate-800"></textarea>
-                            <textarea id="ad-slot-3" rows="4" placeholder="Footer Ad Code" class="w-full p-2 border rounded text-xs font-mono text-gray-900 dark:text-white dark:bg-slate-800"></textarea>
+                            <textarea id="ad-slot-1" rows="4" placeholder="Header Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
+                            <textarea id="ad-slot-2" rows="4" placeholder="Middle Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
+                            <textarea id="ad-slot-3" rows="4" placeholder="Footer Ad Code" class="w-full p-2 border rounded text-xs font-mono"></textarea>
                         </div>
                         <button id="save-ads-btn" class="mt-4 bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600 font-bold shadow transition" data-lang="save_ads"><i class="fas fa-check"></i> Save Ads</button>
                     </div>
@@ -406,18 +372,18 @@
                         </h2>
                         <div class="bg-blue-50/50 p-5 rounded-2xl shadow-inner border border-blue-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                                <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
+                                <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 
                                 <!-- Multiple Screenshot URL Fields -->
-                                <input type="url" id="file-ss1" placeholder="Screenshot 1 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <input type="url" id="file-ss2" placeholder="Screenshot 2 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <input type="url" id="file-ss3" placeholder="Screenshot 3 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
+                                <input type="url" id="file-ss1" placeholder="Screenshot 1 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-ss2" placeholder="Screenshot 2 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-ss3" placeholder="Screenshot 3 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 
-                                <input type="url" id="file-url" placeholder="Download Link" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white text-gray-900 dark:text-white">
-                                <textarea id="file-desc" placeholder="Description" rows="3" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white md:col-span-2 text-gray-900 dark:text-white"></textarea>
+                                <input type="url" id="file-url" placeholder="Download Link" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <textarea id="file-desc" placeholder="Description" rows="3" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white md:col-span-2"></textarea>
                             </div>
                             <button id="add-file-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-extrabold shadow-lg transition">
                                 <span id="btn-file-icon"><i class="fas fa-cloud-upload-alt mr-1"></i></span> <span id="btn-file-text" data-lang="upload_content">Upload Content</span>
@@ -426,15 +392,16 @@
                     </div>
                 </div>
 
-                <!-- TAB 8: ALL FILES LIST WITH PAGINATION -->
+                <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in horizontal spacious layout) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm">
-                        <h2 class="text-xl font-bold mb-4 text-gray-755 border-b pb-3 flex justify-between items-center">
+                        <h2 class="text-xl font-bold mb-4 text-gray-750 border-b pb-3 flex justify-between items-center">
                             <span class="flex items-center gap-1.5">
                                 <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-1 shadow-sm">0</span>
                             </span>
                         </h2>
+                        <!-- 1-Column full width horizontal lists on mobile, 2-columns on wider desktop -->
                         <div class="bg-gray-50 border border-gray-150 rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
                             <div id="file-list-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
                         </div>
@@ -461,14 +428,27 @@
         </main>
     </div>
 
-    <!-- Admin Comment Management Modal -->
-    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
-            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
+    <!-- NEW: ADMIN COMMENT MANAGEMENT & REPLY OVERLAY MODAL -->
+    <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-3xl">
                 <h3 class="font-bold text-lg"><i class="fas fa-comments text-blue-500"></i> Manage Comments</h3>
-                <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-xl hover:text-red-700">&times;</button>
+                <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
             </div>
             <div id="admin-comment-list" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3"></div>
+        </div>
+    </div>
+
+    <!-- NEW: ADMIN DOWNLOAD HISTORY VIEWER OVERLAY MODAL (কে কে ফাইল ডাউনলোড করেছে তালিকা) -->
+    <div id="admin-downloads-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[75vh] flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-3xl">
+                <h3 class="font-black text-base text-gray-800"><i class="fas fa-cloud-download text-emerald-500 mr-1.5"></i> ফাইল ডাউনলোডার ট্র্যাকার</h3>
+                <button onclick="document.getElementById('admin-downloads-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
+            </div>
+            <div id="admin-downloads-list-container" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3.5">
+                <!-- Populated dynamically with lists -->
+            </div>
         </div>
     </div>
 
@@ -503,7 +483,7 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // Updated Page view size to 20 users per page
+        // Page view size setup to 20 users per page
         let usersPageSize = 20;
         let usersLastDoc = null;
         let usersFirstDoc = null;
@@ -525,8 +505,7 @@
                 social_links: "Social Media Links", update_links: "Update Links", ad_placements: "Ad Placements", save_ads: "Save Ads",
                 slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Upload", upload_content: "Upload Content", update_content: "Update Content",
                 all_files_menu: "All Files List", all_files_title: "All Uploaded Files",
-                file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard",
-                total_comments_stat: "Total Comments", agg_total_comments_text: "Total Comments", agg_total_ratings_text: "Total Ratings"
+                file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard"
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
@@ -537,8 +516,7 @@
                 social_links: "সোশ্যাল মিডিয়া লিংক", update_links: "লিংক আপডেট", ad_placements: "অ্যাড প্লেসমেন্ট", save_ads: "অ্যাড সেভ",
                 slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "কনটেন্ট আপলোড", upload_content: "আপলোড করুন", update_content: "আপডেট করুন",
                 all_files_menu: "সকল ফাইল তালিকা", all_files_title: "আপলোডকৃত ফাইলসমূহ",
-                file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড",
-                total_comments_stat: "মোট কমেন্ট", agg_total_comments_text: "মোট কমেন্ট", agg_total_ratings_text: "মোট রেটিং"
+                file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড"
             }
         };
 
@@ -587,11 +565,24 @@
             }
         });
 
-        document.getElementById('forgot-pass-btn').addEventListener('click', () => {
-            alert("Please contact the primary system administrator to reset your password.");
+        document.getElementById('forgot-pass-btn').addEventListener('click', async () => {
+            const email = document.getElementById('email-input').value.trim();
+            const err = document.getElementById('login-error');
+            if(!email) {
+                err.textContent = "Type your email in the box first to reset password.";
+                return err.classList.remove('hidden');
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                err.classList.add('hidden');
+                toast("Password reset link sent to your email!");
+            } catch(error) {
+                err.textContent = "Failed to send reset link. User may not exist.";
+                err.classList.remove('hidden');
+            }
         });
 
-        async function registerNewAdmin() {
+        document.getElementById('register-btn').addEventListener('click', async () => {
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
             const err = document.getElementById('login-error');
@@ -609,12 +600,11 @@
                 await createUserWithEmailAndPassword(auth, email, password);
                 err.classList.add('hidden');
                 toast("Account created! Logging in...");
-            } catch(error) {
-                err.textContent = error.message;
+            } catch (error) {
+                err.textContent = "Account creation failed or already exists.";
                 err.classList.remove('hidden');
             }
-        }
-        document.getElementById('register-btn').addEventListener('click', registerNewAdmin);
+        });
 
         onAuthStateChanged(auth, async user => {
             await fetchAdmins();
@@ -713,10 +703,10 @@
             }
         };
 
-        // PAGINATED REGISTERED USERS MANAGEMENT WITH BAN & DELETE ACTIONS
+        // PAGINATED REGISTERED USERS MANAGEMENT
         window.loadRegisteredUsers = async (direction = 'init') => {
             const tableBody = document.getElementById('users-table-body');
-            tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
             
             try {
                 // Get total users count
@@ -737,7 +727,7 @@
                 tableBody.innerHTML = '';
                 
                 if (snap.empty) {
-                    tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
                     return;
                 }
 
@@ -751,16 +741,6 @@
                         ? `<img src="${u.photo}" class="w-8 h-8 rounded-full object-cover">`
                         : `<div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs">${initial}</div>`;
                     
-                    const statusBadge = u.status === 'BANNED' 
-                        ? `<span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-red-100 text-red-800">● BANNED</span>`
-                        : `<span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>`;
-                    
-                    const toggleBanBtn = u.status === 'BANNED'
-                        ? `<button onclick="window.unbanUser('${docSnap.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3 py-1.5 rounded-lg hover:bg-green-600 hover:text-white transition font-black"><i class="fas fa-user-check"></i> Unban</button>`
-                        : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 border border-yellow-150 text-yellow-700 px-3 py-1.5 rounded-lg hover:bg-yellow-600 hover:text-white transition font-black"><i class="fas fa-user-slash"></i> Ban</button>`;
-
-                    const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 border border-red-155 text-red-750 px-3 py-1.5 rounded-lg hover:bg-red-655 hover:text-white transition font-black"><i class="fas fa-trash-alt"></i> Delete</button>`;
-
                     tableBody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
@@ -769,10 +749,8 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">${statusBadge}</td>
-                            <td class="px-6 py-4 whitespace-nowrap flex items-center gap-2">
-                                ${toggleBanBtn}
-                                ${deleteBtn}
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>
                             </td>
                         </tr>
                     `;
@@ -798,31 +776,7 @@
 
             } catch (e) {
                 console.error("Error loading users: ", e);
-                tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
-            }
-        };
-
-        window.banUser = async (uid) => {
-            if(confirm("ব্যান করতে চান? এই ইউজার আর অ্যাপ ব্যবহার করতে পারবে না।")) {
-                await updateDoc(doc(db, "users", uid), { status: "BANNED" });
-                toast("ইউজারকে ব্যান করা হয়েছে!");
-                window.loadRegisteredUsers();
-            }
-        };
-
-        window.unbanUser = async (uid) => {
-            if(confirm("আনব্যান করতে চান? ইউজার আবার অ্যাপ ব্যবহার করতে পারবে।")) {
-                await updateDoc(doc(db, "users", uid), { status: "ACTIVE" });
-                toast("ইউজারকে আনব্যান করা হয়েছে!");
-                window.loadRegisteredUsers();
-            }
-        };
-
-        window.deleteUser = async (uid) => {
-            if(confirm("অ্যাকাউন্টটি ডিলিট করতে চান? ডিলিট করলে ইউজার আবার নতুন করে অ্যাপে ঢুকতে পারবে।")) {
-                await deleteDoc(doc(db, "users", uid));
-                toast("ইউজার অ্যাকাউন্ট ডিলিট করা হয়েছে!");
-                window.loadRegisteredUsers();
+                tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
             }
         };
 
@@ -866,10 +820,6 @@
                     document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
                     document.getElementById('logo-setting').value = genData.logoUrl || ''; 
                     
-                    document.getElementById('maintenance-setting').value = String(genData.maintenanceMode || false);
-                    document.getElementById('maintenance-msg-setting').value = genData.maintenanceMessage || '';
-                    document.getElementById('admin-support-setting').value = genData.adminSupportUrl || '';
-
                     document.getElementById('bot-token-setting').value = genData.botToken || '';
                     document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
                     document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
@@ -913,7 +863,7 @@
                 let totalLikes = 0;
                 let totalComments = 0;
 
-                fSnap.forEach(d => { 
+                fSnap.forEach(d => {
                     const f = d.data();
                     if(!f.isDeleted) {
                         fileCount++; 
@@ -921,7 +871,7 @@
                         totalDownloads += (f.downloadCount || 0);
                         totalComments += (f.commentCount || 0);
 
-                        const emojis = ['❤️'];
+                        const emojis = ['❤️', '👍', '😭', '😁', '😢', '👌', '🥰', '🫣', '🤯', '👀', '🌹', '💯', '🕊', '🔥', '💔', '🇧🇩'];
                         emojis.forEach(e => {
                             totalLikes += (f[`react_${e}`] || 0);
                         });
@@ -936,12 +886,7 @@
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
-                document.getElementById('agg-total-comments').innerText = totalComments;
-                document.getElementById('agg-total-ratings').innerText = totalComments; 
-
-                // Fetch and load total registered users
-                const uSnap = await getDocs(collection(db, "users"));
-                document.getElementById('agg-total-users').innerText = uSnap.size;
+                document.getElementById('agg-total-ratings').innerText = totalComments;
 
             } catch (e) {
                 console.error("Error counting files: ", e);
@@ -960,52 +905,6 @@
 
             loadSliders(); loadFiles();
         }
-
-        document.getElementById('add-admin-btn').onclick = async () => {
-            if(currentAdminEmail !== masterAdmin) return toast("Only Master Admin can add new admins!");
-            const email = document.getElementById('new-admin-email').value.trim();
-            if(!email) return toast('Enter an email address!');
-            await addDoc(collection(db, "admins"), { email: email });
-            document.getElementById('new-admin-email').value = ''; toast('Admin Email Added!'); loadAllData();
-        };
-
-        window.delAdmin = async (id) => { 
-            if(currentAdminEmail !== masterAdmin) return;
-            if(confirm('Remove admin?')) { await deleteDoc(doc(db, "admins", id)); loadAllData(); } 
-        };
-
-        document.getElementById('save-gen-btn').onclick = async () => {
-            const isMaintenance = document.getElementById('maintenance-setting').value === 'true';
-            await setDoc(doc(db, "settings", "general"), { 
-                timerDuration: Number(document.getElementById('timer-setting').value), 
-                announcementText: document.getElementById('announce-setting').value,
-                popupNotice: document.getElementById('popup-notice-setting').value,
-                logoUrl: document.getElementById('logo-setting').value.trim(), 
-                maintenanceMode: isMaintenance,
-                maintenanceMessage: document.getElementById('maintenance-msg-setting').value,
-                adminSupportUrl: document.getElementById('admin-support-setting').value.trim(),
-                botToken: document.getElementById('bot-token-setting').value.trim(),
-                channel1Name: document.getElementById('ch1-name-setting').value.trim(),
-                channel1Url: document.getElementById('ch1-url-setting').value.trim(),
-                channel2Name: document.getElementById('ch2-name-setting').value.trim(),
-                channel2Url: document.getElementById('ch2-url-setting').value.trim()
-            }, { merge: true }); 
-            toast('Saved!');
-            loadAllData();
-        };
-        
-        document.getElementById('save-social-btn').onclick = async () => {
-            await setDoc(doc(db, "settings", "socials"), { 
-                telegram: document.getElementById('social-telegram').value, 
-                youtube: document.getElementById('social-youtube').value, 
-                tiktok: document.getElementById('social-tiktok').value,
-                facebook: document.getElementById('social-facebook').value,
-                instagram: document.getElementById('social-instagram').value
-            }); toast('Saved!');
-        };
-        document.getElementById('save-ads-btn').onclick = async () => {
-            await setDoc(doc(db, "settings", "ads"), { adSlot1: document.getElementById('ad-slot-1').value, adSlot2: document.getElementById('ad-slot-2').value, adSlot3: document.getElementById('ad-slot-3').value }); toast('Saved!');
-        };
 
         async function loadSliders() {
             try {
@@ -1027,11 +926,11 @@
 
                     sliderCount++;
                     const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
-                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500 bg-opacity-90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
                     div.innerHTML += `
-                        <div class="relative group border border-gray-150 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
+                        <div class="relative group border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
                             <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black bg-opacity-50 via-transparent to-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             ${delBtn}
                         </div>`; 
                 });
@@ -1103,6 +1002,9 @@
                     }
                     if(isMaster) {
                         btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3.5 py-2 rounded-xl hover:bg-green-655 hover:text-white transition font-black"><i class="fas fa-comments mr-0.5"></i> Cmts</button>`;
+                        
+                        // NEW: DOWNLOAD TRACKER LISTING TRIGGER BUTTON FOR ADMIN
+                        btns += `<button onclick="window.viewFileDownloads('${f.id}')" class="text-xs bg-emerald-50 border border-emerald-150 text-emerald-700 px-3.5 py-2 rounded-xl hover:bg-emerald-650 hover:text-white transition font-black"><i class="fas fa-cloud-download mr-0.5"></i> DLs</button>`;
                     }
 
                     // Dynamic Horizontal wide Card with no squeezed text
@@ -1111,11 +1013,11 @@
                             <div class="flex items-center gap-3.5 min-w-0">
                                 <div class="relative shrink-0 w-14 h-14">
                                     <img src="${f.thumbnailUrl}" class="w-full h-full object-cover rounded-xl border bg-gray-100">
-                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 rounded-xl"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
+                                    ${f.videoUrl ? '<div class="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl"><i class="fas fa-play text-white text-xs"></i></div>' : ''}
                                 </div>
                                 <div class="min-w-0 flex-1">
                                     <h4 class="font-extrabold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
-                                    <p class="text-[10px] text-gray-400 font-bold truncate mt-0.5" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    <p class="text-[10px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
                                     <div class="flex gap-2.5 text-[10px] text-gray-500 mt-1.5 font-bold bg-gray-50 px-2 py-0.5 rounded-md inline-flex items-center">
                                         <span><i class="fas fa-eye text-blue-500 mr-0.5"></i> ${f.views||0}</span>
                                         <span><i class="fas fa-download text-emerald-500 mr-0.5"></i> ${f.downloadCount||0}</span>
@@ -1194,7 +1096,7 @@
                     if(f.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1205,7 +1107,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-750 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-650 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1226,7 +1128,7 @@
                     if(s.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1237,7 +1139,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-750 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1261,11 +1163,11 @@
             toast("File Restored!");
         };
 
-        window.permanentDelFile = async (fileId) => {
-            if (confirm("Are you sure you want to permanently delete this file? This cannot be undone.")) {
-                await deleteDoc(doc(db, "files", fileId));
+        window.permanentDelFile = async (id) => {
+            if(confirm("Are you sure? This will delete the file PERMANENTLY and cannot be undone.")) {
+                await deleteDoc(doc(db, 'files', id));
                 window.loadRecycleBin();
-                toast("File permanently deleted.");
+                toast("Deleted Permanently!");
             }
         };
 
@@ -1273,19 +1175,138 @@
             await updateDoc(doc(db, 'sliders', id), { isDeleted: false });
             window.loadRecycleBin();
             loadSliders();
-            toast("Slider Restored!");
+            toast("Slider Banner Restored!");
         };
 
         window.permanentDelSlider = async (id) => {
-            if (confirm("Are you sure you want to permanently delete this slider? This cannot be undone.")) {
-                await deleteDoc(doc(db, "sliders", id));
+            if(confirm("Are you sure? This will delete the banner PERMANENTLY and cannot be undone.")) {
+                await deleteDoc(doc(db, 'sliders', id));
                 window.loadRecycleBin();
-                toast("Slider permanently deleted.");
+                toast("Deleted Permanently!");
+            }
+        };
+
+        // NEW: LOAD COMMENTS LIVE FROM SUBCOLLECTION WITH PRE-BUILT INLINE REPLIES FORM
+        window.manageComments = async (fileId) => {
+            const modal = document.getElementById('admin-comment-modal');
+            const list = document.getElementById('admin-comment-list');
+            modal.classList.remove('hidden');
+            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
+            
+            try {
+                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
+                list.innerHTML = '';
+                if(q.empty) {
+                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
+                } else {
+                    q.forEach(d => {
+                        const c = d.data();
+                        
+                        // Inline dynamic reply form configuration per comment card
+                        list.innerHTML += `
+                            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex flex-col gap-3.5 shadow-sm text-left">
+                                <div class="flex justify-between items-start gap-4">
+                                    <div>
+                                        <h4 class="font-extrabold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
+                                        <p class="text-xs sm:text-sm text-gray-650 mt-1">${c.text}</p>
+                                        ${c.replyText ? `<p class="text-xs text-blue-600 bg-blue-50/50 p-2.5 rounded-xl mt-2 font-black"><i class="fas fa-reply mr-1"></i> Support Reply: <span class="font-medium text-gray-700">${c.replyText}</span></p>` : ''}
+                                    </div>
+                                    <div class="flex gap-1.5 shrink-0">
+                                        <button onclick="window.toggleReplyInput('${fileId}', '${d.id}')" title="Reply to Comment" class="bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-reply"></i></button>
+                                        <button onclick="window.delComment('${fileId}', '${d.id}')" title="Delete Comment" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                                <!-- Inline Hidden Reply Input Box -->
+                                <div id="reply-form-${d.id}" class="hidden flex gap-2 border-t pt-2.5">
+                                    <input type="text" id="reply-input-${d.id}" placeholder="রিপ্লাই লিখুন..." value="${c.replyText || ''}" class="flex-1 px-3 py-1.5 border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                    <button onclick="window.submitAdminReply('${fileId}', '${d.id}')" class="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold shadow hover:bg-blue-700 transition shrink-0">জমা দিন</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Error loading comments: ", e);
+                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
+            }
+        };
+
+        window.toggleReplyInput = (fileId, docId) => {
+            const el = document.getElementById(`reply-form-${docId}`);
+            if (el) el.classList.toggle('hidden');
+        };
+
+        window.submitAdminReply = async (fileId, docId) => {
+            const input = document.getElementById(`reply-input-${docId}`);
+            if (!input) return;
+            const replyText = input.value.trim();
+            if (!replyText) return alert("দয়া করে কিছু লিখুন!");
+            
+            await updateDoc(doc(db, "files", fileId, "comments", docId), {
+                replyText: replyText,
+                replyTimestamp: new Date()
+            });
+            toast("রিপ্লাই সফলভাবে জমা দেওয়া হয়েছে!");
+            window.manageComments(fileId); // reload list dynamically
+        };
+
+        // NEW: VIEW USERS WHO DOWNLOADED THIS FILE (লাইভ ফাইল ডাউনলোডার তথ্য প্রদর্শক মডাল)
+        window.viewFileDownloads = async (fileId) => {
+            const modal = document.getElementById('admin-downloads-modal');
+            const list = document.getElementById('admin-downloads-list-container');
+            modal.classList.remove('hidden');
+            list.innerHTML = '<div class="text-center text-gray-500 py-8"><i class="fas fa-spinner fa-spin text-xl"></i> Loading download logs...</div>';
+
+            try {
+                const snap = await getDocs(query(collection(db, "files", fileId, "downloads"), orderBy("timestamp", "desc")));
+                list.innerHTML = '';
+                
+                if (snap.empty) {
+                    list.innerHTML = '<div class="text-center py-8 text-sm text-gray-500 font-bold"><i class="fas fa-exclamation-circle text-2xl text-gray-400 block mb-2"></i> কেউ এখনও এই ফাইলটি ডাউনলোড করেনি।</div>';
+                    return;
+                }
+
+                snap.forEach(d => {
+                    const log = d.data();
+                    const initial = log.name ? log.name.charAt(0).toUpperCase() : 'U';
+                    const avatar = log.avatar 
+                        ? `<img src="${log.avatar}" class="w-9 h-9 rounded-full object-cover shrink-0">`
+                        : `<div class="w-9 h-9 rounded-full bg-indigo-500 text-white flex items-center justify-center font-black text-sm shrink-0">${initial}</div>`;
+                    
+                    let dateStr = "Just now";
+                    if (log.timestamp) {
+                        const date = log.timestamp.toDate();
+                        dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    }
+
+                    list.innerHTML += `
+                        <div class="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-2xl text-left">
+                            ${avatar}
+                            <div class="min-w-0 flex-1">
+                                <span class="text-xs font-black text-gray-800 block truncate">${log.name}</span>
+                                <span class="text-[10px] text-gray-500 font-bold block mt-0.5">Telegram ID: ${log.uid || 'N/A'}</span>
+                            </div>
+                            <span class="text-[9px] text-gray-400 font-bold shrink-0">${dateStr}</span>
+                        </div>`;
+                });
+
+            } catch (e) {
+                console.error("Error loading download logs: ", e);
+                list.innerHTML = '<div class="text-center text-red-500 py-8 font-bold">ডাউনলোড তথ্য লোড করতে ব্যর্থ হয়েছে।</div>';
+            }
+        };
+
+        window.delComment = async (fileId, commentId) => {
+            if(confirm("Delete this comment permanently?")) {
+                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
+                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
+                window.manageComments(fileId);
+                loadFiles();
+                toast("Comment Deleted!");
             }
         };
 
         window.editFile = async (id) => {
-            editingFileId = id;
             const d = await getDoc(doc(db, "files", id));
             if(d.exists()) {
                 const f = d.data();
@@ -1302,6 +1323,7 @@
                 document.getElementById('file-url').value = f.downloadUrl || '';
                 document.getElementById('file-desc').value = f.description || '';
                 
+                editingFileId = id;
                 document.getElementById('cancel-edit-btn').classList.remove('hidden');
                 
                 const lang = document.getElementById('admin-language-selector').value || 'en';
@@ -1344,7 +1366,7 @@
                 thumbnailUrl: document.getElementById('file-thumb').value, 
                 videoUrl: document.getElementById('file-video').value,
                 
-                // Added Screenshot input payloads
+                // Screenshot inputs payload
                 screenshot1: document.getElementById('file-ss1').value.trim(),
                 screenshot2: document.getElementById('file-ss2').value.trim(),
                 screenshot3: document.getElementById('file-ss3').value.trim(),
@@ -1369,47 +1391,7 @@
             loadFiles();
         };
 
-        window.manageComments = async (fileId) => {
-            const modal = document.getElementById('admin-comment-modal');
-            const list = document.getElementById('admin-comment-list');
-            modal.classList.remove('hidden');
-            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
-            
-            try {
-                const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
-                list.innerHTML = '';
-                if(q.empty) {
-                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
-                } else {
-                    q.forEach(d => {
-                        const c = d.data();
-                        list.innerHTML += `
-                            <div class="bg-white border border-gray-100 rounded-lg p-3 flex justify-between items-start gap-4 shadow-sm">
-                                <div>
-                                    <h4 class="font-bold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
-                                    <p class="text-sm text-gray-600 mt-1">${c.text}</p>
-                                </div>
-                                <button onclick="window.delComment('${fileId}', '${d.id}')" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm flex-shrink-0"><i class="fas fa-trash"></i></button>
-                            </div>
-                        `;
-                    });
-                }
-            } catch (e) {
-                console.error("Error loading comments: ", e);
-                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
-            }
-        };
-
-        window.delComment = async (fileId, commentId) => {
-            if(confirm("Delete this comment permanently?")) {
-                await deleteDoc(doc(db, "files", fileId, "comments", commentId));
-                await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
-                window.manageComments(fileId);
-                loadFiles();
-                toast("Comment Deleted!");
-            }
-        };
-
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"fbd0abfbeb044fef85aff402448f2392","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
