@@ -14,7 +14,7 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link class="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         .custom-scroll::-webkit-scrollbar { width: 6px; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
@@ -127,7 +127,7 @@
                      <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-955/40 border border-red-900/60 p-3 rounded-xl font-bold">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
                      <button id="login-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 font-black transition shadow-lg shadow-blue-500/20" data-lang="btn_login">Login Dashboard</button>
                      <div class="text-center pt-3 border-t border-indigo-900/50 mt-5">
-                        <p class="text-[10px] text-indigo-400 mb-2.5" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
+                        <p class="text-[10px] font-bold text-gray-400 truncate tracking-tight mb-2.5" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
                         <button id="register-btn" class="w-full bg-indigo-900/40 hover:bg-indigo-800 text-indigo-200 py-3 rounded-xl font-bold transition text-xs border border-indigo-800" data-lang="btn_register">Create Account</button>
                      </div>
                  </div>
@@ -378,7 +378,7 @@
                                 <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
-                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-550 bg-white">
                                 
                                 <!-- Multiple Screenshot URL Fields -->
                                 <input type="url" id="file-ss1" placeholder="Screenshot 1 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
@@ -661,15 +661,19 @@
             document.querySelectorAll('.admin-page').forEach(page => page.classList.add('hidden'));
             
             const targetPage = document.getElementById(`page-${tabId}`);
-            if(targetPage) {
+            if (targetPage) {
                 targetPage.classList.remove('hidden');
                 targetPage.classList.add('active');
             }
             
-            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('bg-indigo-800', 'text-white'));
-            const activeBtn = Array.from(document.querySelectorAll('.nav-item')).find(btn => btn.getAttribute('onclick').includes(`'${tabId}'`));
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('bg-indigo-900/60');
+            });
+            
+            // Highlight selected tab in sidebar menu
+            const activeBtn = Array.from(document.querySelectorAll('.nav-item')).find(b => b.getAttribute('onclick').includes(tabId));
             if(activeBtn) {
-                activeBtn.classList.add('bg-indigo-800', 'text-white');
+                activeBtn.classList.add('bg-indigo-900/60');
             }
             
             const pageTitles = {
@@ -857,15 +861,19 @@
             const admList = document.getElementById('admin-list-container');
             let qAdmSize = 1;
             try {
-                const qAdm = await getDocs(collection(db, "admins"));
-                admList.innerHTML = `<div class="p-2 bg-white border rounded font-bold text-blue-600 shadow-sm">${masterAdmin} (Master)</div>`;
-                qAdm.forEach(d => {
-                    const canDel = currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 bg-red-50 px-2 rounded"><i class="fas fa-trash"></i></button>` : '';
-                    admList.innerHTML += `<div class="p-2 bg-white border rounded flex justify-between shadow-sm mt-1">
-                        ${d.data().email} ${canDel}
+                const q = await getDocs(collection(db, "admins"));
+                let sideHtml = '';
+                q.forEach(d => {
+                    qAdmSize++;
+                    const data = d.data();
+                    authorizedAdmins.push(data.email);
+                    sideHtml += `
+                    <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm border border-gray-150">
+                        <span class="text-xs font-bold text-gray-700">${data.email}</span>
+                        ${currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 text-sm"><i class="fas fa-trash-alt"></i></button>` : ''}
                     </div>`;
                 });
-                qAdmSize = qAdm.size + 1;
+                admList.innerHTML = `<div class="p-3 bg-indigo-50 border border-indigo-150 rounded font-black text-indigo-700 text-xs shadow-sm">${masterAdmin} (Master)</div>` + sideHtml;
                 document.getElementById('dash-admin-count').innerText = qAdmSize;
             } catch (e) {
                 console.error("Error loading admins list: ", e);
@@ -1217,6 +1225,54 @@
             }
         };
 
+        window.restoreFile = async (id) => {
+            await updateDoc(doc(db, "files", id), { isDeleted: false });
+            toast("File Restored!");
+            window.loadRecycleBin();
+            loadFiles();
+        };
+
+        window.permanentDelFile = async (id) => {
+            if(confirm("Are you sure you want to permanently delete this file? This action is irreversible.")) {
+                await deleteDoc(doc(db, "files", id));
+                toast("File Permanently Deleted!");
+                window.loadRecycleBin();
+            }
+        };
+
+        window.restoreSlider = async (id) => {
+            await updateDoc(doc(db, "sliders", id), { isDeleted: false });
+            toast("Slider Banner Restored!");
+            window.loadRecycleBin();
+            loadSliders();
+        };
+
+        window.permanentDelSlider = async (id) => {
+            if(confirm("Are you sure you want to permanently delete this banner? This action is irreversible.")) {
+                await deleteDoc(doc(db, "sliders", id));
+                toast("Banner Permanently Deleted!");
+                window.loadRecycleBin();
+            }
+        };
+
+        window.addAdmin = async () => {
+            const email = document.getElementById('new-admin-email').value.trim();
+            if(!email) return toast("Email cannot be empty!");
+            await addDoc(collection(db, "admins"), { email: email });
+            toast("New Admin Approved!");
+            document.getElementById('new-admin-email').value = '';
+            loadAllData();
+        };
+        document.getElementById('add-admin-btn').onclick = window.addAdmin;
+
+        window.delAdmin = async (id) => {
+            if(confirm("Remove this admin from authorized list?")) {
+                await deleteDoc(doc(db, "admins", id));
+                toast("Admin Removed!");
+                loadAllData();
+            }
+        };
+
         // NEW: MULTI-TAB COMMENTS / REVIEWS SELECTOR METHOD
         window.switchCommentTab = (tabMode) => {
             commentsActiveTab = tabMode;
@@ -1358,11 +1414,13 @@
                     }
 
                     list.innerHTML += `
-                        <div class="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-2xl text-left">
-                            ${avatar}
-                            <div class="min-w-0 flex-1">
-                                <span class="text-xs font-black text-gray-800 block truncate">${log.name}</span>
-                                <span class="text-[10px] text-gray-500 font-bold block mt-0.5">Telegram ID: ${log.uid || 'N/A'}</span>
+                        <div class="flex items-center justify-between gap-3 p-3 bg-gray-50 border border-gray-100 rounded-2xl text-left">
+                            <div class="flex items-center gap-2.5 min-w-0 flex-1">
+                                ${avatar}
+                                <div class="min-w-0 flex-1">
+                                    <span class="text-xs font-black text-gray-800 block truncate">${log.name || "Anonymous User"}</span>
+                                    <span class="text-[10px] text-gray-500 font-bold block mt-0.5">Telegram ID: ${log.uid || 'N/A'}</span>
+                                </div>
                             </div>
                             <span class="text-[9px] text-gray-400 font-bold shrink-0">${dateStr}</span>
                         </div>`;
@@ -1468,7 +1526,73 @@
             loadFiles();
         };
 
+        // Save app general config settings
+        document.getElementById('save-gen-btn').onclick = async () => {
+            const timer = Number(document.getElementById('timer-setting').value);
+            const announce = document.getElementById('announce-setting').value;
+            const popup = document.getElementById('popup-notice-setting').value;
+            const logo = document.getElementById('logo-setting').value;
+            
+            const botToken = document.getElementById('bot-token-setting').value.trim();
+            const ch1Name = document.getElementById('ch1-name-setting').value.trim();
+            const ch1Url = document.getElementById('ch1-url-setting').value.trim();
+            const ch2Name = document.getElementById('ch2-name-setting').value.trim();
+            const ch2Url = document.getElementById('ch2-url-setting').value.trim();
+
+            await setDoc(doc(db, "settings", "general"), {
+                timerDuration: timer,
+                announcementText: announce,
+                popupNotice: popup,
+                logoUrl: logo,
+                botToken: botToken,
+                channel1Name: ch1Name,
+                channel1Url: ch1Url,
+                channel2Name: ch2Name,
+                channel2Url: ch2Url
+            }, { merge: true });
+            toast("General Configuration Saved!");
+            loadAllData();
+        };
+
+        // Save socials config settings
+        document.getElementById('save-social-btn').onclick = async () => {
+            const yt = document.getElementById('social-youtube').value;
+            const tg = document.getElementById('social-telegram').value;
+            const tk = document.getElementById('social-tiktok').value;
+            const fb = document.getElementById('social-facebook').value;
+            const ig = document.getElementById('social-instagram').value;
+
+            await setDoc(doc(db, "settings", "socials"), {
+                youtube: yt,
+                telegram: tg,
+                tiktok: tk,
+                facebook: fb,
+                instagram: ig
+            });
+            toast("Social Links Updated!");
+            loadAllData();
+        };
+
+        // Save ads scripts config settings
+        document.getElementById('save-ads-btn').onclick = async () => {
+            const slot1 = document.getElementById('ad-slot-1').value;
+            const slot2 = document.getElementById('ad-slot-2').value;
+            const slot3 = document.getElementById('ad-slot-3').value;
+
+            await setDoc(doc(db, "settings", "ads"), {
+                adSlot1: slot1,
+                adSlot2: slot2,
+                adSlot3: slot3
+            });
+            toast("Ads Configurations Saved!");
+            loadAllData();
+        };
+
+        // Change Admin Panel Page Language
+        document.getElementById('admin-language-selector').onchange = (e) => {
+            window.changeAdminLang(e.target.value);
+        };
+
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"fbd0abfbeb044fef85aff402448f2392","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
