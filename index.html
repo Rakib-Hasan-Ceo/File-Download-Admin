@@ -100,23 +100,26 @@
             
             <!-- ULTRA-PREMIUM SLATE GLASSMORPHIC ADMIN LOGIN PORTAL -->
             <div id="admin-login" class="bg-gradient-to-tr from-slate-900 to-indigo-950 p-10 rounded-3xl shadow-[0_15px_50px_rgba(0,0,0,0.4)] max-w-md mx-auto border border-indigo-900/60 mt-16 animate-[fadeIn_0.5s_ease-out]">
-                 <div class="text-center mb-6">
-                     <div class="inline-block p-4 rounded-full bg-indigo-900/50 mb-2 border border-indigo-800">
-                         <i class="fas fa-user-lock text-4xl text-brand-yellow text-yellow-400"></i>
+                 <div class="text-center mb-8">
+                     <div class="inline-block p-4 rounded-3xl bg-indigo-500/10 mb-3 border border-indigo-500/20 shadow-inner">
+                         <i class="fas fa-shield-halved text-5xl text-brand-yellow text-yellow-400"></i>
                      </div>
-                     <h2 class="text-3xl font-black text-white" data-lang="login_title">Admin Portal</h2>
+                     <h2 class="text-3xl font-black text-white tracking-tight" data-lang="login_title">Admin Portal</h2>
+                     <p class="text-xs text-indigo-300/80 mt-1.5 font-semibold">ড্যাশবোর্ডে প্রবেশ করতে আপনার তথ্য প্রদান করুন</p>
                  </div>
-                 <div class="space-y-4">
+                 <div class="space-y-5">
                      <div>
+                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">অ্যাডমিন ইমেইল</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-envelope"></i></span>
-                             <input type="email" id="email-input" class="w-full py-3 pl-10 pr-3 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-envelope"></i></span>
+                             <input type="email" id="email-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="admin@example.com">
                          </div>
                      </div>
                      <div>
+                         <label class="block text-[11px] font-black uppercase text-indigo-300 tracking-wider mb-1.5">পাসওয়ার্ড</label>
                          <div class="relative">
-                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-400"><i class="fas fa-lock"></i></span>
-                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/40 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
+                             <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-indigo-400"><i class="fas fa-lock"></i></span>
+                             <input type="password" id="password-input" class="w-full py-3.5 pl-11 pr-4 bg-indigo-900/30 border border-indigo-800/80 text-white text-sm rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-indigo-400 transition" placeholder="••••••••">
                          </div>
                          <div class="text-right mt-2">
                              <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
@@ -223,7 +226,7 @@
                     </div>
                 </div>
 
-                <!-- TAB: MANAGE USERS WITH PAGINATION (20 Users per page) -->
+                <!-- TAB: MANAGE USERS WITH PAGINATION & ULTRA-PREMIUM BAN/DELETE ACTIONS -->
                 <div id="page-users" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
@@ -239,6 +242,7 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telegram ID</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="users-table-body" class="bg-white divide-y divide-gray-200"></tbody>
@@ -269,7 +273,7 @@
                                 
                                 <!-- ENLARGED & HIGHLY VISIBLE POPUP NOTICE BOX FOR ADMINS -->
                                 <div class="bg-red-50/50 p-5 rounded-2xl border border-red-200 shadow-sm space-y-2">
-                                    <label class="block text-sm font-black text-red-650 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
+                                    <label class="block text-sm font-black text-red-655 flex items-center gap-1.5"><i class="fas fa-exclamation-circle text-red-500"></i> Big Popup Notice (For Users)</label>
                                     <textarea id="popup-notice-setting" rows="8" placeholder="অত্যন্ত আকর্ষণীয় ডিজাইনে নোটিশ লিখুন..." class="w-full p-3 bg-white dark:bg-gray-855 dark:text-white border-2 border-red-250 focus:ring-4 focus:ring-red-400 rounded-2xl text-base focus:outline-none shadow-md transition"></textarea>
                                 </div>
                                 
@@ -395,14 +399,14 @@
                 <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in horizontal spacious layout) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm">
-                        <h2 class="text-xl font-bold mb-4 text-gray-750 border-b pb-3 flex justify-between items-center">
+                        <h2 class="text-xl font-bold mb-4 text-gray-755 border-b pb-3 flex justify-between items-center">
                             <span class="flex items-center gap-1.5">
                                 <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-1 shadow-sm">0</span>
                             </span>
                         </h2>
-                        <!-- 1-Column full width horizontal lists on mobile, 2-columns on wider desktop -->
-                        <div class="bg-gray-50 border border-gray-150 rounded-2xl p-4 max-h-[600px] overflow-y-auto custom-scroll">
+                        <!-- REMOVED BOX BOUNDARIES ENTIRELY TO UTILIZE FULL SPACE ("ঘর বাদ দিয়ে পুরা জায়গা") -->
+                        <div class="w-full">
                             <div id="file-list-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
                         </div>
 
@@ -428,27 +432,25 @@
         </main>
     </div>
 
-    <!-- NEW: ADMIN COMMENT MANAGEMENT & REPLY OVERLAY MODAL -->
+    <!-- Admin Comment Management Modal -->
     <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
-            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-3xl">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
+            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
                 <h3 class="font-bold text-lg"><i class="fas fa-comments text-blue-500"></i> Manage Comments</h3>
-                <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
+                <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-xl hover:text-red-700">&times;</button>
             </div>
             <div id="admin-comment-list" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3"></div>
         </div>
     </div>
 
-    <!-- NEW: ADMIN DOWNLOAD HISTORY VIEWER OVERLAY MODAL (কে কে ফাইল ডাউনলোড করেছে তালিকা) -->
+    <!-- ADMIN DOWNLOAD HISTORY VIEWER OVERLAY MODAL -->
     <div id="admin-downloads-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg max-h-[75vh] flex flex-col">
             <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-3xl">
                 <h3 class="font-black text-base text-gray-800"><i class="fas fa-cloud-download text-emerald-500 mr-1.5"></i> ফাইল ডাউনলোডার ট্র্যাকার</h3>
                 <button onclick="document.getElementById('admin-downloads-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
             </div>
-            <div id="admin-downloads-list-container" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3.5">
-                <!-- Populated dynamically with lists -->
-            </div>
+            <div id="admin-downloads-list-container" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3.5"></div>
         </div>
     </div>
 
@@ -703,10 +705,10 @@
             }
         };
 
-        // PAGINATED REGISTERED USERS MANAGEMENT
+        // PAGINATED REGISTERED USERS MANAGEMENT WITH BAN & DELETE ACTIONS
         window.loadRegisteredUsers = async (direction = 'init') => {
             const tableBody = document.getElementById('users-table-body');
-            tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</td></tr>';
             
             try {
                 // Get total users count
@@ -727,7 +729,7 @@
                 tableBody.innerHTML = '';
                 
                 if (snap.empty) {
-                    tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
+                    tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-gray-500">No users found.</td></tr>';
                     return;
                 }
 
@@ -741,6 +743,18 @@
                         ? `<img src="${u.photo}" class="w-8 h-8 rounded-full object-cover">`
                         : `<div class="w-8 h-8 rounded-full bg-indigo-500 text-white flex items-center justify-center font-bold text-xs">${initial}</div>`;
                     
+                    // BAN & DELETE BUTTON BUILDER DYNAMICALLY
+                    const isBanned = u.status === 'BANNED';
+                    const statusBadge = isBanned 
+                        ? `<span class="px-2.5 py-1 inline-flex text-xs font-bold leading-5 rounded-full bg-red-100 text-red-800">● BANNED</span>`
+                        : `<span class="px-2.5 py-1 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>`;
+                    
+                    const banToggleBtn = isBanned
+                        ? `<button onclick="window.unbanUser('${docSnap.id}')" class="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-lg font-bold hover:bg-green-600 hover:text-white transition"><i class="fas fa-user-check"></i> Unban</button>`
+                        : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 text-yellow-750 px-3 py-1.5 rounded-lg font-bold hover:bg-yellow-600 hover:text-white transition"><i class="fas fa-user-slash"></i> Ban</button>`;
+
+                    const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 text-red-750 px-3 py-1.5 rounded-lg font-bold hover:bg-red-650 hover:text-white transition"><i class="fas fa-trash-alt"></i> Del</button>`;
+
                     tableBody.innerHTML += `
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
@@ -750,7 +764,11 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-0.5 inline-flex text-xs font-bold leading-5 rounded-full bg-green-100 text-green-800">● ACTIVE</span>
+                                ${statusBadge}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right space-x-1.5">
+                                ${banToggleBtn}
+                                ${deleteBtn}
                             </td>
                         </tr>
                     `;
@@ -776,7 +794,31 @@
 
             } catch (e) {
                 console.error("Error loading users: ", e);
-                tableBody.innerHTML = '<tr><td colspan="4" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="5" class="px-6 py-4 text-center text-red-500">Failed to load registered users list.</td></tr>';
+            }
+        };
+
+        window.banUser = async (uid) => {
+            if(confirm("এই ইউজারকে ব্যান করতে চান?")) {
+                await updateDoc(doc(db, "users", uid), { status: 'BANNED' });
+                toast("User Banned!");
+                window.loadRegisteredUsers();
+            }
+        };
+
+        window.unbanUser = async (uid) => {
+            if(confirm("এই ইউজারের ব্যান তুলে নিতে চান?")) {
+                await updateDoc(doc(db, "users", uid), { status: 'ACTIVE' });
+                toast("User Unbanned!");
+                window.loadRegisteredUsers();
+            }
+        };
+
+        window.deleteUser = async (uid) => {
+            if(confirm("এই ইউজারকে ডিলিট করতে চান? এটি রিভার্স করা যাবে না।")) {
+                await deleteDoc(doc(db, "users", uid));
+                toast("User Deleted!");
+                window.loadRegisteredUsers();
             }
         };
 
@@ -863,7 +905,7 @@
                 let totalLikes = 0;
                 let totalComments = 0;
 
-                fSnap.forEach(d => {
+                fSnap.forEach(d => { 
                     const f = d.data();
                     if(!f.isDeleted) {
                         fileCount++; 
@@ -998,13 +1040,13 @@
                     let btns = '';
                     if(isMaster || isOwner) {
                         btns += `<button onclick="window.editFile('${f.id}')" class="text-xs bg-indigo-50 border border-indigo-150 text-indigo-700 px-3.5 py-2 rounded-xl hover:bg-indigo-600 hover:text-white transition font-black"><i class="fas fa-edit mr-0.5"></i> Edit</button>`;
-                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-50 border border-red-155 text-red-700 px-3.5 py-2 rounded-xl hover:bg-red-655 hover:text-white transition font-black"><i class="fas fa-trash mr-0.5"></i> Del</button>`;
+                        btns += `<button onclick="window.softDelFile('${f.id}')" class="text-xs bg-red-50 border border-red-155 text-red-700 px-3.5 py-2 rounded-xl hover:bg-red-650 hover:text-white transition font-black"><i class="fas fa-trash mr-0.5"></i> Del</button>`;
                     }
                     if(isMaster) {
                         btns += `<button onclick="window.manageComments('${f.id}')" class="text-xs bg-green-50 border border-green-150 text-green-700 px-3.5 py-2 rounded-xl hover:bg-green-655 hover:text-white transition font-black"><i class="fas fa-comments mr-0.5"></i> Cmts</button>`;
                         
-                        // NEW: DOWNLOAD TRACKER LISTING TRIGGER BUTTON FOR ADMIN
-                        btns += `<button onclick="window.viewFileDownloads('${f.id}')" class="text-xs bg-emerald-50 border border-emerald-150 text-emerald-700 px-3.5 py-2 rounded-xl hover:bg-emerald-650 hover:text-white transition font-black"><i class="fas fa-cloud-download mr-0.5"></i> DLs</button>`;
+                        // VIEW FILE DOWNLOADS BUTTON
+                        btns += `<button onclick="window.viewFileDownloads('${f.id}')" class="text-xs bg-emerald-50 border border-emerald-150 text-emerald-700 px-3.5 py-2 rounded-xl hover:bg-emerald-655 hover:text-white transition font-black"><i class="fas fa-cloud-download mr-0.5"></i> DLs</button>`;
                     }
 
                     // Dynamic Horizontal wide Card with no squeezed text
@@ -1096,7 +1138,7 @@
                     if(f.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1107,7 +1149,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreFile('${f.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-700 hover:bg-red-650 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelFile('${f.id}')" class="bg-red-50 text-red-750 px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1128,9 +1170,9 @@
                     if(s.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
-                                    <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
+                                    <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-150 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
                                         <span class="text-[9px] bg-pink-100 text-pink-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Banner</span>
                                         <h4 class="font-bold text-sm text-gray-800 truncate mt-1">Slider Image</h4>
@@ -1139,7 +1181,7 @@
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
                                     <button onclick="window.restoreSlider('${s.id}')" class="bg-green-50 text-green-700 hover:bg-green-600 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-undo"></i> Restore</button>
-                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-50 text-red-700 hover:bg-red-655 hover:text-white px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button onclick="window.permanentDelSlider('${s.id}')" class="bg-red-55 border border-red-150 text-red-700 px-3.5 py-1.5 rounded-lg font-bold text-xs transition flex items-center gap-1"><i class="fas fa-trash-alt"></i> Delete</button>
                                 </div>
                             </div>
                         `;
@@ -1156,37 +1198,7 @@
             }
         };
 
-        window.restoreFile = async (id) => {
-            await updateDoc(doc(db, 'files', id), { isDeleted: false });
-            window.loadRecycleBin();
-            loadFiles();
-            toast("File Restored!");
-        };
-
-        window.permanentDelFile = async (id) => {
-            if(confirm("Are you sure? This will delete the file PERMANENTLY and cannot be undone.")) {
-                await deleteDoc(doc(db, 'files', id));
-                window.loadRecycleBin();
-                toast("Deleted Permanently!");
-            }
-        };
-
-        window.restoreSlider = async (id) => {
-            await updateDoc(doc(db, 'sliders', id), { isDeleted: false });
-            window.loadRecycleBin();
-            loadSliders();
-            toast("Slider Banner Restored!");
-        };
-
-        window.permanentDelSlider = async (id) => {
-            if(confirm("Are you sure? This will delete the banner PERMANENTLY and cannot be undone.")) {
-                await deleteDoc(doc(db, 'sliders', id));
-                window.loadRecycleBin();
-                toast("Deleted Permanently!");
-            }
-        };
-
-        // NEW: LOAD COMMENTS LIVE FROM SUBCOLLECTION WITH PRE-BUILT INLINE REPLIES FORM
+        // LOAD COMMENTS LIVE FROM SUBCOLLECTION WITH PRE-BUILT INLINE REPLIES FORM
         window.manageComments = async (fileId) => {
             const modal = document.getElementById('admin-comment-modal');
             const list = document.getElementById('admin-comment-list');
@@ -1208,7 +1220,7 @@
                                 <div class="flex justify-between items-start gap-4">
                                     <div>
                                         <h4 class="font-extrabold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
-                                        <p class="text-xs sm:text-sm text-gray-650 mt-1">${c.text}</p>
+                                        <p class="text-xs sm:text-sm text-gray-655 mt-1">${c.text}</p>
                                         ${c.replyText ? `<p class="text-xs text-blue-600 bg-blue-50/50 p-2.5 rounded-xl mt-2 font-black"><i class="fas fa-reply mr-1"></i> Support Reply: <span class="font-medium text-gray-700">${c.replyText}</span></p>` : ''}
                                     </div>
                                     <div class="flex gap-1.5 shrink-0">
@@ -1250,7 +1262,8 @@
             window.manageComments(fileId); // reload list dynamically
         };
 
-        // NEW: VIEW USERS WHO DOWNLOADED THIS FILE (লাইভ ফাইল ডাউনলোডার তথ্য প্রদর্শক মডাল)
+        // VIEW USERS WHO DOWNLOADED THIS FILE (লাইভ ফাইল ডাউনলোডার তথ্য প্রদর্শক মডাল)
+        // কাস্টম সেফ-ফলব্যাক কুয়েরি কোড যুক্ত করে ফিক্স করা হয়েছে যাতে ইনডেক্স এরর বাইপাস করে সবসময় রেন্ডার হয়
         window.viewFileDownloads = async (fileId) => {
             const modal = document.getElementById('admin-downloads-modal');
             const list = document.getElementById('admin-downloads-list-container');
@@ -1258,7 +1271,15 @@
             list.innerHTML = '<div class="text-center text-gray-500 py-8"><i class="fas fa-spinner fa-spin text-xl"></i> Loading download logs...</div>';
 
             try {
-                const snap = await getDocs(query(collection(db, "files", fileId, "downloads"), orderBy("timestamp", "desc")));
+                let snap;
+                try {
+                    // Safe query sorting fallback in case of no index
+                    snap = await getDocs(query(collection(db, "files", fileId, "downloads"), orderBy("timestamp", "desc")));
+                } catch (idxError) {
+                    console.warn("Subcollection index failed, loading via safe query:", idxError);
+                    snap = await getDocs(collection(db, "files", fileId, "downloads"));
+                }
+
                 list.innerHTML = '';
                 
                 if (snap.empty) {
@@ -1266,8 +1287,15 @@
                     return;
                 }
 
-                snap.forEach(d => {
-                    const log = d.data();
+                // In-memory sort by timestamp descending safely
+                const docsSorted = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+                docsSorted.sort((a,b) => {
+                    const tA = a.timestamp ? (a.timestamp.seconds || 0) : 0;
+                    const tB = b.timestamp ? (b.timestamp.seconds || 0) : 0;
+                    return tB - tA;
+                });
+
+                docsSorted.forEach(log => {
                     const initial = log.name ? log.name.charAt(0).toUpperCase() : 'U';
                     const avatar = log.avatar 
                         ? `<img src="${log.avatar}" class="w-9 h-9 rounded-full object-cover shrink-0">`
@@ -1275,7 +1303,7 @@
                     
                     let dateStr = "Just now";
                     if (log.timestamp) {
-                        const date = log.timestamp.toDate();
+                        const date = log.timestamp.toDate ? log.timestamp.toDate() : new Date(log.timestamp);
                         dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                     }
 
@@ -1342,7 +1370,6 @@
             document.getElementById('file-thumb').value = '';
             document.getElementById('file-video').value = '';
             
-            // Screenshoot inputs reset
             document.getElementById('file-ss1').value = '';
             document.getElementById('file-ss2').value = '';
             document.getElementById('file-ss3').value = '';
