@@ -124,7 +124,7 @@
                              <button id="forgot-pass-btn" class="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition" data-lang="forgot_pass">Forgot Password?</button>
                          </div>
                      </div>
-                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-950/40 border border-red-900/60 p-3 rounded-xl font-bold">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
+                     <div id="login-error" class="hidden text-red-400 text-sm text-center bg-red-955/40 border border-red-900/60 p-3 rounded-xl font-bold">ভুল ইমেইল বা পাসওয়ার্ড দেওয়া হয়েছে।</div>
                      <button id="login-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 rounded-xl hover:from-blue-700 hover:to-indigo-700 font-black transition shadow-lg shadow-blue-500/20" data-lang="btn_login">Login Dashboard</button>
                      <div class="text-center pt-3 border-t border-indigo-900/50 mt-5">
                         <p class="text-[10px] text-indigo-400 mb-2.5" data-lang="new_admin_text">New Admin? Enter your approved email and a new password above, then click here:</p>
@@ -202,7 +202,7 @@
                                 <i class="fas fa-code"></i>
                             </div>
                             <div>
-                                <h4 class="font-extrabold text-gray-850">Developed by Web Rakib</h4>
+                                <h4 class="font-extrabold text-gray-800">Developed by Web Rakib</h4>
                                 <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
                             </div>
                         </div>
@@ -431,13 +431,13 @@
         </main>
     </div>
 
-    <!-- NEW: ADMIN COMMENT MANAGEMENT & REPLY OVERLAY MODAL (বিভাগীয় ২-ট্যাব রিপ্লাই সিস্টেম) -->
+    <!-- Admin Comment Management Modal with 2 separate tabs for general and star rating replies -->
     <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden animate-[fadeIn_0.3s_ease-out]">
             <!-- Tab Header Controller -->
             <div class="bg-gray-50 p-4 border-b flex flex-col gap-3 shrink-0">
                 <div class="flex justify-between items-center">
-                    <h3 class="font-extrabold text-lg text-gray-800"><i class="fas fa-comments text-blue-500 mr-1.5"></i> পর্যালোচনা ও কমেন্টস ম্যানেজমেন্ট</h3>
+                    <h3 class="font-extrabold text-lg text-gray-800"><i class="fas fa-comments text-blue-500 mr-1.5"></i> কমেন্টস ও রিভিউ ম্যানেজমেন্ট</h3>
                     <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
                 </div>
                 <!-- 2 Tab Button Sliders -->
@@ -530,7 +530,7 @@
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
-                login_title: "অ্যাডমিন প্যান্ডেল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
+                login_title: "অ্যাডমিন প্যানেল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
                 new_admin_text: "নতুন এডমিন? উপরে অনুমোদিত ইমেইল ও পাসওয়ার্ড দিয়ে এখানে ক্লিক করুন:", btn_register: "একাউন্ট তৈরি করুন",
                 manage_admins: "অ্যাডমিন ম্যানেজ", add_email: "ইমেইল যোগ করুন", app_config: "অ্যাপ সেটিং",
                 timer_delay: "টাইমার সময় (সেকেন্ড)", announce_text: "ঘোষণাপত্র লেখা", save_config: "সেভ কনফিগ",
@@ -1235,7 +1235,6 @@
             }
         };
 
-        let commentsActiveFileId = null;
         window.manageComments = async (fileId) => {
             commentsActiveFileId = fileId;
             const modal = document.getElementById('admin-comment-modal');
