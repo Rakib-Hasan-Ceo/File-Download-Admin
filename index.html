@@ -22,7 +22,7 @@
         .admin-page { display: none; }
         .admin-page.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        body { overflow-y: auto; }
+        body { overflow: hidden; }
     </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 flex h-screen w-screen overflow-hidden">
@@ -105,7 +105,6 @@
                          <i class="fas fa-shield-halved text-5xl text-brand-yellow text-yellow-400"></i>
                      </div>
                      <h2 class="text-3xl font-black text-white tracking-tight" data-lang="login_title">Admin Portal</h2>
-                     <p class="text-xs text-indigo-300/80 mt-1.5 font-semibold">ড্যাশবোর্ডে প্রবেশ করতে আপনার তথ্য প্রদান করুন</p>
                  </div>
                  <div class="space-y-5">
                      <div>
@@ -203,7 +202,7 @@
                                 <i class="fas fa-code"></i>
                             </div>
                             <div>
-                                <h4 class="font-extrabold text-gray-800">Developed by Web Rakib</h4>
+                                <h4 class="font-extrabold text-gray-850">Developed by Web Rakib</h4>
                                 <p class="text-xs text-gray-500 mt-0.5">High-quality Web Apps & Telegram Integrations</p>
                             </div>
                         </div>
@@ -398,7 +397,7 @@
 
                 <!-- TAB 8: ALL FILES LIST WITH PAGINATION (15 files per page in horizontal spacious layout) -->
                 <div id="page-all-files" class="admin-page hidden space-y-6">
-                    <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm">
+                    <div class="bg-white p-6 rounded-3xl border border-gray-155 shadow-sm">
                         <h2 class="text-xl font-bold mb-4 text-gray-755 border-b pb-3 flex justify-between items-center">
                             <span class="flex items-center gap-1.5">
                                 <i class="fas fa-list text-emerald-500"></i> <span data-lang="all_files_title">All Uploaded Files</span>
@@ -432,14 +431,30 @@
         </main>
     </div>
 
-    <!-- Admin Comment Management Modal -->
+    <!-- NEW: ADMIN COMMENT MANAGEMENT & REPLY OVERLAY MODAL (বিভাগীয় ২-ট্যাব রিপ্লাই সিস্টেম) -->
     <div id="admin-comment-modal" class="hidden fixed inset-0 bg-black/70 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col">
-            <div class="p-4 border-b flex justify-between items-center bg-gray-50 rounded-t-xl">
-                <h3 class="font-bold text-lg"><i class="fas fa-comments text-blue-500"></i> Manage Comments</h3>
-                <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-xl hover:text-red-700">&times;</button>
+        <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden animate-[fadeIn_0.3s_ease-out]">
+            <!-- Tab Header Controller -->
+            <div class="bg-gray-50 p-4 border-b flex flex-col gap-3 shrink-0">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-extrabold text-lg text-gray-800"><i class="fas fa-comments text-blue-500 mr-1.5"></i> পর্যালোচনা ও কমেন্টস ম্যানেজমেন্ট</h3>
+                    <button onclick="document.getElementById('admin-comment-modal').classList.add('hidden')" class="text-red-500 text-2xl hover:text-red-700 font-black">&times;</button>
+                </div>
+                <!-- 2 Tab Button Sliders -->
+                <div class="flex bg-gray-200 p-1 rounded-xl">
+                    <button id="comment-tab-btn-normal" onclick="window.switchCommentTab('normal')" class="flex-1 py-2 text-xs font-black rounded-lg transition-all bg-white text-blue-600 shadow-sm">
+                        💬 সাধারণ কমেন্টস সমূহ
+                    </button>
+                    <button id="comment-tab-btn-rating" onclick="window.switchCommentTab('rating')" class="flex-1 py-2 text-xs font-black rounded-lg transition-all text-gray-500 hover:text-gray-700">
+                        ⭐ স্টার রেটিং ও রিভিউ
+                    </button>
+                </div>
             </div>
-            <div id="admin-comment-list" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-3"></div>
+            
+            <!-- Dynamic Scroll List container -->
+            <div id="admin-comment-list" class="flex-1 overflow-y-auto custom-scroll p-4 space-y-4">
+                <!-- Loaded dynamically depending on active tab status -->
+            </div>
         </div>
     </div>
 
@@ -497,6 +512,10 @@
         let filesFirstDoc = null;
         let filesCurrentPage = 1;
 
+        // Subcollection Comments double tab system state variables
+        let commentsActiveTab = 'normal'; // 'normal' = general, 'rating' = star ratings
+        let commentsActiveFileId = null;
+
         const adminDict = {
             en: {
                 title: "Admin Dashboard", subtitle: "Manage files, videos, ads, and settings", logout: "Logout",
@@ -511,7 +530,7 @@
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
-                login_title: "অ্যাডমিন পোর্টাল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
+                login_title: "অ্যাডমিন প্যান্ডেল", forgot_pass: "পাসওয়ার্ড ভুলে গেছেন?", btn_login: "লগিন করুন",
                 new_admin_text: "নতুন এডমিন? উপরে অনুমোদিত ইমেইল ও পাসওয়ার্ড দিয়ে এখানে ক্লিক করুন:", btn_register: "একাউন্ট তৈরি করুন",
                 manage_admins: "অ্যাডমিন ম্যানেজ", add_email: "ইমেইল যোগ করুন", app_config: "অ্যাপ সেটিং",
                 timer_delay: "টাইমার সময় (সেকেন্ড)", announce_text: "ঘোষণাপত্র লেখা", save_config: "সেভ কনফিগ",
@@ -1138,7 +1157,7 @@
                     if(f.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-100 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${f.thumbnailUrl}" class="w-12 h-12 object-cover rounded-xl border border-gray-100 shrink-0 bg-gray-50">
                                     <div class="min-w-0 flex-1">
@@ -1198,48 +1217,80 @@
             }
         };
 
-        // LOAD COMMENTS LIVE FROM SUBCOLLECTION WITH PRE-BUILT INLINE REPLIES FORM
+        // NEW: MULTI-TAB COMMENTS / REVIEWS SELECTOR METHOD
+        window.switchCommentTab = (tabMode) => {
+            commentsActiveTab = tabMode;
+            const normBtn = document.getElementById('comment-tab-btn-normal');
+            const rateBtn = document.getElementById('comment-tab-btn-rating');
+            
+            if(tabMode === 'normal') {
+                normBtn.className = "flex-1 py-2 text-xs font-black rounded-lg transition-all bg-white text-blue-600 shadow-sm";
+                rateBtn.className = "flex-1 py-2 text-xs font-black rounded-lg transition-all text-gray-500 hover:text-gray-700";
+            } else {
+                rateBtn.className = "flex-1 py-2 text-xs font-black rounded-lg transition-all bg-white text-blue-600 shadow-sm";
+                normBtn.className = "flex-1 py-2 text-xs font-black rounded-lg transition-all text-gray-500 hover:text-gray-700";
+            }
+            if (commentsActiveFileId) {
+                window.loadCommentsByActiveTab(commentsActiveFileId);
+            }
+        };
+
+        let commentsActiveFileId = null;
         window.manageComments = async (fileId) => {
+            commentsActiveFileId = fileId;
             const modal = document.getElementById('admin-comment-modal');
-            const list = document.getElementById('admin-comment-list');
             modal.classList.remove('hidden');
-            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading...</div>';
+            window.switchCommentTab('normal'); // Default to normal comments tab on open
+        };
+
+        window.loadCommentsByActiveTab = async (fileId) => {
+            const list = document.getElementById('admin-comment-list');
+            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading lists...</div>';
             
             try {
                 const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
                 list.innerHTML = '';
-                if(q.empty) {
-                    list.innerHTML = '<p class="text-gray-500 text-center py-5">No comments found.</p>';
-                } else {
-                    q.forEach(d => {
-                        const c = d.data();
-                        
-                        // Inline dynamic reply form configuration per comment card
-                        list.innerHTML += `
-                            <div class="bg-white border border-gray-100 rounded-2xl p-4 flex flex-col gap-3.5 shadow-sm text-left">
-                                <div class="flex justify-between items-start gap-4">
-                                    <div>
-                                        <h4 class="font-extrabold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
-                                        <p class="text-xs sm:text-sm text-gray-655 mt-1">${c.text}</p>
-                                        ${c.replyText ? `<p class="text-xs text-blue-600 bg-blue-50/50 p-2.5 rounded-xl mt-2 font-black"><i class="fas fa-reply mr-1"></i> Support Reply: <span class="font-medium text-gray-700">${c.replyText}</span></p>` : ''}
-                                    </div>
-                                    <div class="flex gap-1.5 shrink-0">
-                                        <button onclick="window.toggleReplyInput('${fileId}', '${d.id}')" title="Reply to Comment" class="bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-reply"></i></button>
-                                        <button onclick="window.delComment('${fileId}', '${d.id}')" title="Delete Comment" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </div>
+                let count = 0;
+
+                q.forEach(docSnap => {
+                    const c = docSnap.data();
+                    const isCommentFlag = c.isComment === true;
+                    
+                    // Filter based on active tab mode selection
+                    if (commentsActiveTab === 'normal' && !isCommentFlag) return;
+                    if (commentsActiveTab === 'rating' && isCommentFlag) return;
+                    count++;
+
+                    list.innerHTML += `
+                        <div class="bg-white border border-gray-150 rounded-2xl p-4 flex flex-col gap-3.5 shadow-sm text-left">
+                            <div class="flex justify-between items-start gap-4">
+                                <div>
+                                    <h4 class="font-extrabold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
+                                    ${commentsActiveTab === 'rating' ? `<div class="flex items-center gap-0.5 text-xs text-yellow-400 mt-0.5"><i class="fas fa-star"></i> <span class="font-bold text-gray-700">${c.stars || 5}</span></div>` : ''}
+                                    <p class="text-xs sm:text-sm text-gray-655 mt-1.5">${c.text}</p>
+                                    ${c.replyText ? `<p class="text-xs text-blue-600 bg-blue-50/50 p-2.5 rounded-xl mt-2 font-black"><i class="fas fa-reply mr-1"></i> Support Reply: <span class="font-medium text-gray-700">${c.replyText}</span></p>` : ''}
                                 </div>
-                                <!-- Inline Hidden Reply Input Box -->
-                                <div id="reply-form-${d.id}" class="hidden flex gap-2 border-t pt-2.5">
-                                    <input type="text" id="reply-input-${d.id}" placeholder="রিপ্লাই লিখুন..." value="${c.replyText || ''}" class="flex-1 px-3 py-1.5 border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                                    <button onclick="window.submitAdminReply('${fileId}', '${d.id}')" class="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold shadow hover:bg-blue-700 transition shrink-0">জমা দিন</button>
+                                <div class="flex gap-1.5 shrink-0">
+                                    <button onclick="window.toggleReplyInput('${fileId}', '${docSnap.id}')" title="Reply to Comment" class="bg-blue-50 text-blue-500 hover:bg-blue-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-reply"></i></button>
+                                    <button onclick="window.delComment('${fileId}', '${docSnap.id}')" title="Delete Comment" class="bg-red-50 text-red-500 hover:bg-red-500 hover:text-white w-8 h-8 rounded-full flex justify-center items-center transition text-sm"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
-                        `;
-                    });
+                            <!-- Inline Hidden Reply Input Box -->
+                            <div id="reply-form-${docSnap.id}" class="hidden flex gap-2 border-t pt-2.5">
+                                <input type="text" id="reply-input-${docSnap.id}" placeholder="রিপ্লাই লিখুন..." value="${c.replyText || ''}" class="flex-1 px-3 py-1.5 border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                                <button onclick="window.submitAdminReply('${fileId}', '${docSnap.id}')" class="bg-blue-600 text-white px-4 py-1.5 rounded-xl text-xs font-bold shadow hover:bg-blue-700 transition shrink-0">জমা দিন</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                if (count === 0) {
+                    list.innerHTML = `<div class="text-center text-gray-400 py-8">কোনো রেকর্ড খুঁজে পাওয়া যায়নি।</div>`;
                 }
+
             } catch (e) {
-                console.error("Error loading comments: ", e);
-                list.innerHTML = '<p class="text-center text-red-500 py-5">Failed to load comments.</p>';
+                console.error("Error loading comments on admin tab: ", e);
+                list.innerHTML = '<div class="text-center text-red-500 py-5">মন্তব্য লোড করতে সমস্যা হয়েছে।</div>';
             }
         };
 
@@ -1259,7 +1310,7 @@
                 replyTimestamp: new Date()
             });
             toast("রিপ্লাই সফলভাবে জমা দেওয়া হয়েছে!");
-            window.manageComments(fileId); // reload list dynamically
+            window.loadCommentsByActiveTab(fileId); // reload list dynamically
         };
 
         // VIEW USERS WHO DOWNLOADED THIS FILE (লাইভ ফাইল ডাউনলোডার তথ্য প্রদর্শক মডাল)
@@ -1288,7 +1339,7 @@
                 }
 
                 // In-memory sort by timestamp descending safely
-                const docsSorted = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+                const docsSorted = snap.docs.map(docDoc => ({id: docDoc.id, ...docDoc.data()}));
                 docsSorted.sort((a,b) => {
                     const tA = a.timestamp ? (a.timestamp.seconds || 0) : 0;
                     const tB = b.timestamp ? (b.timestamp.seconds || 0) : 0;
@@ -1328,7 +1379,7 @@
             if(confirm("Delete this comment permanently?")) {
                 await deleteDoc(doc(db, "files", fileId, "comments", commentId));
                 await updateDoc(doc(db, "files", fileId), { commentCount: increment(-1) });
-                window.manageComments(fileId);
+                window.loadCommentsByActiveTab(fileId);
                 loadFiles();
                 toast("Comment Deleted!");
             }
