@@ -196,7 +196,7 @@
                     </div>
 
                     <!-- গর্জিয়াস ডেভেলপার ফুটবার ইনফো-কার্ড -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-155 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-inner">
                                 <i class="fas fa-code"></i>
@@ -285,9 +285,15 @@
                                 <!-- চ্যানেল ভেরিফিকেশন ফর্ম সেটিংস -->
                                 <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4">
                                     <h3 class="font-bold text-purple-700 text-sm"><i class="fab fa-telegram"></i> Telegram Membership Settings</h3>
-                                    <div>
-                                        <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification)</label>
-                                        <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs font-bold text-gray-500 mb-1">Telegram Bot Token (for verification & logs)</label>
+                                            <input type="text" id="bot-token-setting" placeholder="Enter Bot Token..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs font-bold text-gray-500 mb-1">Admin Telegram Chat ID (for download logs)</label>
+                                            <input type="text" id="admin-chat-id-setting" placeholder="Enter Admin Telegram Chat ID..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-purple-500">
+                                        </div>
                                     </div>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/50 p-3 rounded-lg border border-purple-100">
                                         <div class="col-span-full font-bold text-xs text-purple-800"><i class="fas fa-lock"></i> Channel 1 (Required)</div>
@@ -422,7 +428,7 @@
                                 <span id="admin-file-count" class="bg-emerald-100 text-emerald-800 text-sm font-bold px-2.5 py-1 rounded-full ml-1 shadow-sm">0</span>
                             </span>
                         </h2>
-                        <!-- REMOVED BOX BOUNDARIES ENTIRELY TO UTILIZE FULL SPACE ("ঘর বাদ দিয়ে পুরা জায়গা") -->
+                        <!-- REMOVED BOX BOUNDARIES ENTIRELY TO UTILIZE FULL SPACE -->
                         <div class="w-full">
                             <div id="file-list-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
                         </div>
@@ -430,7 +436,7 @@
                         <!-- File Pagination controller buttons -->
                         <div class="flex justify-between items-center mt-4 border-t pt-4">
                             <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Prev Page</button>
-                            <span id="files-page-indicator" class="text-xs text-gray-500 font-black bg-gray-100 px-4 py-2 rounded-full">Page 1</span>
+                            <span id="files-page-indicator" class="text-xs text-gray-500 font-black bg-gray-100 px-4 py-2 rounded-full font-bold">Page 1</span>
                             <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Next Page</button>
                         </div>
                     </div>
@@ -792,16 +798,16 @@
                         ? `<button onclick="window.unbanUser('${docSnap.id}')" class="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-lg font-bold hover:bg-green-600 hover:text-white transition"><i class="fas fa-user-check"></i> Unban</button>`
                         : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 text-yellow-750 px-3 py-1.5 rounded-lg font-bold hover:bg-yellow-600 hover:text-white transition"><i class="fas fa-user-slash"></i> Ban</button>`;
 
-                    const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 text-red-750 px-3 py-1.5 rounded-lg font-bold hover:bg-red-655 hover:text-white transition"><i class="fas fa-trash-alt"></i> Del</button>`;
+                    const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 text-red-755 px-3 py-1.5 rounded-lg font-bold hover:bg-red-655 hover:text-white transition"><i class="fas fa-trash-alt"></i> Del</button>`;
 
                     tableBody.innerHTML += `
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-55">
                             <td class="px-6 py-4 whitespace-nowrap flex items-center gap-3">
                                 ${avatar}
                                 <span class="text-sm font-bold text-gray-800">${u.name || "N/A"}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold font-bold">@${u.username || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 ${statusBadge}
                             </td>
@@ -913,6 +919,7 @@
                     document.getElementById('logo-setting').value = genData.logoUrl || ''; 
                     
                     document.getElementById('bot-token-setting').value = genData.botToken || '';
+                    document.getElementById('admin-chat-id-setting').value = genData.adminChatId || '';
                     document.getElementById('ch1-name-setting').value = genData.channel1Name || '';
                     document.getElementById('ch1-url-setting').value = genData.channel1Url || '';
                     document.getElementById('ch2-name-setting').value = genData.channel2Name || '';
@@ -965,7 +972,7 @@
                 document.getElementById('dash-file-count').innerText = fileCount;
                 document.getElementById('admin-file-count').innerText = fileCount;
 
-                // লাইভ ড্যাশবোর্ড গ্লোবাল পরিসংখ্যান কার্ডে ডেটা রেন্ডার
+                // লাইভ ড্যাশবোর্ড গ্লোবাম পরিসংখ্যান কার্ডে ডেটা রেন্ডার
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
@@ -1003,7 +1010,7 @@
 
                     sliderCount++;
                     const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
-                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-505/90 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
                     div.innerHTML += `
                         <div class="relative group border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
                             <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -1058,7 +1065,7 @@
                 div.innerHTML = '';
 
                 if (qSnap.empty) {
-                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-500">কোনো ফাইল আপলোড করা হয়নি।</div>';
+                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-505">কোনো ফাইল আপলোড করা হয়নি।</div>';
                     return;
                 }
 
@@ -1542,6 +1549,7 @@
             const logo = document.getElementById('logo-setting').value;
             
             const botToken = document.getElementById('bot-token-setting').value.trim();
+            const adminChatId = document.getElementById('admin-chat-id-setting').value.trim();
             const ch1Name = document.getElementById('ch1-name-setting').value.trim();
             const ch1Url = document.getElementById('ch1-url-setting').value.trim();
             const ch2Name = document.getElementById('ch2-name-setting').value.trim();
@@ -1556,6 +1564,7 @@
                 popupNotice: popup,
                 logoUrl: logo,
                 botToken: botToken,
+                adminChatId: adminChatId,
                 channel1Name: ch1Name,
                 channel1Url: ch1Url,
                 channel2Name: ch2Name,
