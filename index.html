@@ -149,21 +149,21 @@
 
                     <!-- Metric Glow Cards Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-blue-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-155 shadow-sm flex items-center gap-5 border-l-4 border-l-blue-500">
                             <div class="p-4 bg-blue-50 text-blue-600 rounded-2xl text-2xl"><i class="fas fa-folder-open"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="total_files">Total Files</h3>
                                 <h1 id="dash-file-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-pink-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-155 shadow-sm flex items-center gap-5 border-l-4 border-l-pink-500">
                             <div class="p-4 bg-pink-50 text-pink-600 rounded-2xl text-2xl"><i class="fas fa-images"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="slider_banners_menu">Slider Banners</h3>
                                 <h1 id="dash-slider-count" class="text-3xl font-black text-gray-800 mt-1">0</h1>
                             </div>
                         </div>
-                        <div class="bg-white p-6 rounded-3xl border border-gray-150 shadow-sm flex items-center gap-5 border-l-4 border-l-purple-500">
+                        <div class="bg-white p-6 rounded-3xl border border-gray-155 shadow-sm flex items-center gap-5 border-l-4 border-l-purple-500">
                             <div class="p-4 bg-purple-50 text-purple-600 rounded-2xl text-2xl"><i class="fas fa-users-cog"></i></div>
                             <div>
                                 <h3 class="text-gray-400 text-sm font-bold uppercase tracking-wider" data-lang="registered_admins">Registered Admins</h3>
@@ -173,7 +173,7 @@
                     </div>
 
                     <!-- AGGREGATED STATISTICS DASHBOARD CARD -->
-                    <div class="bg-white rounded-3xl p-6 border border-gray-150 shadow-sm">
+                    <div class="bg-white rounded-3xl p-6 border border-gray-155 shadow-sm">
                         <h3 class="text-sm font-black text-gray-400 uppercase tracking-wider mb-5"><i class="fas fa-chart-line text-indigo-500"></i> লাইভ ফাইল পরিসংখ্যান (Global Statistics)</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-gray-50 border border-gray-100 p-4 rounded-2xl">
@@ -248,10 +248,10 @@
                             </table>
                         </div>
 
-                        <!-- Pagination controls (next only displays if >20 users exist) -->
+                        <!-- Pagination controls -->
                         <div class="flex justify-between items-center mt-4">
                             <button id="btn-users-prev" onclick="window.fetchPrevUsersPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Prev Page</button>
-                            <span id="users-page-indicator" class="text-xs text-gray-500 font-bold">Page 1</span>
+                            <span id="users-page-indicator" class="text-xs text-gray-505 font-bold">Page 1</span>
                             <button id="btn-users-next" onclick="window.fetchNextUsersPage()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-xs rounded transition-all">Next Page</button>
                         </div>
                     </div>
@@ -280,6 +280,12 @@
                                 <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
                                     <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-image"></i> App Logo URL (For Verification Screen)</label>
                                     <input type="url" id="logo-setting" placeholder="Paste App Logo URL here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
+                                </div>
+
+                                <!-- ACTIVE BOTS LINK CONFIGURATION SETTING -->
+                                <div class="bg-indigo-50/40 p-3 rounded-lg border border-indigo-100">
+                                    <label class="block font-bold text-xs text-indigo-800 mb-1"><i class="fas fa-robot"></i> Our Active Bots URL (For Sidebar Menu)</label>
+                                    <input type="url" id="active-bots-setting" placeholder="Paste Active Bots Channel or Portfolio Link here..." class="w-full p-2 border rounded text-sm focus:ring-2 focus:ring-indigo-500">
                                 </div>
                                 
                                 <!-- চ্যানেল ভেরিফিকেশন ফর্ম সেটিংস -->
@@ -319,7 +325,7 @@
                                     </div>
                                 </div>
 
-                                <!-- সিস্টেম রক্ষণাবেক্ষণ (Maintenance Mode) কনফিগারেশন বক্স -->
+                                <!-- SYSTEM রক্ষণাবেক্ষণ (Maintenance Mode) কনফিগারেশন বক্স -->
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-red-50/50 p-4 rounded-2xl border border-red-100 mt-4">
                                     <div class="col-span-full font-bold text-xs text-red-800 flex items-center gap-1">
                                         <i class="fas fa-tools"></i> Maintenance Mode / সিস্টেম রক্ষণাবেক্ষণ (অ্যাপ চালু/বন্ধ)
@@ -346,7 +352,7 @@
                                 <input type="url" id="social-tiktok" placeholder="TikTok URL" class="w-full p-2 border rounded text-sm">
                                 <input type="url" id="social-facebook" placeholder="Facebook URL (Optional)" class="w-full p-2 border rounded text-sm">
                                 <input type="url" id="social-instagram" placeholder="Instagram URL (Optional)" class="w-full p-2 border rounded text-sm">
-                                <button id="save-social-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full font-bold shadow transition" data-lang="update_links">Update Links</button>
+                                <button id="save-social-btn" class="bg-green-600 text-white py-3 rounded hover:bg-green-700 w-full font-bold shadow transition" data-lang="update_links">Update Links</button>
                             </div>
                         </div>
                     </div>
@@ -400,16 +406,16 @@
                         <div class="bg-blue-50/50 p-5 rounded-2xl shadow-inner border border-blue-100">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                                 <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
-                                <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-550 bg-white">
                                 <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
-                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-550 bg-white">
+                                <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-555 bg-white">
                                 
                                 <!-- Multiple Screenshot URL Fields -->
                                 <input type="url" id="file-ss1" placeholder="Screenshot 1 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="url" id="file-ss2" placeholder="Screenshot 2 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="url" id="file-ss3" placeholder="Screenshot 3 URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 
-                                <input type="url" id="file-url" placeholder="Download Link" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+                                <input type="url" id="file-url" placeholder="Download Link" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-550 bg-white">
                                 <textarea id="file-desc" placeholder="Description" rows="3" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white md:col-span-2"></textarea>
                             </div>
                             <button id="add-file-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-extrabold shadow-lg transition">
@@ -796,7 +802,7 @@
                     
                     const banToggleBtn = isBanned
                         ? `<button onclick="window.unbanUser('${docSnap.id}')" class="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-lg font-bold hover:bg-green-600 hover:text-white transition"><i class="fas fa-user-check"></i> Unban</button>`
-                        : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 text-yellow-750 px-3 py-1.5 rounded-lg font-bold hover:bg-yellow-600 hover:text-white transition"><i class="fas fa-user-slash"></i> Ban</button>`;
+                        : `<button onclick="window.banUser('${docSnap.id}')" class="text-xs bg-yellow-50 text-yellow-750 px-3 py-1.5 rounded-lg font-bold hover:bg-yellow-655 hover:text-white transition"><i class="fas fa-user-slash"></i> Ban</button>`;
 
                     const deleteBtn = `<button onclick="window.deleteUser('${docSnap.id}')" class="text-xs bg-red-50 text-red-755 px-3 py-1.5 rounded-lg font-bold hover:bg-red-655 hover:text-white transition"><i class="fas fa-trash-alt"></i> Del</button>`;
 
@@ -807,7 +813,7 @@
                                 <span class="text-sm font-bold text-gray-800">${u.name || "N/A"}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">${u.id || "N/A"}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold font-bold">@${u.username || "N/A"}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-bold">@${u.username || "N/A"}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 ${statusBadge}
                             </td>
@@ -903,7 +909,7 @@
                     authorizedAdmins.push(data.email);
                     sideHtml += `
                     <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm border border-gray-150">
-                        <span class="text-xs font-bold text-gray-700">${data.email}</span>
+                        <span class="text-xs font-bold text-gray-750">${data.email}</span>
                         ${currentAdminEmail === masterAdmin ? `<button onclick="window.delAdmin('${d.id}')" class="text-red-500 hover:text-red-700 text-sm"><i class="fas fa-trash-alt"></i></button>` : ''}
                     </div>`;
                 });
@@ -917,6 +923,7 @@
                     document.getElementById('announce-setting').value = genData.announcementText || '';
                     document.getElementById('popup-notice-setting').value = genData.popupNotice || '';
                     document.getElementById('logo-setting').value = genData.logoUrl || ''; 
+                    document.getElementById('active-bots-setting').value = genData.activeBotsUrl || '';
                     
                     document.getElementById('bot-token-setting').value = genData.botToken || '';
                     document.getElementById('admin-chat-id-setting').value = genData.adminChatId || '';
@@ -972,7 +979,7 @@
                 document.getElementById('dash-file-count').innerText = fileCount;
                 document.getElementById('admin-file-count').innerText = fileCount;
 
-                // লাইভ ড্যাশবোর্ড গ্লোবাম পরিসংখ্যান কার্ডে ডেটা রেন্ডার
+                // লাইভ ড্যাশবোর্ড গ্লোবাল পরিসংখ্যান কার্ডে ডেটা রেন্ডার
                 document.getElementById('agg-total-views').innerText = totalViews;
                 document.getElementById('agg-total-downloads').innerText = totalDownloads;
                 document.getElementById('agg-total-likes').innerText = totalLikes;
@@ -1010,7 +1017,7 @@
 
                     sliderCount++;
                     const isOwnerOrMaster = currentAdminEmail === masterAdmin || data.uploadedBy === currentAdminEmail;
-                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-505/90 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
+                    const delBtn = isOwnerOrMaster ? `<button onclick="window.softDelSlider('${data.id}')" class="absolute top-2 right-2 bg-red-500/90 backdrop-blur-sm text-white rounded-full w-8 h-8 flex justify-center items-center hover:bg-red-600 transition shadow-md z-10"><i class="fas fa-trash-alt text-xs"></i></button>` : '';
                     div.innerHTML += `
                         <div class="relative group border border-gray-100 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-video bg-gray-50">
                             <img src="${data.imageUrl}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -1065,7 +1072,7 @@
                 div.innerHTML = '';
 
                 if (qSnap.empty) {
-                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-505">কোনো ফাইল আপলোড করা হয়নি।</div>';
+                    div.innerHTML = '<div class="col-span-full text-center py-6 text-gray-550">কোনো ফাইল আপলোড করা হয়নি।</div>';
                     return;
                 }
 
@@ -1093,7 +1100,7 @@
 
                     // Dynamic Horizontal wide Card with no squeezed text
                     div.innerHTML += `
-                        <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
+                        <div class="bg-white p-4 border border-gray-155 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                             <div class="flex items-center gap-3.5 min-w-0">
                                 <div class="relative shrink-0 w-14 h-14">
                                     <img src="${f.thumbnailUrl}" class="w-full h-full object-cover rounded-xl border bg-gray-100">
@@ -1186,7 +1193,7 @@
                                     <div class="min-w-0 flex-1">
                                         <span class="text-[9px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">File</span>
                                         <h4 class="font-bold text-sm text-gray-800 truncate mt-1">${f.title}</h4>
-                                        <p class="text-[11px] text-gray-500 truncate mt-0.5">By: ${f.uploadedBy || 'Unknown'}</p>
+                                        <p class="text-[11px] text-gray-505 truncate mt-0.5">By: ${f.uploadedBy || 'Unknown'}</p>
                                     </div>
                                 </div>
                                 <div class="flex gap-2 border-t pt-2.5 justify-end">
@@ -1212,7 +1219,7 @@
                     if(s.isDeleted) {
                         count++;
                         html += `
-                            <div class="bg-white p-4 border border-gray-150 rounded-2xl shadow-sm flex flex-col gap-3">
+                            <div class="bg-white p-4 border border-gray-155 rounded-2xl shadow-sm flex flex-col gap-3">
                                 <div class="flex gap-3 items-center min-w-0">
                                     <img src="${s.imageUrl}" class="w-16 h-10 object-cover rounded-xl border border-gray-150 shrink-0 bg-gray-55 z-0">
                                     <div class="min-w-0 flex-1">
@@ -1315,7 +1322,7 @@
 
         window.loadCommentsByActiveTab = async (fileId) => {
             const list = document.getElementById('admin-comment-list');
-            list.innerHTML = '<div class="text-center text-gray-500 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading lists...</div>';
+            list.innerHTML = '<div class="text-center text-gray-505 py-5"><i class="fas fa-spinner fa-spin text-xl"></i> Loading lists...</div>';
             
             try {
                 const q = await getDocs(query(collection(db, "files", fileId, "comments"), orderBy("timestamp", "desc")));
@@ -1332,7 +1339,7 @@
                     count++;
 
                     list.innerHTML += `
-                        <div class="bg-white border border-gray-150 rounded-2xl p-4 flex flex-col gap-3.5 shadow-sm text-left">
+                        <div class="bg-white border border-gray-155 rounded-2xl p-4 flex flex-col gap-3.5 shadow-sm text-left">
                             <div class="flex justify-between items-start gap-4">
                                 <div>
                                     <h4 class="font-extrabold text-sm text-gray-800">${c.name} <span class="text-[10px] font-normal text-gray-400">(${c.uid || 'N/A'})</span></h4>
@@ -1355,7 +1362,7 @@
                 });
 
                 if (count === 0) {
-                    list.innerHTML = `<div class="text-center text-gray-400 py-8">কোনো রেকর্ড খুঁজে পাওয়া যায়নি।</div>`;
+                    list.innerHTML = `<div class="text-center text-gray-404 py-8">কোনো রেকর্ড খুঁজে পাওয়া যায়নি।</div>`;
                 }
 
             } catch (e) {
@@ -1404,7 +1411,7 @@
                 list.innerHTML = '';
                 
                 if (snap.empty) {
-                    list.innerHTML = '<div class="text-center py-8 text-sm text-gray-500 font-bold"><i class="fas fa-exclamation-circle text-2xl text-gray-400 block mb-2"></i> কেউ এখনও এই ফাইলটি ডাউনলোড করেনি।</div>';
+                    list.innerHTML = '<div class="text-center py-8 text-sm text-gray-555 font-bold"><i class="fas fa-exclamation-circle text-2xl text-gray-400 block mb-2"></i> কেউ এখনও এই ফাইলটি ডাউনলোড করেনি।</div>';
                     return;
                 }
 
@@ -1434,7 +1441,7 @@
                                 ${avatar}
                                 <div class="min-w-0 flex-1">
                                     <span class="text-xs font-black text-gray-800 block truncate">${log.name || "Anonymous User"}</span>
-                                    <span class="text-[10px] text-gray-500 font-bold block mt-0.5">Telegram ID: ${log.uid || 'N/A'}</span>
+                                    <span class="text-[10px] text-gray-505 font-bold block mt-0.5">Telegram ID: ${log.uid || 'N/A'}</span>
                                 </div>
                             </div>
                             <span class="text-[9px] text-gray-400 font-bold shrink-0">${dateStr}</span>
@@ -1550,6 +1557,7 @@
             
             const botToken = document.getElementById('bot-token-setting').value.trim();
             const adminChatId = document.getElementById('admin-chat-id-setting').value.trim();
+            const activeBotsUrl = document.getElementById('active-bots-setting').value.trim();
             const ch1Name = document.getElementById('ch1-name-setting').value.trim();
             const ch1Url = document.getElementById('ch1-url-setting').value.trim();
             const ch2Name = document.getElementById('ch2-name-setting').value.trim();
@@ -1563,6 +1571,7 @@
                 announcementText: announce,
                 popupNotice: popup,
                 logoUrl: logo,
+                activeBotsUrl: activeBotsUrl,
                 botToken: botToken,
                 adminChatId: adminChatId,
                 channel1Name: ch1Name,
