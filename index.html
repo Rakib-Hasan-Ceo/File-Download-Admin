@@ -63,6 +63,14 @@
             <button onclick="window.switchTab('all-files')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
                 <i class="fas fa-list text-emerald-400 w-5 text-sm"></i> <span data-lang="all_files_menu">All Files List</span>
             </button>
+            <!-- NEW TAB: FILE REQUESTS -->
+            <button onclick="window.switchTab('requests')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-bullhorn text-amber-400 w-5 text-sm"></i> <span data-lang="file_requests_menu">File Requests</span>
+            </button>
+            <!-- NEW TAB: BROADCAST -->
+            <button onclick="window.switchTab('broadcast')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
+                <i class="fas fa-paper-plane text-pink-400 w-5 text-sm"></i> <span data-lang="broadcast_menu">Send Broadcast</span>
+            </button>
             <button onclick="window.switchTab('recycle-bin')" class="nav-item border border-transparent w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-indigo-900/60 hover:border-indigo-800/80 transition font-bold text-xs">
                 <i class="fas fa-trash-restore text-red-400 w-5 text-sm"></i> <span data-lang="recycle_bin_menu">Recycle Bin</span>
             </button>
@@ -394,7 +402,7 @@
                     </div>
                 </div>
 
-                <!-- TAB 6: FILE MANAGEMENT WITH SCREENSHOT FIELDS -->
+                <!-- TAB 6: FILE MANAGEMENT WITH SCREENSHOT FIELDS (UPGRADED WITH 4-IN-1 AD, REFERRALS & LEVEL-2 SPONSOR) -->
                 <div id="page-files" class="admin-page hidden space-y-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-700 border-b pb-2 flex justify-between items-center">
@@ -407,6 +415,27 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                                 <input type="text" id="file-title" placeholder="Title" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="number" id="file-ads" placeholder="Required Ads" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-550 bg-white">
+                                
+                                <!-- 4-IN-1 AD NETWORK SELECTOR -->
+                                <div class="p-3 border rounded-xl bg-white shadow-sm">
+                                    <label class="block text-[11px] font-black text-indigo-900 mb-1">Select Ad Network:</label>
+                                    <select id="file-ad-network" class="w-full bg-gray-50 border rounded-lg p-2 text-xs font-bold outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option value="adsterra">1. Adsterra Rewarded SDK</option>
+                                        <option value="gigapub">2. GigaPub Ads</option>
+                                        <option value="monetag">3. Monetag Web SDK</option>
+                                        <option value="directlink">4. Smart Direct Link</option>
+                                    </select>
+                                </div>
+
+                                <!-- CUSTOM AD ZONE ID / DIRECT LINK INPUT -->
+                                <input type="text" id="file-ad-custom-id" placeholder="Ad Zone ID or Direct Link (Optional)" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+
+                                <!-- PER-FILE REFERRAL REQUIREMENT -->
+                                <input type="number" id="file-refers" placeholder="Required Refers (e.g. 2 to unlock)" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+
+                                <!-- LEVEL 2 SPONSOR CHANNEL URL -->
+                                <input type="url" id="file-sponsor-url" placeholder="Sponsor Channel URL (Optional Level-2 Task)" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
+
                                 <input type="url" id="file-thumb" placeholder="Thumbnail Image URL" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 bg-white">
                                 <input type="url" id="file-video" placeholder="Video Play URL - Optional" class="p-3 border rounded-xl focus:ring-2 focus:ring-blue-555 bg-white">
                                 
@@ -444,6 +473,33 @@
                             <button id="btn-files-prev" onclick="window.fetchPrevFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Prev Page</button>
                             <span id="files-page-indicator" class="text-xs text-gray-500 font-black bg-gray-100 px-4 py-2 rounded-full font-bold">Page 1</span>
                             <button id="btn-files-next" onclick="window.fetchNextFilesPage()" class="px-5 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs rounded-xl border border-indigo-150 transition-all">Next Page</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW TAB: USER FILE REQUESTS -->
+                <div id="page-requests" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-3 flex justify-between items-center">
+                            <span><i class="fas fa-bullhorn text-amber-500 mr-2"></i> ইউজারদের ফাইল রিকোয়েস্ট তালিকা</span>
+                            <span id="req-count-badge" class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">0 Requests</span>
+                        </h2>
+                        <div id="requests-list-container" class="space-y-3 max-h-[500px] overflow-y-auto custom-scroll"></div>
+                    </div>
+                </div>
+
+                <!-- NEW TAB: TELEGRAM BROADCAST -->
+                <div id="page-broadcast" class="admin-page hidden space-y-6">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
+                        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-3">
+                            <i class="fas fa-paper-plane text-pink-500 mr-2"></i> সরাসরি সকল ইউজারের ইনবক্সে মেসেজ পাঠান
+                        </h2>
+                        <div class="space-y-4 max-w-xl">
+                            <p class="text-xs text-gray-500 font-bold">টেলিগ্রাম বটের সাহায্যে আপনার সমস্ত নিবন্ধিত ইউজারের ইনবক্সে এক ক্লিকেই নোটিফিকেশন পাঠাতে পারবেন (HTML ফরম্যাট সাপোর্ট করবে)।</p>
+                            <textarea id="broadcast-message" rows="5" placeholder="মেসেজ লিখুন (যেমন: নতুন ফাইল আপলোড হয়েছে! এখনই ডাউনলোড করুন...)" class="w-full p-4 border rounded-2xl text-sm focus:ring-2 focus:ring-pink-500 outline-none font-medium"></textarea>
+                            <button id="btn-send-broadcast" onclick="window.sendTelegramBroadcast()" class="py-3.5 px-8 bg-gradient-to-r from-pink-500 to-rose-600 text-white font-black text-xs rounded-xl shadow-lg hover:shadow-xl transition flex items-center gap-2">
+                                <i class="fas fa-paper-plane"></i> Send Broadcast Message
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -557,7 +613,8 @@
                 slider_banners: "Slider Banners", add_btn: "Add", file_management: "File Upload", upload_content: "Upload Content", update_content: "Update Content",
                 all_files_menu: "All Files List", all_files_title: "All Uploaded Files",
                 file_management_menu: "Upload Content", slider_banners_menu: "Slider Banners", recycle_bin_menu: "Recycle Bin", dashboard_menu: "Dashboard",
-                manage_users: "Manage Users", dashboard_title: "Dashboard Overview"
+                manage_users: "Manage Users", dashboard_title: "Dashboard Overview",
+                file_requests_menu: "File Requests", broadcast_menu: "Send Broadcast"
             },
             bn: {
                 title: "অ্যাডমিন প্যানেল", subtitle: "ফাইল, ভিডিও, অ্যাড এবং সেটিং ম্যানেজ করুন", logout: "লগআউট",
@@ -569,7 +626,8 @@
                 slider_banners: "স্লাইডার ব্যানার", add_btn: "যুক্ত করুন", file_management: "কনটেন্ট আপলোড", upload_content: "আপলোড করুন", update_content: "আপডেট করুন",
                 all_files_menu: "সকল ফাইল তালিকা", all_files_title: "আপলোডকৃত ফাইলসমূহ",
                 file_management_menu: "কনটেন্ট আপলোড", slider_banners_menu: "স্লাইডার ব্যানার", recycle_bin_menu: "রিসাইকেল বিন", dashboard_menu: "ড্যাশবোর্ড",
-                manage_users: "ইউজার ম্যানেজমেন্ট", dashboard_title: "ড্যাশবোর্ড ওভারভিউ"
+                manage_users: "ইউজার ম্যানেজমেন্ট", dashboard_title: "ড্যাশবোর্ড ওভারভিউ",
+                file_requests_menu: "ফাইল রিকোয়েস্ট", broadcast_menu: "মেসেজ ব্রডকাস্ট"
             }
         };
 
@@ -713,6 +771,8 @@
                 ads: "Ad Placements",
                 files: "Upload Content",
                 "all-files": "All Uploaded Files",
+                requests: "User File Requests",
+                broadcast: "Send Telegram Broadcast",
                 "recycle-bin": "Recycle Bin"
             };
             document.getElementById('header-title').innerText = pageTitles[tabId] || "Admin Panel";
@@ -739,6 +799,9 @@
                 window.filesLastDoc = null;
                 window.filesFirstDoc = null;
                 window.loadFiles();
+            }
+            if (tabId === 'requests') {
+                window.loadRequests();
             }
         };
 
@@ -1099,6 +1162,9 @@
                     }
 
                     // Dynamic Horizontal wide Card with no squeezed text
+                    const adBadge = `<span class="text-[9px] uppercase px-2 py-0.5 rounded font-black bg-blue-100 text-blue-800">${f.adNetwork || 'adsterra'}</span>`;
+                    const refBadge = f.requiredRefers ? `<span class="text-[9px] px-2 py-0.5 rounded font-black bg-emerald-100 text-emerald-800">Refers: ${f.requiredRefers}</span>` : '';
+
                     div.innerHTML += `
                         <div class="bg-white p-4 border border-gray-155 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                             <div class="flex items-center gap-3.5 min-w-0">
@@ -1109,6 +1175,9 @@
                                 <div class="min-w-0 flex-1">
                                     <h4 class="font-extrabold text-sm text-gray-800 truncate" title="${f.title}">${f.title}</h4>
                                     <p class="text-[10px] text-gray-500 truncate" title="${f.uploadedBy}">By: ${f.uploadedBy || 'Unknown'}</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        ${adBadge} ${refBadge}
+                                    </div>
                                     <div class="flex gap-2.5 text-[10px] text-gray-500 mt-1.5 font-bold bg-gray-50 px-2 py-0.5 rounded-md inline-flex items-center">
                                         <span><i class="fas fa-eye text-blue-500 mr-0.5"></i> ${f.views||0}</span>
                                         <span><i class="fas fa-download text-emerald-500 mr-0.5"></i> ${f.downloadCount||0}</span>
@@ -1470,6 +1539,11 @@
                 const f = d.data();
                 document.getElementById('file-title').value = f.title || '';
                 document.getElementById('file-ads').value = f.requiredAds || 0;
+                document.getElementById('file-ad-network').value = f.adNetwork || 'adsterra';
+                document.getElementById('file-ad-custom-id').value = f.adCustomId || '';
+                document.getElementById('file-refers').value = f.requiredRefers || 0;
+                document.getElementById('file-sponsor-url').value = f.sponsorChannelUrl || '';
+
                 document.getElementById('file-thumb').value = f.thumbnailUrl || '';
                 document.getElementById('file-video').value = f.videoUrl || '';
                 
@@ -1497,6 +1571,11 @@
             editingFileId = null;
             document.getElementById('file-title').value = '';
             document.getElementById('file-ads').value = '';
+            document.getElementById('file-ad-network').value = 'adsterra';
+            document.getElementById('file-ad-custom-id').value = '';
+            document.getElementById('file-refers').value = '';
+            document.getElementById('file-sponsor-url').value = '';
+
             document.getElementById('file-thumb').value = '';
             document.getElementById('file-video').value = '';
             
@@ -1519,7 +1598,12 @@
 
             const payload = {
                 title: title, 
-                requiredAds: Number(document.getElementById('file-ads').value),
+                requiredAds: Number(document.getElementById('file-ads').value || 0),
+                adNetwork: document.getElementById('file-ad-network').value,
+                adCustomId: document.getElementById('file-ad-custom-id').value.trim(),
+                requiredRefers: Number(document.getElementById('file-refers').value || 0),
+                sponsorChannelUrl: document.getElementById('file-sponsor-url').value.trim(),
+
                 thumbnailUrl: document.getElementById('file-thumb').value, 
                 videoUrl: document.getElementById('file-video').value,
                 
@@ -1546,6 +1630,101 @@
                 window.cancelEdit(); 
             }
             loadFiles();
+        };
+
+        // LOAD FILE REQUESTS
+        window.loadRequests = async () => {
+            const container = document.getElementById('requests-list-container');
+            container.innerHTML = '<div class="text-center py-6 text-gray-400"><i class="fas fa-spinner fa-spin text-2xl"></i> Loading requests...</div>';
+
+            try {
+                const snap = await getDocs(query(collection(db, "requests"), orderBy("timestamp", "desc")));
+                container.innerHTML = '';
+                document.getElementById('req-count-badge').textContent = `${snap.size} Requests`;
+
+                if(snap.empty) {
+                    container.innerHTML = '<div class="text-center py-8 text-sm text-gray-500 font-bold">কোনো ফাইল রিকোয়েস্ট জমা পড়েনি।</div>';
+                    return;
+                }
+
+                snap.forEach(docSnap => {
+                    const req = docSnap.data();
+                    let timeStr = "Just now";
+                    if(req.timestamp) {
+                        const date = req.timestamp.toDate ? req.timestamp.toDate() : new Date(req.timestamp);
+                        timeStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+                    }
+
+                    container.innerHTML += `
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-150 flex justify-between items-center gap-4">
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-extrabold text-sm text-gray-800">${req.text}</h4>
+                                <div class="text-[11px] text-gray-500 mt-1 flex items-center gap-2 font-semibold">
+                                    <span><i class="fas fa-user text-blue-500"></i> ${req.userName}</span>
+                                    <span>• ID: ${req.uid}</span>
+                                    <span>• ${timeStr}</span>
+                                </div>
+                            </div>
+                            <button onclick="window.delRequest('${docSnap.id}')" class="text-red-500 hover:text-red-700 p-2 text-sm transition" title="Delete Request">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>`;
+                });
+            } catch(e) {
+                container.innerHTML = '<div class="text-center py-4 text-xs text-red-500">রিকোয়েস্ট লোড করা সম্ভব হয়নি।</div>';
+            }
+        };
+
+        window.delRequest = async (id) => {
+            if(confirm("এই রিকোয়েস্টটি মুছে ফেলতে চান?")) {
+                await deleteDoc(doc(db, "requests", id));
+                toast("Request Deleted!");
+                window.loadRequests();
+            }
+        };
+
+        // SEND TELEGRAM BROADCAST MESSAGE
+        window.sendTelegramBroadcast = async () => {
+            const msg = document.getElementById('broadcast-message').value.trim();
+            if(!msg) return alert("মেসেজ বক্সে কিছু লিখুন!");
+
+            const cfgSnap = await getDoc(doc(db, "settings", "general"));
+            const botToken = cfgSnap.data()?.botToken;
+            if(!botToken) return alert("অ্যাপ সেটিংস ট্যাবে গিয়ে বটের Token দিয়ে সেভ করুন!");
+
+            const btn = document.getElementById('btn-send-broadcast');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ব্রডকাস্ট পাঠানো হচ্ছে...`;
+
+            try {
+                const usersSnap = await getDocs(collection(db, "users"));
+                let count = 0;
+
+                for(const userDoc of usersSnap.docs) {
+                    const uid = userDoc.id;
+                    try {
+                        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                chat_id: uid,
+                                text: msg,
+                                parse_mode: 'HTML',
+                                disable_web_page_preview: true
+                            })
+                        });
+                        count++;
+                    } catch(err) {}
+                }
+
+                alert(`সফলভাবে মোট ${count} জন ইউজারের কাছে মেসেজ চলে গেছে!`);
+                document.getElementById('broadcast-message').value = '';
+            } catch(e) {
+                alert("ব্রডকাস্ট পাঠানোর সময় সমস্যা হয়েছে।");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-paper-plane"></i> Send Broadcast Message`;
+            }
         };
 
         // Save app general config settings
